@@ -249,6 +249,9 @@ body.has-cursor a,body.has-cursor button{cursor:none}
 .link:hover{border-color:var(--chair-mint)}
 .bookmount{color:var(--ink)}
 .bookmount h3{font-family:var(--serif);font-size:1.5rem;margin-bottom:1rem}
+/* programmatic scroll-focus target: keep it a11y-focusable without an input-like ring */
+#book-heading:focus{outline:none}
+#ibe-widget ibe-up{display:block;min-height:80px}
 .bookmount__fallback p{margin:0 0 1rem;color:var(--graphite)}
 
 /* ---- Footer ---- */

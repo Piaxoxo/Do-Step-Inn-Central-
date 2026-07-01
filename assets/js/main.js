@@ -184,43 +184,14 @@
     });
   }
 
-  /* ---------- Booking panel (open / close / focus trap) ---------- */
-  const panel = $('#bookingpanel');
-  let lastFocus = null;
-  const openBooking = () => {
-    lastFocus = document.activeElement;
-    panel.hidden = false;
-    document.body.style.overflow = 'hidden';
-    const focusable = $$('a[href],button', panel).filter((el) => !el.hasAttribute('disabled'));
-    focusable[0]?.focus();
-    panel._focusable = focusable;
-  };
-  const closeBooking = () => {
-    panel.hidden = true;
-    document.body.style.overflow = '';
-    lastFocus?.focus();
-  };
-  $$('[data-open-booking]').forEach((b) => b.addEventListener('click', openBooking));
-  $$('[data-close-booking]').forEach((b) => b.addEventListener('click', closeBooking));
-  document.addEventListener('keydown', (e) => {
-    if (panel.hidden) return;
-    if (e.key === 'Escape') closeBooking();
-    if (e.key === 'Tab' && panel._focusable?.length) {
-      const f = panel._focusable; const first = f[0]; const last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-
-  /* ---------- uphotel IBE hook ----------
-     The engine (ibe.min.js) is loaded in the page. When its embed API is
-     confirmed by the property, initialise it into #ibe-widget /
-     .bookingpanel__mount here. Until then, the native fallback button
-     links straight to the secure booking URL, so booking always works. */
-  window.addEventListener('load', () => {
-    if (window.IBE && typeof window.IBE.init === 'function') {
-      try { window.IBE.init({ target: '#ibe-widget', property: '78c820ab-21ac-4763-a6d6-767d2e845c89' }); }
-      catch (err) { /* keep graceful fallback */ }
-    }
-  });
+  /* ---------- Booking: smooth-scroll to the native IBE engine ----------
+     The uphotel engine renders inline via <ibe-up> in Chapter 8. Every
+     "Check availability / Check dates" control brings the guest to it and
+     moves focus there for keyboard/screen-reader users. */
+  const bookSection = $('#book');
+  const bookHeading = $('#book-heading');
+  $$('[data-open-booking]').forEach((b) => b.addEventListener('click', () => {
+    bookSection?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
+  }));
 })();

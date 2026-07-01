@@ -24,9 +24,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
 
-<!-- Booking engine (uphotel IBE) -->
-<link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
-
 <link rel="stylesheet" href="assets/css/style.css" />
 
 <!-- SEO: structured data -->
@@ -283,15 +280,13 @@
       </div>
     </div>
     <div class="bookmount card">
-      <h3>Check availability</h3>
-      <!-- Native-styled mount for the uphotel IBE engine -->
-      <div id="ibe-widget" data-ibe="78c820ab-21ac-4763-a6d6-767d2e845c89" aria-live="polite">
-        <div class="bookmount__fallback">
-          <p>Pick your dates on our secure booking engine.</p>
-          <a class="btn btn--primary btn--full"
-             href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
-             target="_blank" rel="noopener" data-cursor="book">Open booking</a>
-        </div>
+      <h3 id="book-heading" tabindex="-1">Check availability</h3>
+      <!-- Native mount for the uphotel IBE engine -->
+      <div id="ibe-widget" aria-live="polite">
+        <ibe-up ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89" language="en"></ibe-up>
+        <p class="bookmount__fallback muted">Trouble loading the calendar?
+          <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
+             target="_blank" rel="noopener" data-cursor="book">Open the secure booking page →</a></p>
       </div>
     </div>
   </div>
@@ -317,28 +312,14 @@
   <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span>Vienna · Austria</span></div>
 </footer>
 
-<!-- ============ BOOKING PANEL ============ -->
-<div class="bookingpanel" id="bookingpanel" role="dialog" aria-modal="true" aria-label="Check availability" hidden>
-  <div class="bookingpanel__scrim" data-close-booking></div>
-  <div class="bookingpanel__sheet">
-    <button class="bookingpanel__close" data-close-booking aria-label="Close">×</button>
-    <h2 class="bookingpanel__title">Check availability</h2>
-    <p class="muted">Südtiroler Platz 3 · 3 minutes from the Hauptbahnhof</p>
-    <div class="bookingpanel__mount">
-      <a class="btn btn--primary btn--full"
-         href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
-         target="_blank" rel="noopener" data-cursor="book">Open secure booking</a>
-    </div>
-  </div>
-</div>
-
 <!-- Persistent booking pill (mobile-first, thumb zone) -->
 <button class="pill" data-open-booking data-cursor="book" aria-label="Check availability">
   <span class="pill__dot"></span> Check availability
 </button>
 
-<!-- uphotel IBE engine -->
-<script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js" defer></script>
+<!-- uphotel IBE engine (script + css before </body> as per provider) -->
+<script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js"></script>
+<link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
