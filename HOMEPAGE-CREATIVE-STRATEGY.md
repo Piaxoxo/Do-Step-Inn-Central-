@@ -22,7 +22,7 @@ A short note on facts we verified about the property, because the strategy is bu
 - **Do Step Inn Central sits on Südtiroler Platz, directly above Vienna's Hauptbahnhof (Main Station)** — a 3-minute walk from the platforms, on top of the U1 metro. This is the single most important creative asset we have. *The hostel is literally the first door in Vienna.*
 - It is a **self-service hostel** with **contactless, code-based check-in** — no queue, no front desk ritual. Independence is the product.
 - Rooms are **4–6 bed dorms with lockable pod beds** (guests repeatedly name the pods as a highlight) and **private rooms with shared bathrooms**.
-- Amenities: **communal kitchen** (cozy, large fridge), **lounge**, **free WiFi**, **luggage storage**, **full-day security**, **housekeeping**, **optional buffet breakfast**, parquet floors, work desks.
+- Amenities: **communal self-catering kitchen** (cozy, large fridge — the social heart), **lounge**, **free WiFi**, **luggage storage**, **full-day security**, **housekeeping**, parquet floors, work desks.
 - Location score ~**8.9**; guests praise **cleanliness, location, easy check-in, and the pod beds**.
 - Neighbours: **Belvedere Palace (~10 min walk)**, **Naschmarkt**, **Ringstraße**, **Innere Stadt** — all reachable on foot or one metro stop.
 - Booking runs on the **uphotel.agency IBE** engine (`ibe.min.js` / `ibe.min.css`).
@@ -239,7 +239,7 @@ For each chapter: **purpose · content · CTA · success signal.**
 
 **CH7 Vienna.** *Purpose:* turn location into desire. *Content:* Belvedere (~10 min), Naschmarkt, Ringstraße, Innere Stadt one metro stop; walkable-culture map; golden-hour city. *CTA:* Ready when you are. *Signal:* click to booking.
 
-**CH8 Book.** *Purpose:* convert with zero friction. *Content:* native IBE module; reassurance rail = exact address, map/directions, check-in explainer, FAQ, contact, hours, breakfast option. *CTA:* Book. *Signal:* booking completions, engine start→finish rate.
+**CH8 Book.** *Purpose:* convert with zero friction. *Content:* native IBE module; reassurance rail = exact address, map/directions, check-in explainer, FAQ, contact, hours. *CTA:* Book. *Signal:* booking completions, engine start→finish rate.
 
 ---
 
@@ -321,7 +321,7 @@ Photography leads; illustration is a **quiet connective tissue**, never a mascot
 
 ## 14. Iconography Direction
 
-- **Custom monoline set**, ~1.5px optical stroke, rounded joins — friendly but precise. One coherent family for amenities (WiFi, kitchen, lockable pod, luggage, security, key-code, bike, breakfast).
+- **Custom monoline set**, ~1.5px optical stroke, rounded joins — friendly but precise. One coherent family for amenities (WiFi, kitchen, lockable pod, luggage, security, key-code, bike).
 - Icons **support, never replace, words**; always paired with labels for accessibility and clarity.
 - Icons may **draw-on** (stroke animation) as amenities enter view (CH5) — subtle, once.
 - SVG only, inline where interactive, sprite where static. Decorative icons `aria-hidden`.
@@ -409,7 +409,7 @@ Utility
   2. **Native finale (CH8)** — the full IBE rendered inline, wrapped in our design system.
 - **Visual native-ization:** we scope and override the engine's CSS to match our tokens (type, colour, spacing, radius, focus rings). We inherit fonts, tune inputs and buttons, and remove any chrome that clashes. Where the engine limits styling, we frame it in our layout (headline, reassurance rail, brand chrome) so context feels seamless even if the widget internals are constrained.
 - **Progressive & performant:** the engine's JS/CSS load **deferred / on-interaction or on-approach** (when CH8 nears the viewport), not blocking the hero — so the arrival experience stays instant.
-- **Reassurance beside the engine:** exact address, map/directions, "how contactless check-in works," free-cancellation/price clarity, breakfast option, and contact — so no one leaves CH8 to find an answer.
+- **Reassurance beside the engine:** exact address, map/directions, "how contactless check-in works," free-cancellation/price clarity, and contact — so no one leaves CH8 to find an answer.
 - **Fallback:** if the engine fails to load (network/blocked), show a graceful branded panel with the direct booking link and contact — never a blank box.
 - **Measurement:** track engine start → date-select → complete to find and fix friction.
 
@@ -438,9 +438,9 @@ Goal: make the homepage the strongest page for Vienna hostel intent, especially 
 
 - **Heading hierarchy:** exactly one **H1** ("Vienna starts here" / brand+location promise). Each chapter is an **H2** with keyword-aware but human titles (e.g. "Rooms," "Getting here," "Vienna on foot"). Sub-points H3.
 - **Semantic HTML:** proper landmarks, `<figure>/<figcaption>`, `<address>`, real lists for amenities — content is legible without JS (SSR/SSG the copy; hydrate motion on top).
-- **Schema (JSON-LD):** `Hostel`/`LodgingBusiness` (name, address, geo, priceRange, amenityFeature, checkinTime, image), `BreadcrumbList`, `FAQPage` (check-in, location, breakfast), `Organization`/`sameAs` (socials, sister property), `Review`/`AggregateRating` if we own rights to display them.
+- **Schema (JSON-LD):** `Hostel`/`LodgingBusiness` (name, address, geo, priceRange, amenityFeature, checkinTime, image), `BreadcrumbList`, `FAQPage` (check-in, location, luggage), `Organization`/`sameAs` (socials, sister property), `Review`/`AggregateRating` if we own rights to display them.
 - **Image SEO:** descriptive filenames, alt text, width/height set, modern formats, sitemap for key images.
-- **Local/Travel/Hospitality SEO:** NAP consistency (Südtiroler Platz 3, 1040 Wien), Google Business Profile alignment, geo-coordinates, proximity content (Hauptbahnhof, Belvedere, Naschmarkt, Ring), multilingual `hreflang` (EN primary; DE, and consider ES/IT/FR for the Interrail crowd).
+- **Local/Travel/Hospitality SEO:** NAP consistency (Südtiroler Platz 3, 1040 Wien), Google Business Profile alignment, geo-coordinates, proximity content (Hauptbahnhof, Belvedere, Naschmarkt, Ring), multilingual `hreflang` — **7 launch languages: EN (primary), DE, KO, JA, TH, ES, IT** (reflecting the strong European + East/Southeast-Asian guest mix); one `hreflang` cluster + localized meta/OG per locale.
 - **Core Web Vitals as SEO:** LCP < 2.5s (hero image prioritized, video deferred), CLS < 0.1 (reserved media dimensions, font-metric matching), INP < 200ms (motion off the main thread). See §21.
 - **Internal linking:** homepage links to future `/rooms`, `/vienna-guide`, `/how-check-in-works` with descriptive anchors; footer sitewide links.
 - **Content depth:** the chapter copy naturally carries the entities Google needs (location, amenities, room types, price signal) without keyword stuffing.
@@ -534,8 +534,8 @@ Beyond aesthetics, concrete guest-experience wins the homepage should surface (a
 
 - **"How check-in works" explainer** (mini-page + on-home chip) — the single biggest anxiety for a code-based self-service hostel.
 - **Arrival-from-the-station micro-guide:** "Off the train → up to Südtiroler Platz → the door" (map + one photo per step). Reduces day-of stress and support load.
-- **Clear self-service expectations:** what "self-service" means (freedom + independence), what's available 24/7 (WiFi, kitchen, security, luggage), what costs extra (breakfast).
-- **Practical FAQ at booking:** luggage before check-in / after check-out, breakfast price & hours, kitchen access, quiet hours, private-room bathroom sharing.
+- **Clear self-service expectations:** what "self-service" means (freedom + independence), what's available 24/7 (WiFi, kitchen, security, luggage).
+- **Practical FAQ at booking:** luggage before check-in / after check-out, kitchen access, quiet hours, private-room bathroom sharing.
 - **Long-stay/nomad affordances:** desk, WiFi, kitchen, weekly value — signposted for the digital-nomad persona.
 - **Community signposting:** what's on (kitchen nights, the lounge) so social travellers know they'll find people.
 - **Post-book reassurance path (future):** confirmation → arrival guide → code → "see you soon."
@@ -570,11 +570,11 @@ Beyond aesthetics, concrete guest-experience wins the homepage should surface (a
 - **Arrival-from-the-station micro-guide** (copy + step photos).
 - **Vienna neighbourhood guide** content (Belvedere, Naschmarkt, Ring, day-trip ideas) — seeds the future `/vienna-guide` page and SEO.
 - **Room descriptions** — honest, benefit-led copy for pods and private rooms.
-- **FAQ** (check-in, luggage, breakfast, kitchen, safety, cancellation).
+- **FAQ** (check-in, luggage, kitchen, safety, cancellation).
 - **Curated real guest quotes** (with permission/rights) emphasising cleanliness, location, check-in, pods.
 - **House rules / self-service expectations** in brand voice.
 - **Meta/OG copy** and structured data content.
-- **Multilingual translations** (DE + Interrail languages) once EN is locked.
+- **Multilingual translations** into the 7 launch languages (EN, DE, KO, JA, TH, ES, IT) once EN is locked.
 - **Sustainability / values** blurb if applicable (resonates with this audience).
 
 ---
@@ -614,7 +614,7 @@ Beyond aesthetics, concrete guest-experience wins the homepage should surface (a
 - [ ] Luggage storage area
 - [ ] Security/entry detail (reassuring, not clinical)
 - [ ] WiFi/work moment — nomad at the desk
-- [ ] Breakfast buffet spread (if offered) — appetising, natural light
+- [ ] Self-catering moment — guest cooking / toast & coffee in the communal kitchen, natural light
 
 **Chapter 6 — Why Stay Here**
 - [ ] Clean, styled "proof" shots (spotless bed, tidy kitchen)
@@ -638,7 +638,7 @@ Beyond aesthetics, concrete guest-experience wins the homepage should surface (a
 
 ## 31. Complete video checklist
 
-- [ ] **Hero clip:** train arriving / slow push to the door at dusk (5–10s loop, muted) — *priority one, with photo poster*
+- [x] **Hero clip:** train arriving / slow push to the door at dusk (5–10s loop, muted) — *priority one, with photo poster* — **client is providing the hero video**
 - [ ] **Check-in clip:** hand → code → door opens (4–6s)
 - [ ] **Kitchen/community clip:** cooking, laughter, kettle steam (5–8s)
 - [ ] **Room clip:** slow pod-bed reveal / pod door closing (5–8s)
@@ -686,7 +686,7 @@ Beyond aesthetics, concrete guest-experience wins the homepage should surface (a
 Nothing gets built until we have these. Grouped by priority.
 
 ### A. Brand & identity
-- [ ] **Logo** — vector (SVG/AI/EPS), light + dark versions, clear-space rules
+- [x] **Logo** — raster received; **no vector exists.** → We will **rebuild the wordmark as clean vector** (redraw "Do Step Inn" + the mint "central" script + splatter) as part of the design phase, delivering SVG, light/dark versions and clear-space rules. *Needs client sign-off on the redraw.*
 - [ ] Any existing **brand guidelines**, fonts, or colour references (even if we're evolving them)
 - [ ] Confirmation to **develop a new design system** (colour/type) vs. constraints to respect
 - [ ] Official **business/legal name, VAT/registration**, and imprint/Impressum details (required in Austria)
@@ -695,7 +695,7 @@ Nothing gets built until we have these. Grouped by priority.
 - [ ] Exact **address & entrance** details, floor, and any access notes
 - [ ] Precise **distances/times**: platform → door, to metro (U1), to Belvedere, Naschmarkt, Ring, airport
 - [ ] Full **room inventory**: dorm sizes (4/6), pod details, private-room count, bathroom arrangements, capacities
-- [ ] **Amenities list** confirmed: kitchen, lounge, WiFi, luggage storage, security hours, housekeeping, breakfast (price & hours), bike rental?, any others
+- [ ] **Amenities list** confirmed: kitchen, lounge, WiFi, luggage storage, security hours, housekeeping, bike rental?, any others
 - [ ] **Check-in/out**: exact contactless process, times, code delivery, self-service scope, 24/7 availability
 - [ ] **Pricing** guidance / "from" rates and currency (EUR) for on-site signalling
 - [ ] **House rules**, quiet hours, cancellation policy, age/ID requirements
@@ -704,18 +704,18 @@ Nothing gets built until we have these. Grouped by priority.
 - [ ] Any **existing professional photos/videos** we can use now (high-res, with usage rights)
 - [ ] Green-light + scheduling for a **new photo/video shoot**, incl. the **drone hero** (station + skyline)
 - [ ] **Model/guest releases** for any identifiable people
-- [ ] Confirmation on **breakfast/kitchen** shots availability
+- [ ] Confirmation on **communal-kitchen / self-catering** shots availability
 
 ### D. Booking engine
 - [ ] Confirmation of the **live IBE property/booking URL** (we have the preview ID `78c820ab-…`) and the production embed
 - [ ] Any **IBE styling/config access** or documentation (theming options, allowed overrides)
 - [ ] Contact for the **uphotel.agency** integration if custom styling/support is needed
-- [ ] Confirmation of **cancellation/price/breakfast** terms to display beside the engine
+- [ ] Confirmation of **cancellation/price** terms to display beside the engine
 
 ### E. Content & proof
 - [ ] Permission & source for displaying **guest reviews/ratings** (Google/Booking) and the **8.9** score
 - [ ] Preferred **guest quotes** (or approval to curate) — cleanliness, location, check-in, pods
-- [ ] **FAQ** answers (check-in, luggage, breakfast, kitchen, safety, cancellation)
+- [ ] **FAQ** answers (check-in, luggage, kitchen, safety, cancellation)
 - [ ] Any **sustainability/values** content to feature
 - [ ] Clarity on **Do Step Inn Central vs. Home** positioning and cross-linking wishes
 
@@ -723,7 +723,7 @@ Nothing gets built until we have these. Grouped by priority.
 - [ ] **Domain/DNS/hosting** access (or preferred stack) for `dostepinncentral.at`
 - [ ] **Google Business Profile**, Analytics, Search Console access (for NAP/CWV/SEO)
 - [ ] **Social media** handles and any pixels/tracking to include (privacy-compliant)
-- [ ] **Languages** required at launch (EN confirmed; DE + others?)
+- [x] **Languages** confirmed at launch: **EN, DE, KO, JA, TH, ES, IT** (7 locales) → drives translation, `hreflang`, and font choices (must cover Latin + Hangul + Japanese kana/kanji + Thai script)
 - [ ] **Contact details** for the site: email, phone, WhatsApp?, support hours
 - [ ] **GDPR/cookie** requirements, privacy policy, and consent preferences (EU-mandatory)
 - [ ] Any **integrations** (channel manager, CRM, email/newsletter) to connect
@@ -757,8 +757,37 @@ The draft above proposed a **quiet-luxury, minimal** system (warm concrete, matt
 ### A.3 Story upgrades unlocked by the real assets
 - **Reception & suitcases** = a perfect literal-and-emotional motif: *every traveller who ever passed through, stacked into one desk.* Reuse the suitcase/luggage-sticker motif as a recurring visual signature and micro-interaction (stamps, stickers, tags).
 - **Keypad pods** make the "independence / your code, your time" story (CH2) concrete and photogenic — show the actual keypad.
-- **Multilingual (incl. Korean) check-in** confirms a real **Asian guest segment** → strengthens the case for `hreflang` beyond DE/EN (add **KO**, likely **ES/IT/FR**) in §20.
+- **Multilingual (incl. Korean) check-in** confirmed a real **East/Southeast-Asian guest segment** → now locked as **7 launch languages: EN, DE, KO, JA, TH, ES, IT** (see Addendum B and §20).
 - **Big windows onto the square** = built-in "Vienna is right outside" framing for CH2/CH7.
 
 ### A.4 Asset checklist — status update
-Now **received:** logo (raster — vector still needed), building façade, kitchen, lounge, reception (with guests), dorm/pods, kitchen details, the real check-in flow/content. **Still needed:** see the updated "Assets Required From Client" — the priorities are now **(1) a design-direction decision (A/B/C), (2) vector logo + any brand files, (3) the cinematic hero + drone shot, (4) confirmed facts (distances, room counts, prices, breakfast).**
+Now **received:** logo (raster only), building façade, kitchen, lounge, reception (with guests), dorm/pods, kitchen details, the real check-in flow/content, **and cinematic video footage** (see Addendum C). **Still needed:** see the updated "Assets Required From Client" — the priorities are now **(1) a design-direction decision (A/B/C), (2) sign-off to rebuild the logo as vector, (3) confirmed facts (distances, room counts, prices).**
+
+---
+
+## ADDENDUM B — Client answers, round 2 (July 2026)
+
+- **Breakfast:** **removed from the site.** No breakfast pricing anywhere. The food story is now purely the **communal self-catering kitchen** (which the photos strongly support) — cook-together, big fridge, social heart. Cheaper to communicate, more honest, more "community."
+- **Logo:** **no vector file exists.** Decision: we **redraw the wordmark as clean vector** during design (keeping the black serif "Do Step Inn" + the mint-green "central" script + the paint-splatter energy), then deliver SVG + light/dark + clear-space. *Awaiting client sign-off on the redraw direction.*
+- **Hero video:** **client will provide** (and has now started sending footage — see Addendum C). Removes the biggest production dependency; we design the hero around real clips + photographic poster fallback.
+- **Launch languages — locked (7):** **English, German, Korean, Japanese, Thai, Spanish, Italian.** Impact:
+  - **Typography must be multi-script:** the UI font has to cover **Latin + Hangul (KO) + Japanese kana/kanji + Thai**. Plan: keep the editorial display serif for Latin headlines, and pair a robust multi-script sans (e.g. *Noto Sans* family — Noto Sans KR/JP/Thai — or an equivalent) for body/UI so nothing falls back to ugly system glyphs. Thai needs extra line-height; Japanese/Korean need CJK-aware line-breaking.
+  - **SEO:** 7-way `hreflang` cluster, localized meta/OG per locale, and translated slugs for the future `/rooms`, `/vienna-guide`, `/how-check-in-works`.
+  - **Copy:** headlines written **short and translation-safe** (the brand voice already favors this), avoiding idioms that break in JA/KO/TH.
+  - **Booking:** confirm the uphotel IBE supports (or can be framed for) these locales.
+- **Still open (blocking):** the **A/B/C design-direction** decision, and **sign-off on the logo redraw**.
+
+---
+
+## ADDENDUM C — Video footage received (July 2026)
+
+Client has begun delivering the hero/cinematic footage:
+
+- `546f8184-…_medium.mp4` (~2.0 MB, MP4) — "medium" web-res cut.
+- `d81c6804-…_medium.mp4` (~2.6 MB, MP4) — "medium" web-res cut.
+
+**Notes & next steps for this footage:**
+- These are lightweight "medium" cuts — good for prototyping. For the **hero** we'll want the **highest-res master** to re-encode ourselves (AV1/HEVC + H.264 fallback, poster frame, muted, `playsinline`, `preload="none"` until in view) within the §21 performance budget.
+- **To assign each clip to a chapter** (CH1 Arrival vs. CH3/5 Community vs. CH7 Vienna), we'll review content and pick the strongest 5–10s loops; the rest feed the montage sections.
+- **Every hero video still needs a photographic poster** fallback (we already have strong stills) and a reduced-motion static path.
+- **Please send:** the **original full-resolution masters** (not just the "medium" cuts), plus any **vertical 9:16** crops for the mobile hero, and confirmation of **music/voice rights** if any clip has audio (we'll run hero muted regardless).
