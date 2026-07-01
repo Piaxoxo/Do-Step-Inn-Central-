@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Do Step Inn Central — Your first door in Vienna</title>
+<meta name="description" content="A stylish, independent hostel right above Vienna's Hauptbahnhof — 3 minutes from the platform to your bed. Pod beds, self-catering kitchen, contactless check-in. Your Vienna starts here." />
+<meta name="theme-color" content="#F6F3EE" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="business.business" />
+<meta property="og:title" content="Do Step Inn Central — Your first door in Vienna" />
+<meta property="og:description" content="A stylish, independent hostel right above Vienna's Hauptbahnhof. Your Vienna starts here." />
+<meta property="og:locale" content="en" />
+<meta property="og:locale:alternate" content="de" />
+<meta property="og:locale:alternate" content="ko" />
+<meta property="og:locale:alternate" content="ja" />
+<meta property="og:locale:alternate" content="th" />
+<meta property="og:locale:alternate" content="es" />
+<meta property="og:locale:alternate" content="it" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+
+<!-- Booking engine (uphotel IBE) -->
+<link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<!-- SEO: structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Hostel",
+  "name": "Do Step Inn Central",
+  "description": "A stylish, independent self-service hostel directly above Vienna's Hauptbahnhof.",
+  "image": "assets/logo/dostepinn-central.svg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Südtiroler Platz 3",
+    "postalCode": "1040",
+    "addressLocality": "Vienna",
+    "addressCountry": "AT"
+  },
+  "priceRange": "€",
+  "amenityFeature": [
+    {"@type":"LocationFeatureSpecification","name":"Free WiFi","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Self-catering kitchen","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Luggage storage","value":true},
+    {"@type":"LocationFeatureSpecification","name":"24h security","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Contactless check-in","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Lockable pod beds","value":true}
+  ],
+  "publicAccess": true,
+  "nearbyAttractions": ["Wien Hauptbahnhof","Belvedere Palace","Naschmarkt","Ringstraße"]
+}
+</script>
+</head>
+
+<body data-theme="arrival">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Custom cursor (desktop, motion-safe) -->
+<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+<!-- Scroll progress "daylight" indicator -->
+<div class="daylight" aria-hidden="true"></div>
+
+<!-- ============ STICKY TOP BAR ============ -->
+<header class="topbar" id="topbar">
+  <a class="topbar__brand" href="#top" aria-label="Do Step Inn Central — home">
+    <img src="assets/logo/dostepinn-central.svg" alt="Do Step Inn Central" width="147" height="47" />
+  </a>
+  <nav class="topbar__nav" aria-label="Primary">
+    <a href="#rooms" data-cursor="link">Rooms</a>
+    <a href="#vienna" data-cursor="link">Vienna</a>
+    <a href="#why" data-cursor="link">Why stay</a>
+  </nav>
+  <div class="topbar__actions">
+    <div class="lang" role="group" aria-label="Language">
+      <button class="lang__btn" aria-haspopup="listbox" aria-expanded="false" data-cursor="link">
+        <span aria-hidden="true">🌐</span> EN
+      </button>
+      <ul class="lang__menu" role="listbox" hidden>
+        <li role="option" aria-selected="true">English</li>
+        <li role="option">Deutsch</li>
+        <li role="option">한국어</li>
+        <li role="option">日本語</li>
+        <li role="option">ไทย</li>
+        <li role="option">Español</li>
+        <li role="option">Italiano</li>
+      </ul>
+    </div>
+    <button class="btn btn--book" data-open-booking data-cursor="book">Check availability</button>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============ CHAPTER 1 — ARRIVAL ============ -->
+<section class="hero" id="arrival" data-chapter="1" data-theme-trigger="arrival">
+  <div class="hero__media">
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata">
+      <source src="assets/video/hero-01.mp4" type="video/mp4" />
+    </video>
+    <div class="hero__scrim"></div>
+  </div>
+
+  <div class="hero__inner">
+    <p class="hero__eyebrow reveal" data-reveal>Südtiroler Platz · above the Hauptbahnhof</p>
+    <h1 class="hero__title">
+      <span class="line"><span class="word">Vienna</span></span>
+      <span class="line"><span class="word">starts</span> <span class="word">here.</span></span>
+    </h1>
+    <p class="hero__sub reveal" data-reveal>
+      Drop your bag. The city is already outside — three minutes from the platform to your bed.
+    </p>
+    <div class="hero__cta reveal" data-reveal>
+      <button class="btn btn--primary" data-open-booking data-cursor="book">Check dates</button>
+      <a class="btn btn--ghost" href="#thedoor" data-cursor="link">Take me inside</a>
+    </div>
+  </div>
+
+  <a href="#thedoor" class="scrollcue" aria-label="Scroll to arrive">
+    <span class="scrollcue__dot"></span>
+    <span class="scrollcue__txt">scroll to arrive</span>
+  </a>
+</section>
+
+<!-- ============ CHAPTER 2 — THE DOOR ============ -->
+<section class="chapter thedoor" id="thedoor" data-chapter="2" data-theme-trigger="door">
+  <div class="wrap grid-2">
+    <div class="thedoor__lead">
+      <p class="kicker reveal" data-reveal>Chapter 2 — The door</p>
+      <h2 class="display reveal" data-reveal>It's right<br/>here.</h2>
+      <p class="lede reveal" data-reveal>
+        You don't hunt for us. Step off the train, up to Südtiroler Platz, and you're home.
+        No taxi, no metro, no getting lost with a backpack.
+      </p>
+      <div class="bignum" data-count="3" aria-hidden="true">
+        <span class="bignum__value">0</span><span class="bignum__unit">min</span>
+      </div>
+      <p class="bignum__cap reveal" data-reveal>from the platform to your bed</p>
+    </div>
+
+    <div class="thedoor__aside">
+      <figure class="media media--tall" data-parallax="0.12" data-cursor="view">
+        <span class="media__tag">Façade · Südtiroler Platz</span>
+      </figure>
+      <div class="checkin card reveal" data-reveal>
+        <h3>Contactless check-in</h3>
+        <p class="muted">Your code, your time. Arrive at 6am or midnight — the city never made you wait, and neither do we.</p>
+        <ol class="steps">
+          <li><span>1</span> Book online</li>
+          <li><span>2</span> Get your door &amp; bed code</li>
+          <li><span>3</span> Walk straight in</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 3 — COMMUNITY ============ -->
+<section class="chapter community" id="community" data-chapter="3" data-theme-trigger="community">
+  <div class="community__media">
+    <video class="community__video" muted loop playsinline preload="none" data-lazyvideo>
+      <source src="assets/video/hero-02.mp4" type="video/mp4" />
+    </video>
+    <div class="community__scrim"></div>
+  </div>
+  <div class="wrap community__inner">
+    <p class="kicker light reveal" data-reveal>Chapter 3 — Community</p>
+    <h2 class="display xl light reveal" data-reveal>Arrive a stranger.<br/>Leave with a route.</h2>
+    <p class="lede light reveal" data-reveal>
+      A suitcase-stacked reception, a pallet-wood bar, a kitchen that smells of everyone's dinner.
+      This is the part of travelling you actually remember.
+    </p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 4 — ROOMS ============ -->
+<section class="chapter rooms" id="rooms" data-chapter="4" data-theme-trigger="rooms">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="kicker reveal" data-reveal>Chapter 4 — Rooms</p>
+      <h2 class="display reveal" data-reveal>Where you'll sleep.</h2>
+    </header>
+    <div class="cards">
+      <article class="roomcard" data-cursor="view" data-tilt>
+        <div class="roomcard__media"><span class="media__tag">Pod dorm · keypad lock</span></div>
+        <div class="roomcard__body">
+          <h3>The Pod Bed</h3>
+          <p>4–6 sharing, but the bed is all yours: solid wood, a curtain that actually closes, your own light, socket and a private keypad lock.</p>
+          <ul class="chips"><li>Lockable pod</li><li>Reading light</li><li>Under-bed storage</li></ul>
+        </div>
+      </article>
+      <article class="roomcard" data-cursor="view" data-tilt>
+        <div class="roomcard__media roomcard__media--alt"><span class="media__tag">Private room</span></div>
+        <div class="roomcard__body">
+          <h3>The Private Room</h3>
+          <p>Your own door, a desk by the window and the trees outside — hostel prices, a little more quiet. Shared bathrooms, spotless.</p>
+          <ul class="chips"><li>Desk &amp; window</li><li>Work-ready WiFi</li><li>Shared bath</li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="center reveal" data-reveal>
+      <button class="btn btn--primary" data-open-booking data-cursor="book">See dates &amp; prices</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 5 — SHARED SPACES ============ -->
+<section class="chapter shared" id="shared" data-chapter="5" data-theme-trigger="shared">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="kicker reveal" data-reveal>Chapter 5 — Shared spaces</p>
+      <h2 class="display reveal" data-reveal>Where you'll<br/>actually live.</h2>
+    </header>
+    <ul class="amenities">
+      <li class="reveal" data-reveal data-cursor="view"><b>Self-catering kitchen</b><span>Cook together. Big fridge, real pans, herb-print walls.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b>The lounge</b><span>Pallet sofas, denim stools, big windows onto the square.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b>Luggage storage</b><span>Drop bags before check-in, grab them after check-out.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b>24h security</b><span>Full-day security and lockable pods. Sleep easy.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b>Free WiFi</b><span>Fast enough to work, upload and plan tomorrow.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b>Housekeeping</b><span>Clean is the thing guests mention most. We keep it that way.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 6 — WHY STAY HERE ============ -->
+<section class="chapter why" id="why" data-chapter="6" data-theme-trigger="why">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="kicker reveal" data-reveal>Chapter 6 — Why stay here</p>
+      <h2 class="display reveal" data-reveal>The quiet proof.</h2>
+    </header>
+    <div class="stats">
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="8.9" data-decimals="1">0</span><span class="stat__lbl">Location score</span></div>
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="3" data-suffix=" min">0</span><span class="stat__lbl">To the Hauptbahnhof</span></div>
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="1" data-suffix=" stop">0</span><span class="stat__lbl">To the old town (U1)</span></div>
+    </div>
+    <blockquote class="quote reveal" data-reveal>
+      <p>“Spotless, the pod beds are genius, and you literally step out of the station into it.”</p>
+      <cite>— a recent guest</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 7 — VIENNA ============ -->
+<section class="chapter vienna" id="vienna" data-chapter="7" data-theme-trigger="vienna">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="kicker reveal" data-reveal>Chapter 7 — Vienna</p>
+      <h2 class="display reveal" data-reveal>Step outside.</h2>
+      <p class="lede reveal" data-reveal>The city is an extension of the hostel. Most of it, you can walk to.</p>
+    </header>
+    <ul class="places">
+      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span class="place__d">~10 min walk</span><b>Belvedere Palace</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.09" data-cursor="view"><span class="place__d">1 stop</span><b>Naschmarkt</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.12" data-cursor="view"><span class="place__d">U1 · a few minutes</span><b>Stephansplatz &amp; the Ring</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span class="place__d">on your doorstep</span><b>Wieden cafés</b></li>
+    </ul>
+    <div class="center reveal" data-reveal>
+      <button class="btn btn--primary" data-open-booking data-cursor="book">Ready when you are</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 8 — BOOK ============ -->
+<section class="chapter book" id="book" data-chapter="8" data-theme-trigger="book">
+  <div class="wrap grid-2">
+    <div>
+      <p class="kicker reveal" data-reveal>Chapter 8 — Begin</p>
+      <h2 class="display reveal" data-reveal>Book your<br/>adventure.</h2>
+      <div class="reassure reveal" data-reveal>
+        <p><b>Do Step Inn Central</b><br/>Südtiroler Platz 3, 1040 Vienna, Austria</p>
+        <p class="muted">Directly above Wien Hauptbahnhof · U1 Südtiroler Platz. Contactless check-in — your code arrives with your booking.</p>
+        <p><a class="link" href="assets/checkin-form.pdf" target="_blank" rel="noopener" data-cursor="link">See the check-in form →</a></p>
+      </div>
+    </div>
+    <div class="bookmount card">
+      <h3>Check availability</h3>
+      <!-- Native-styled mount for the uphotel IBE engine -->
+      <div id="ibe-widget" data-ibe="78c820ab-21ac-4763-a6d6-767d2e845c89" aria-live="polite">
+        <div class="bookmount__fallback">
+          <p>Pick your dates on our secure booking engine.</p>
+          <a class="btn btn--primary btn--full"
+             href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
+             target="_blank" rel="noopener" data-cursor="book">Open booking</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <img src="assets/logo/dostepinn-central.svg" alt="Do Step Inn Central" width="180" height="57" />
+      <p class="muted">Your first door in Vienna.</p>
+    </div>
+    <address class="footer__contact">
+      Südtiroler Platz 3<br/>1040 Vienna, Austria<br/>
+      <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89" target="_blank" rel="noopener">Book a bed</a>
+    </address>
+    <nav class="footer__nav" aria-label="Footer">
+      <a href="#rooms">Rooms</a><a href="#vienna">Vienna</a><a href="#why">Why stay</a><a href="#book">Book</a>
+    </nav>
+  </div>
+  <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span>Vienna · Austria</span></div>
+</footer>
+
+<!-- ============ BOOKING PANEL ============ -->
+<div class="bookingpanel" id="bookingpanel" role="dialog" aria-modal="true" aria-label="Check availability" hidden>
+  <div class="bookingpanel__scrim" data-close-booking></div>
+  <div class="bookingpanel__sheet">
+    <button class="bookingpanel__close" data-close-booking aria-label="Close">×</button>
+    <h2 class="bookingpanel__title">Check availability</h2>
+    <p class="muted">Südtiroler Platz 3 · 3 minutes from the Hauptbahnhof</p>
+    <div class="bookingpanel__mount">
+      <a class="btn btn--primary btn--full"
+         href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
+         target="_blank" rel="noopener" data-cursor="book">Open secure booking</a>
+    </div>
+  </div>
+</div>
+
+<!-- Persistent booking pill (mobile-first, thumb zone) -->
+<button class="pill" data-open-booking data-cursor="book" aria-label="Check availability">
+  <span class="pill__dot"></span> Check availability
+</button>
+
+<!-- uphotel IBE engine -->
+<script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

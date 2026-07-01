@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 210" role="img" aria-label="Do Step Inn central">
+  <title>Do Step Inn central</title>
+  <desc>Rebuilt vector wordmark — elevated version. Black editorial serif "Do Step Inn" with a mint-green brush-script "central" and a hand-drawn swash.</desc>
+  <defs>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5FB894"/>
+      <stop offset="1" stop-color="#3E8C6E"/>
+    </linearGradient>
+  </defs>
+  <!-- Serif wordmark. Uses a serif stack; when Fraunces/Playfair is loaded it matches the brand. -->
+  <text x="6" y="96" font-family="'Fraunces','Playfair Display',Georgia,serif"
+        font-size="96" font-weight="600" letter-spacing="-2" fill="#17161A">Do Step Inn</text>
+  <!-- Brush-script "central" -->
+  <text x="338" y="176" font-family="'Caveat','Segoe Script',cursive"
+        font-size="90" font-weight="700" fill="url(#mint)"
+        transform="rotate(-4 338 176)">central</text>
+  <!-- Hand-drawn swash (draw-on animatable via stroke-dashoffset) -->
+  <path class="logo-swash" d="M338 190 C410 184 500 180 636 156"
+        fill="none" stroke="url(#mint)" stroke-width="6" stroke-linecap="round"/>
+  <!-- Mint dot accent (echoes the original paint splatter) -->
+  <circle cx="630" cy="156" r="7" fill="url(#mint)"/>
+</svg>
