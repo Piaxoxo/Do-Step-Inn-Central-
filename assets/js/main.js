@@ -194,4 +194,87 @@
     bookSection?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
   }));
+
+  /* ================= FIRST 24 HOURS — live weather + scroll journey ================= */
+  const vj = $('.vienna-journey-section');
+  if (vj) {
+    // --- Live Vienna weather (Open-Meteo, runs in the visitor's browser) ---
+    const loadViennaWeather = async () => {
+      const tempEl = $('#weather-temp', vj);
+      const descEl = $('#weather-desc', vj);
+      const sugEl = $('#weather-suggestions', vj);
+      if (!tempEl) return;
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code,is_day&timezone=Europe%2FVienna');
+        const d = await res.json();
+        const temp = Math.round(d.current.temperature_2m);
+        const code = d.current.weather_code;
+        let desc = 'A good day to explore Vienna.';
+        let sug = ['Belvedere', 'Cafés', 'City walks'];
+        if (code >= 51 && code <= 99) { desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
+        else if (temp >= 25) { desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
+        else if (temp >= 16) { desc = 'Perfect on-foot weather for discovering the city.'; sug = ['Belvedere', 'City walks', 'Outdoor cafés']; }
+        else if (temp < 8) { desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
+        tempEl.textContent = temp + '°';
+        if (!reduce) { tempEl.classList.remove('flip'); void tempEl.offsetWidth; tempEl.classList.add('flip'); }
+        descEl.textContent = desc;
+        sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
+      } catch (e) {
+        tempEl.textContent = 'Vienna';
+        descEl.textContent = 'Check today’s mood and start your city story.';
+      }
+    };
+    loadViennaWeather();
+
+    // --- Active step highlight ---
+    const steps = $$('.journey-step', vj);
+    if ('IntersectionObserver' in window && !reduce) {
+      const so = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) { steps.forEach((s) => s.classList.remove('active')); e.target.classList.add('active'); } });
+      }, { threshold: 0.6, rootMargin: '-8% 0px -34% 0px' });
+      steps.forEach((s) => so.observe(s));
+    } else { steps.forEach((s) => s.classList.add('active')); }
+
+    // --- Scroll-driven Vienna route (the "camera" moving through the day) ---
+    const routePath = vj.querySelector('#v24-route') || vj.querySelector('.route-bg');
+    const progPath = vj.querySelector('#v24-progress');
+    const marker = vj.querySelector('#v24-marker');
+    const stopsG = vj.querySelector('#v24-stops');
+    const timeline = $('.journey-timeline', vj);
+    let len = 0, stopEls = [];
+    const buildRoute = () => {
+      if (!routePath || typeof routePath.getTotalLength !== 'function') return;
+      len = routePath.getTotalLength();
+      if (progPath) { progPath.style.strokeDasharray = len; progPath.style.strokeDashoffset = len; }
+      if (stopsG && !stopEls.length && steps.length > 1) {
+        steps.forEach((_, i) => {
+          const pt = routePath.getPointAtLength(len * (i / (steps.length - 1)));
+          const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          c.setAttribute('cx', pt.x); c.setAttribute('cy', pt.y); c.setAttribute('r', '0.85');
+          c.setAttribute('class', 'map-stop'); stopsG.appendChild(c); stopEls.push(c);
+        });
+      }
+    };
+    buildRoute();
+
+    let ticking = false;
+    const drawJourney = () => {
+      ticking = false;
+      if (!len) { buildRoute(); if (!len) return; }
+      const r = timeline.getBoundingClientRect();
+      const vh = window.innerHeight;
+      let p = (vh * 0.55 - r.top) / (r.height * 0.82);
+      p = Math.max(0, Math.min(1, p));
+      if (progPath) progPath.style.strokeDashoffset = len * (1 - p);
+      if (marker) { const pt = routePath.getPointAtLength(len * p); marker.setAttribute('cx', pt.x); marker.setAttribute('cy', pt.y); }
+      stopEls.forEach((c, i) => c.classList.toggle('lit', p >= i / (steps.length - 1) - 0.02));
+      vj.style.setProperty('--vj-progress', p.toFixed(3));
+    };
+    if (!reduce) {
+      const req = () => { if (!ticking) { requestAnimationFrame(drawJourney); ticking = true; } };
+      window.addEventListener('scroll', req, { passive: true });
+      window.addEventListener('resize', () => { stopEls.forEach((c) => c.remove()); stopEls = []; len = 0; buildRoute(); drawJourney(); }, { passive: true });
+      drawJourney();
+    } else if (progPath) { progPath.style.strokeDashoffset = 0; }
+  }
 })();

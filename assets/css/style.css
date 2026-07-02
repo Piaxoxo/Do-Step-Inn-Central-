@@ -34,6 +34,7 @@
   --serif:'Fraunces','Playfair Display',Georgia,serif;
   --sans:'Inter','Noto Sans KR','Noto Sans JP','Noto Sans Thai',system-ui,sans-serif;
   --script:'Caveat',cursive;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 
   --ease:cubic-bezier(.16,1,.3,1);
   --dur:.9s;
@@ -367,4 +368,107 @@ body.has-cursor a,body.has-cursor button{cursor:none}
   .cursor{display:none!important}
   body.has-cursor{cursor:auto}
   .scrollcue__dot::after{animation:none}
+  .floating-ticket{animation:none}
+  .journey-step{opacity:1!important;transform:none!important}
+}
+
+/* ======================================================
+   CHAPTER 8 — YOUR FIRST 24 HOURS IN VIENNA
+   ====================================================== */
+.mono{font-family:var(--mono)}
+.vienna-journey-section{position:relative;overflow:hidden;
+  padding:clamp(4.5rem,11vh,9rem) 0 0;
+  background:linear-gradient(180deg,var(--soft-white) 0%,var(--concrete) 58%,#d8d1c4 100%)}
+.vienna-journey-section .journey-header{max-width:60ch;margin-bottom:clamp(2rem,5vh,3.5rem)}
+.vienna-journey-section .eyebrow{display:inline-flex;align-items:center;gap:.2rem;
+  font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mint-deep);font-weight:500;margin-bottom:1rem}
+.vienna-journey-section .eyebrow .live-dot{width:7px;height:7px;border-radius:50%;background:#e0533b;margin-right:.5rem;animation:pulse 1.8s infinite}
+.vienna-journey-section .display{font-size:clamp(2.6rem,7.5vw,6.5rem)}
+.vienna-journey-section .lede{margin-top:1.2rem}
+
+/* Live station-board weather */
+.vienna-live-card{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(1.4rem,4vw,3rem);align-items:center;
+  background:var(--ink);color:var(--soft-white);border-radius:22px;
+  padding:clamp(1.5rem,3.5vw,2.4rem);margin:0 0 clamp(3rem,7vh,5.5rem);
+  box-shadow:0 40px 90px -44px rgba(0,0,0,.7);position:relative;overflow:hidden}
+.vienna-live-card::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 88% -20%,rgba(95,184,148,.22),transparent 45%)}
+.live-label,.weather-suggestions>span{display:block;margin-bottom:.5rem;font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(246,243,238,.55)}
+#weather-temp{margin:0;font-family:var(--mono);font-weight:500;font-size:clamp(2.8rem,8vw,5.2rem);letter-spacing:-.03em;line-height:1}
+#weather-temp.flip{animation:boardFlip .55s var(--ease)}
+.vienna-live-card p{margin:.5rem 0 0;color:rgba(246,243,238,.75);max-width:34ch;font-size:1rem}
+.weather-suggestions ul{display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none}
+.weather-suggestions li{padding:.5rem .9rem;border-radius:100px;background:rgba(246,243,238,.1);
+  color:var(--soft-white);font-size:.85rem;font-weight:500;border:1px solid rgba(246,243,238,.14)}
+@keyframes boardFlip{0%{transform:translateY(-45%) rotateX(70deg);opacity:0}100%{transform:none;opacity:1}}
+
+/* Journey layout: sticky night-map + metro timeline */
+.journey-layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.journey-map{position:sticky;top:92px;height:min(74vh,640px);border-radius:26px;overflow:hidden;
+  background:radial-gradient(circle at 28% 12%,rgba(95,184,148,.20),transparent 42%),linear-gradient(160deg,#20242c,#0d0e11);
+  box-shadow:0 50px 100px -50px rgba(0,0,0,.7)}
+.map-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(circle at 50% 42%,#000,transparent 88%);mask-image:radial-gradient(circle at 50% 42%,#000,transparent 88%)}
+.map-route{position:absolute;inset:0;width:100%;height:100%}
+.map-route .route-bg{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2}
+#v24-progress{fill:none;stroke:url(#v24grad);stroke-width:2.4;stroke-linecap:round}
+.map-stop{fill:rgba(255,255,255,.28);transition:fill .45s,r .45s}
+.map-stop.lit{fill:#fff}
+#v24-marker{fill:#5FB894;filter:drop-shadow(0 0 5px rgba(95,184,148,.95))}
+.map-label{position:absolute;left:1.1rem;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,243,238,.6);z-index:2}
+.map-label--top{top:1.1rem}
+.map-label--bot{bottom:1.1rem}
+.floating-ticket{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-4deg);
+  width:min(260px,76%);padding:1.3rem 1.4rem;border-radius:16px;background:var(--soft-white);color:var(--ink);
+  box-shadow:0 34px 80px rgba(0,0,0,.45);animation:floatTicket 6s ease-in-out infinite;z-index:2}
+.floating-ticket span{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mint-deep)}
+.floating-ticket strong{display:block;margin-top:.5rem;font-family:var(--serif);font-weight:600;font-size:1.7rem;line-height:1;letter-spacing:-.02em}
+.floating-ticket .ticket-barcode{margin-top:1rem;height:26px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 6px)}
+@keyframes floatTicket{0%,100%{transform:translate(-50%,-50%) rotate(-4deg) translateY(0)}50%{transform:translate(-50%,-50%) rotate(3deg) translateY(-16px)}}
+
+/* Timeline — a route you read, not cards */
+.journey-timeline{list-style:none;margin:0;padding:0;position:relative}
+.journey-timeline::before{content:"";position:absolute;left:4px;top:2.2rem;bottom:2.2rem;width:2px;background:rgba(23,22,26,.12)}
+.journey-step{position:relative;display:grid;grid-template-columns:5.2rem 1fr;gap:0 clamp(1rem,2.5vw,2rem);
+  padding:clamp(1.5rem,3.4vw,2.4rem) 0;border-top:1px solid rgba(23,22,26,.13);
+  opacity:.4;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.journey-step:last-child{border-bottom:1px solid rgba(23,22,26,.13)}
+.journey-step.active{opacity:1;transform:none}
+.journey-step .time{align-self:start;position:relative;padding-left:1.4rem;font-family:var(--mono);
+  font-size:.95rem;font-weight:500;color:var(--mint-deep);letter-spacing:.02em;background:none}
+.journey-step .time::before{content:"";position:absolute;left:0;top:.28em;width:9px;height:9px;border-radius:50%;
+  background:var(--sand);box-shadow:0 0 0 4px var(--concrete);transition:background .4s,box-shadow .4s}
+.journey-step.active .time::before{background:var(--mint-deep);box-shadow:0 0 0 4px var(--concrete),0 0 0 7px rgba(63,140,110,.22)}
+.journey-step h3{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,2.7vw,2.3rem);letter-spacing:-.01em}
+.journey-step p{margin:.55rem 0 0;color:var(--graphite);max-width:48ch;font-size:1.02rem;line-height:1.55}
+
+/* Outro: sample event feed + CTA, darkening into the booking chapter */
+.v24-outro{position:relative;margin-top:clamp(3rem,7vh,5.5rem);
+  padding:clamp(3rem,7vh,6rem) 0 clamp(4rem,10vh,7rem);
+  background:linear-gradient(180deg,#d8d1c4 0%,#2a2822 42%,var(--ink) 100%);color:var(--soft-white)}
+.v24-outro__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:end}
+.event-feed .eyebrow{display:block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--chair-mint);margin-bottom:.4rem}
+.event-feed .eyebrow em{color:rgba(246,243,238,.5);font-style:normal}
+.departures{list-style:none;margin:1rem 0 0;padding:0;border-top:1px solid rgba(246,243,238,.18)}
+.departures li{display:grid;grid-template-columns:2.6rem 1fr auto;gap:1rem;align-items:center;
+  padding:.95rem 0;border-bottom:1px solid rgba(246,243,238,.12);font-size:1rem}
+.departures .mono{font-family:var(--mono);color:var(--chair-mint);font-size:.78rem;letter-spacing:.08em}
+.departures b{font-weight:500;color:var(--soft-white)}
+.departures li>.mono:last-child{color:rgba(246,243,238,.6)}
+.v24-cta h3{font-family:var(--serif);font-weight:600;color:#fff;font-size:clamp(1.8rem,4vw,3rem);
+  line-height:1.02;margin:0 0 1.4rem;max-width:15ch}
+
+@media(max-width:900px){
+  .vienna-live-card{grid-template-columns:1fr;gap:1.4rem}
+  .journey-layout{grid-template-columns:1fr}
+  .journey-map{position:relative;top:0;height:280px;order:-1;margin-bottom:1.8rem}
+  .v24-outro__grid{grid-template-columns:1fr;gap:2.4rem}
+  .floating-ticket{width:min(240px,70%)}
+}
+@media(max-width:560px){
+  .journey-step{grid-template-columns:4.4rem 1fr}
+  .journey-step .time{font-size:.85rem}
 }

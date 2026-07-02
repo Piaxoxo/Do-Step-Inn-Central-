@@ -22,7 +22,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="assets/css/style.css" />
 
@@ -313,11 +313,93 @@
   </div>
 </section>
 
-<!-- ============ CHAPTER 8 — BOOK ============ -->
-<section class="chapter book" id="book" data-chapter="8" data-theme-trigger="book">
+<!-- ============ CHAPTER 8 — YOUR FIRST 24 HOURS ============ -->
+<section class="vienna-journey-section" id="firstday" data-chapter="8" data-theme-trigger="vienna">
+  <div class="wrap">
+    <header class="journey-header">
+      <span class="eyebrow mono"><span class="live-dot"></span> Live from Vienna</span>
+      <h2 class="display reveal" data-reveal>Your first 24 hours<br />in Vienna</h2>
+      <p class="lede reveal" data-reveal>The moment your train pulls in, the trip has already started. Drop your bag, step outside, and let the city set the pace.</p>
+    </header>
+
+    <!-- Live station-board weather -->
+    <div class="vienna-live-card reveal" data-reveal role="group" aria-label="Live weather in Vienna">
+      <div class="live-now">
+        <span class="live-label mono">Today in Vienna</span>
+        <h3 id="weather-temp" class="mono" aria-live="polite">—°</h3>
+        <p id="weather-desc">Checking the sky above the city.</p>
+      </div>
+      <div class="weather-suggestions">
+        <span class="mono">Perfect for</span>
+        <ul id="weather-suggestions">
+          <li>Belvedere</li><li>Cafés</li><li>City walks</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="journey-layout">
+      <!-- Sticky night map with the animated Vienna route -->
+      <aside class="journey-map" aria-hidden="true">
+        <div class="map-grid"></div>
+        <span class="map-label map-label--top mono">08:30 · Hauptbahnhof</span>
+        <span class="map-label map-label--bot mono">22:00 · Your story</span>
+        <svg class="map-route" viewBox="0 0 44 62" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="v24grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5FB894" /><stop offset="0.6" stop-color="#E6B23A" /><stop offset="1" stop-color="#ffffff" />
+            </linearGradient>
+          </defs>
+          <path class="route-bg" d="M22 4 C 13 15, 31 23, 22 32 S 12 47, 22 58" vector-effect="non-scaling-stroke" />
+          <path id="v24-progress" d="M22 4 C 13 15, 31 23, 22 32 S 12 47, 22 58" vector-effect="non-scaling-stroke" />
+          <g id="v24-stops"></g>
+          <circle id="v24-marker" cx="22" cy="4" r="1.1" />
+        </svg>
+        <div class="floating-ticket">
+          <span class="mono">Do Step Inn Central · Boarding pass</span>
+          <strong>Start here.<br />Go anywhere.</strong>
+          <span class="ticket-barcode" aria-hidden="true"></span>
+        </div>
+      </aside>
+
+      <!-- The journey (not cards — a route you read) -->
+      <ol class="journey-timeline">
+        <li class="journey-step active"><span class="time mono">08:30</span><div class="step-body"><h3>Off the train</h3><p>You step onto Südtiroler Platz, bag in hand. The city is already outside the doors.</p></div></li>
+        <li class="journey-step"><span class="time mono">09:00</span><div class="step-body"><h3>Drop your bag</h3><p>Three minutes to Do Step Inn Central. Check in with your code, stash your luggage, travel light.</p></div></li>
+        <li class="journey-step"><span class="time mono">10:00</span><div class="step-body"><h3>Find your first coffee</h3><p>Start slow. A Wieden café, a melange, and Vienna waking up around you.</p></div></li>
+        <li class="journey-step"><span class="time mono">12:00</span><div class="step-body"><h3>Walk to Belvedere</h3><p>Ten minutes on foot to one of the city's most beautiful palaces. Your first real Vienna moment.</p></div></li>
+        <li class="journey-step"><span class="time mono">15:00</span><div class="step-body"><h3>Step into your room</h3><p>Fresh sheets, a lockable pod that's all yours, a window to the trees. Reset for the evening.</p></div></li>
+        <li class="journey-step"><span class="time mono">18:00</span><div class="step-body"><h3>Golden hour</h3><p>The streets turn warm, the light gets soft, and your camera roll starts filling itself.</p></div></li>
+        <li class="journey-step"><span class="time mono">20:00</span><div class="step-body"><h3>Cook, connect, continue</h3><p>The shared kitchen is where strangers become the reason you extend your trip.</p></div></li>
+        <li class="journey-step"><span class="time mono">22:00</span><div class="step-body"><h3>Your first Vienna story</h3><p>You came for a bed. You end the day with names, places, and plans for tomorrow.</p></div></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Outro: sample event feed + booking CTA, darkening into the booking chapter -->
+  <div class="v24-outro">
+    <div class="wrap v24-outro__grid">
+      <div class="event-feed">
+        <span class="eyebrow mono">This week in Vienna · <em>sample feed</em></span>
+        <ul class="departures" aria-label="Upcoming Vienna highlights (sample)">
+          <li><span class="mono">THU</span><b>Naschmarkt evening &amp; street food</b><span class="mono">19:00</span></li>
+          <li><span class="mono">FRI</span><b>Belvedere late-night opening</b><span class="mono">21:00</span></li>
+          <li><span class="mono">SAT</span><b>MuseumsQuartier courtyard sessions</b><span class="mono">16:00</span></li>
+          <li><span class="mono">SUN</span><b>Danube island morning run</b><span class="mono">09:00</span></li>
+        </ul>
+      </div>
+      <div class="v24-cta">
+        <h3 class="display">Your story starts with one step.</h3>
+        <button class="btn btn--primary" data-open-booking data-cursor="book">Take the first step</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 9 — BOOK ============ -->
+<section class="chapter book" id="book" data-chapter="9" data-theme-trigger="book">
   <div class="wrap grid-2">
     <div>
-      <p class="kicker reveal" data-reveal>Chapter 8 — Begin</p>
+      <p class="kicker reveal" data-reveal>Chapter 9 — Begin</p>
       <h2 class="display reveal" data-reveal>Book your<br/>adventure.</h2>
       <div class="reassure reveal" data-reveal>
         <p><b>Do Step Inn Central</b><br/>Südtiroler Platz 3, 1040 Vienna, Austria</p>
