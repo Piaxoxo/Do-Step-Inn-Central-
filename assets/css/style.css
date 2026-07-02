@@ -453,8 +453,9 @@ body.has-cursor a,body.has-cursor button{cursor:none}
 .event-feed .eyebrow{display:block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--chair-mint);margin-bottom:.4rem}
 .event-feed .eyebrow em{color:rgba(246,243,238,.5);font-style:normal}
 .departures{list-style:none;margin:1rem 0 0;padding:0;border-top:1px solid rgba(246,243,238,.18)}
-.departures li{display:grid;grid-template-columns:2.6rem 1fr auto;gap:1rem;align-items:center;
+.departures li{display:grid;grid-template-columns:4.2rem 1fr auto;gap:1rem;align-items:center;
   padding:.95rem 0;border-bottom:1px solid rgba(246,243,238,.12);font-size:1rem}
+.event-feed .eyebrow .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#e0533b;margin-right:.4rem;animation:pulse 1.8s infinite}
 .departures .mono{font-family:var(--mono);color:var(--chair-mint);font-size:.78rem;letter-spacing:.08em}
 .departures b{font-weight:500;color:var(--soft-white)}
 .departures li>.mono:last-child{color:rgba(246,243,238,.6)}
@@ -471,4 +472,76 @@ body.has-cursor a,body.has-cursor button{cursor:none}
 @media(max-width:560px){
   .journey-step{grid-template-columns:4.4rem 1fr}
   .journey-step .time{font-size:.85rem}
+}
+
+/* ======================================================
+   MOBILE MENU (all pages)
+   ====================================================== */
+.menu-toggle{display:none;width:42px;height:42px;border:0;background:transparent;position:relative;cursor:pointer;padding:0}
+.menu-toggle span,.menu-toggle::before,.menu-toggle::after{content:"";position:absolute;left:9px;right:9px;height:2px;background:var(--ink);transition:transform .3s var(--ease),opacity .3s,top .3s}
+.menu-toggle span{top:20px}
+.menu-toggle::before{top:14px}
+.menu-toggle::after{top:26px}
+.menu-toggle.is-open span{opacity:0}
+.menu-toggle.is-open::before{top:20px;transform:rotate(45deg)}
+.menu-toggle.is-open::after{top:20px;transform:rotate(-45deg)}
+.mobilemenu{position:fixed;inset:0;z-index:130;background:var(--soft-white);
+  display:flex;flex-direction:column;justify-content:center;gap:.2rem;padding:2rem;
+  animation:fade .25s ease}
+.mobilemenu[hidden]{display:none}
+.mobilemenu a{font-family:var(--serif);font-size:clamp(2rem,9vw,3rem);font-weight:600;padding:.35rem 0;color:var(--ink)}
+.mobilemenu .mm-book{font-family:var(--sans);font-size:1.05rem;margin-top:1.4rem;background:var(--mint-deep);
+  color:#fff;border-radius:100px;padding:.9rem 1.5rem;width:-moz-fit-content;width:fit-content}
+@media(max-width:900px){.menu-toggle{display:block}}
+
+/* ======================================================
+   SUB-PAGES (Rooms / Vienna / Gallery / Contact)
+   ====================================================== */
+.page-hero{padding:clamp(6.5rem,15vh,11rem) 0 clamp(2rem,5vh,3.5rem);
+  background:linear-gradient(180deg,var(--soft-white),var(--concrete))}
+.page-hero .kicker{margin-bottom:1rem}
+.page-hero .display{max-width:18ch}
+.page-hero .lede{margin-top:1.4rem}
+.page-section{padding:clamp(3rem,7vh,6rem) 0}
+.backlink{display:inline-flex;gap:.45rem;align-items:center;font-weight:500;color:var(--mint-deep)}
+.backlink:hover{gap:.7rem;transition:gap .3s}
+
+/* Rooms page — alternating editorial rows */
+.roomrow{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;
+  margin-bottom:clamp(2.5rem,6vh,4.5rem)}
+.roomrow:nth-child(even) .roomrow__media{order:-1}
+.roomrow__media{position:relative;border-radius:22px;overflow:hidden;min-height:min(58vh,460px);
+  box-shadow:0 40px 80px -44px rgba(0,0,0,.45)}
+.roomrow__media picture,.roomrow__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.roomrow h2{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.4rem);font-weight:600;margin:.4rem 0 .8rem}
+.roomrow p{color:var(--graphite);max-width:48ch}
+
+/* Gallery — masonry */
+.gallery{columns:3;column-gap:14px}
+.gallery figure{margin:0 0 14px;break-inside:avoid;border-radius:16px;overflow:hidden;
+  box-shadow:0 24px 50px -34px rgba(0,0,0,.4);position:relative}
+.gallery img{width:100%;display:block;transition:transform .6s var(--ease)}
+.gallery figure:hover img{transform:scale(1.04)}
+@media(max-width:900px){.gallery{columns:2}}
+@media(max-width:560px){.gallery{columns:1}}
+
+/* Info / Contact */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.6rem,4vw,3rem)}
+.info-card{background:#fff;border-radius:18px;padding:clamp(1.4rem,3vw,2.2rem);
+  box-shadow:0 30px 60px -40px rgba(0,0,0,.35)}
+.info-card h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:.5rem}
+.info-card p{color:var(--graphite)}
+.map-embed{border-radius:20px;overflow:hidden;min-height:380px;background:var(--concrete);box-shadow:0 40px 80px -44px rgba(0,0,0,.4)}
+.map-embed iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+.faq{max-width:780px}
+.faq details{border-top:1px solid rgba(23,22,26,.14);padding:1.15rem 0}
+.faq details:last-child{border-bottom:1px solid rgba(23,22,26,.14)}
+.faq summary{font-family:var(--serif);font-size:1.2rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--mint-deep);font-family:var(--sans)}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:.7rem 0 0;color:var(--graphite);max-width:64ch}
+@media(max-width:760px){
+  .roomrow,.roomrow:nth-child(even),.info-grid{grid-template-columns:1fr}
+  .roomrow:nth-child(even) .roomrow__media{order:0}
 }

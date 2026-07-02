@@ -35,6 +35,10 @@
       pill.classList.toggle('is-visible', past);
     }, { threshold: 0, rootMargin: '-70% 0px 0px 0px' });
     io.observe(hero);
+  } else {
+    // Sub-pages have no hero — keep the bar + pill visible from the start.
+    topbar?.classList.add('is-visible');
+    pill?.classList.add('is-visible');
   }
 
   /* ---------- Daylight progress + background tween ---------- */
@@ -184,6 +188,21 @@
     });
   }
 
+  /* ---------- Mobile menu ---------- */
+  const menuToggle = $('.menu-toggle');
+  const mobilemenu = $('#mobilemenu');
+  if (menuToggle && mobilemenu) {
+    const setMenu = (open) => {
+      if (open) mobilemenu.removeAttribute('hidden'); else mobilemenu.setAttribute('hidden', '');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    menuToggle.addEventListener('click', () => setMenu(mobilemenu.hasAttribute('hidden')));
+    mobilemenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !mobilemenu.hasAttribute('hidden')) setMenu(false); });
+  }
+
   /* ---------- Booking: smooth-scroll to the native IBE engine ----------
      The uphotel engine renders inline via <ibe-up> in Chapter 8. Every
      "Check availability / Check dates" control brings the guest to it and
@@ -225,6 +244,33 @@
       }
     };
     loadViennaWeather();
+
+    // --- Live "this week in Vienna" feed (date-driven; swap in a real ICS/API later) ---
+    const loadViennaEvents = () => {
+      const el = $('#vienna-events', vj);
+      if (!el) return;
+      // Curated recurring Vienna happenings by weekday (0=Sun … 6=Sat).
+      const byDay = {
+        0: [{ t: 'Danube Island morning run', time: '09:00' }, { t: 'Karlsplatz & MQ stroll', time: '11:00' }],
+        1: [{ t: 'Kunsthistorisches Museum', time: '10:00' }, { t: 'Coffee-house afternoon', time: '15:00' }],
+        2: [{ t: 'Belvedere galleries', time: '10:00' }, { t: 'Naschmarkt lunch', time: '13:00' }],
+        3: [{ t: 'MuseumsQuartier courtyard', time: '16:00' }, { t: 'Ringstraße tram loop', time: '18:00' }],
+        4: [{ t: 'Naschmarkt evening & street food', time: '18:00' }, { t: 'Prater lights', time: '20:00' }],
+        5: [{ t: 'Belvedere late-night opening', time: '21:00' }, { t: 'Kärntner Straße night walk', time: '20:00' }],
+        6: [{ t: 'Naschmarkt flea market', time: '09:00' }, { t: 'Danube canal bars', time: '19:00' }],
+      };
+      const dows = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      const now = new Date();
+      const rows = [];
+      for (let i = 0; i < 5; i++) {
+        const d = new Date(now); d.setDate(now.getDate() + i);
+        const opts = byDay[d.getDay()];
+        const pick = opts[i % opts.length];
+        rows.push(`<li><span class="mono">${dows[d.getDay()]} ${d.getDate()}</span><b>${pick.t}</b><span class="mono">${pick.time}</span></li>`);
+      }
+      el.innerHTML = rows.join('');
+    };
+    loadViennaEvents();
 
     // --- Active step highlight ---
     const steps = $$('.journey-step', vj);

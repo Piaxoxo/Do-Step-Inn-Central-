@@ -72,9 +72,10 @@
     <img src="assets/logo/dostepinn-central.svg" alt="Do Step Inn Central" width="147" height="47" />
   </a>
   <nav class="topbar__nav" aria-label="Primary">
-    <a href="#rooms" data-cursor="link">Rooms</a>
-    <a href="#vienna" data-cursor="link">Vienna</a>
-    <a href="#why" data-cursor="link">Why stay</a>
+    <a href="rooms.html" data-cursor="link">Rooms</a>
+    <a href="vienna.html" data-cursor="link">Vienna</a>
+    <a href="gallery.html" data-cursor="link">Gallery</a>
+    <a href="contact.html" data-cursor="link">Contact</a>
   </nav>
   <div class="topbar__actions">
     <div class="lang" role="group" aria-label="Language">
@@ -92,8 +93,17 @@
       </ul>
     </div>
     <button class="btn btn--book" data-open-booking data-cursor="book">Check availability</button>
+    <button class="menu-toggle" aria-label="Menu" aria-controls="mobilemenu" aria-expanded="false"><span></span></button>
   </div>
 </header>
+
+<nav class="mobilemenu" id="mobilemenu" aria-label="Mobile navigation" hidden>
+  <a href="rooms.html">Rooms</a>
+  <a href="vienna.html">Vienna</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="#book" class="mm-book" data-open-booking>Check availability</a>
+</nav>
 
 <main id="main">
 <span id="top"></span>
@@ -379,12 +389,9 @@
   <div class="v24-outro">
     <div class="wrap v24-outro__grid">
       <div class="event-feed">
-        <span class="eyebrow mono">This week in Vienna · <em>sample feed</em></span>
-        <ul class="departures" aria-label="Upcoming Vienna highlights (sample)">
-          <li><span class="mono">THU</span><b>Naschmarkt evening &amp; street food</b><span class="mono">19:00</span></li>
-          <li><span class="mono">FRI</span><b>Belvedere late-night opening</b><span class="mono">21:00</span></li>
-          <li><span class="mono">SAT</span><b>MuseumsQuartier courtyard sessions</b><span class="mono">16:00</span></li>
-          <li><span class="mono">SUN</span><b>Danube island morning run</b><span class="mono">09:00</span></li>
+        <span class="eyebrow mono"><span class="live-dot"></span> This week in Vienna</span>
+        <ul class="departures" id="vienna-events" aria-label="Upcoming Vienna highlights" aria-live="polite">
+          <li><span class="mono">—</span><b>Loading Vienna highlights…</b><span class="mono"></span></li>
         </ul>
       </div>
       <div class="v24-cta">
@@ -434,7 +441,7 @@
       <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89" target="_blank" rel="noopener">Book a bed</a>
     </address>
     <nav class="footer__nav" aria-label="Footer">
-      <a href="#rooms">Rooms</a><a href="#vienna">Vienna</a><a href="#why">Why stay</a><a href="#book">Book</a>
+      <a href="rooms.html">Rooms</a><a href="vienna.html">Vienna</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
     </nav>
   </div>
   <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span>Vienna · Austria</span></div>
