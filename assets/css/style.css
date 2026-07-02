@@ -166,8 +166,21 @@ body.has-cursor a,body.has-cursor button{cursor:none}
     repeating-linear-gradient(45deg,var(--concrete),var(--concrete) 14px,var(--sand) 14px,var(--sand) 28px);
   min-height:260px;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
 .media--tall{min-height:min(70vh,560px)}
-.media__tag{position:absolute;left:1rem;bottom:1rem;background:rgba(23,22,26,.72);color:#fff;
+.media__tag{position:absolute;left:1rem;bottom:1rem;z-index:2;background:rgba(23,22,26,.72);color:#fff;
   font-size:.72rem;letter-spacing:.05em;padding:.4rem .7rem;border-radius:8px}
+/* real photos fill their slots (gradient/tag remain as fallback behind) */
+.media picture,.media img,
+.roomcard__media picture,.roomcard__media img,
+.card__media picture,.card__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.roomcard__media{position:relative}
+.card__media{position:relative;border-radius:12px;overflow:hidden;height:170px;margin-bottom:1.3rem}
+/* Chapter 5 image strip */
+.shared-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--sand);
+  border-radius:18px;overflow:hidden;margin-bottom:1.8rem;box-shadow:0 30px 60px -34px rgba(0,0,0,.35)}
+.shared-strip .media{min-height:min(34vw,260px);border-radius:0;box-shadow:none}
+/* Chapter 6 proof grid */
+.why-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.why-grid .media{min-height:min(52vh,440px)}
 
 /* Card */
 .card{background:#fff;border-radius:18px;padding:clamp(1.4rem,3vw,2.2rem);
@@ -302,10 +315,14 @@ body.has-cursor a,body.has-cursor button{cursor:none}
    Responsive
    ====================================================== */
 @media(max-width:900px){
-  .grid-2,.cards,.places{grid-template-columns:1fr}
+  .grid-2,.cards,.places,.why-grid{grid-template-columns:1fr}
   .amenities{grid-template-columns:1fr 1fr}
   .footer__grid{grid-template-columns:1fr}
   .topbar__nav{display:none}
+}
+@media(max-width:640px){
+  .shared-strip{grid-template-columns:1fr}
+  .shared-strip .media{min-height:220px}
 }
 @media(max-width:560px){
   .amenities{grid-template-columns:1fr}

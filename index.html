@@ -146,9 +146,20 @@
 
     <div class="thedoor__aside">
       <figure class="media media--tall" data-parallax="0.12" data-cursor="view">
-        <span class="media__tag">Façade · Südtiroler Platz</span>
+        <picture>
+          <source type="image/webp" srcset="assets/img/door-window.webp" />
+          <img src="assets/img/door-window.jpg" alt="Floor-to-ceiling lounge window looking out onto Südtiroler Platz and the park" loading="lazy" width="1300" height="975" />
+        </picture>
+        <span class="media__tag">Right on Südtiroler Platz</span>
       </figure>
       <div class="checkin card reveal" data-reveal>
+        <figure class="card__media" data-cursor="view">
+          <picture>
+            <source type="image/webp" srcset="assets/img/checkin.webp" />
+            <img src="assets/img/checkin.jpg" alt="Hostel corridor with keypad-locked room doors" loading="lazy" width="1000" height="750" />
+          </picture>
+          <span class="media__tag">Your keypad · your code</span>
+        </figure>
         <h3>Contactless check-in</h3>
         <p class="muted">Your code, your time. Arrive at 6am or midnight — the city never made you wait, and neither do we.</p>
         <ol class="steps">
@@ -164,7 +175,7 @@
 <!-- ============ CHAPTER 3 — COMMUNITY ============ -->
 <section class="chapter community" id="community" data-chapter="3" data-theme-trigger="community">
   <div class="community__media">
-    <video class="community__video" muted loop playsinline preload="none" data-lazyvideo>
+    <video class="community__video" muted loop playsinline preload="none" data-lazyvideo poster="assets/img/community.jpg">
       <source src="assets/video/hero-02.mp4" type="video/mp4" />
     </video>
     <div class="community__scrim"></div>
@@ -188,7 +199,13 @@
     </header>
     <div class="cards">
       <article class="roomcard" data-cursor="view" data-tilt>
-        <div class="roomcard__media"><span class="media__tag">Pod dorm · keypad lock</span></div>
+        <div class="roomcard__media">
+          <picture>
+            <source type="image/webp" srcset="assets/img/room-pod.webp" />
+            <img src="assets/img/room-pod.jpg" alt="Wooden pod beds with individual keypad locks and a bright window seat" loading="lazy" width="1200" height="900" />
+          </picture>
+          <span class="media__tag">Pod dorm · keypad lock</span>
+        </div>
         <div class="roomcard__body">
           <h3>The Pod Bed</h3>
           <p>4–6 sharing, but the bed is all yours: solid wood, a curtain that actually closes, your own light, socket and a private keypad lock.</p>
@@ -196,7 +213,13 @@
         </div>
       </article>
       <article class="roomcard" data-cursor="view" data-tilt>
-        <div class="roomcard__media roomcard__media--alt"><span class="media__tag">Private room</span></div>
+        <div class="roomcard__media roomcard__media--alt">
+          <picture>
+            <source type="image/webp" srcset="assets/img/room-private.webp" />
+            <img src="assets/img/room-private.jpg" alt="Private room with a made double bed, desk and window" loading="lazy" width="1200" height="900" />
+          </picture>
+          <span class="media__tag">Private room</span>
+        </div>
         <div class="roomcard__body">
           <h3>The Private Room</h3>
           <p>Your own door, a desk by the window and the trees outside — hostel prices, a little more quiet. Shared bathrooms, spotless.</p>
@@ -217,6 +240,20 @@
       <p class="kicker reveal" data-reveal>Chapter 5 — Shared spaces</p>
       <h2 class="display reveal" data-reveal>Where you'll<br/>actually live.</h2>
     </header>
+    <div class="shared-strip reveal" data-reveal>
+      <figure class="media" data-cursor="view">
+        <picture><source type="image/webp" srcset="assets/img/kitchen.webp" /><img src="assets/img/kitchen.jpg" alt="Communal self-catering kitchen with herb-print wall and recycling station" loading="lazy" width="1000" height="750" /></picture>
+        <span class="media__tag">Kitchen</span>
+      </figure>
+      <figure class="media" data-cursor="view">
+        <picture><source type="image/webp" srcset="assets/img/lounge.webp" /><img src="assets/img/lounge.jpg" alt="Pallet-wood lounge with cushions and the suitcase reception behind" loading="lazy" width="1000" height="750" /></picture>
+        <span class="media__tag">Lounge</span>
+      </figure>
+      <figure class="media" data-cursor="view">
+        <picture><source type="image/webp" srcset="assets/img/bathroom.webp" /><img src="assets/img/bathroom.jpg" alt="Clean, modern shared bathroom with showers and sinks" loading="lazy" width="1000" height="750" /></picture>
+        <span class="media__tag">Spotless bathrooms</span>
+      </figure>
+    </div>
     <ul class="amenities">
       <li class="reveal" data-reveal data-cursor="view"><b>Self-catering kitchen</b><span>Cook together. Big fridge, real pans, herb-print walls.</span></li>
       <li class="reveal" data-reveal data-cursor="view"><b>The lounge</b><span>Pallet sofas, denim stools, big windows onto the square.</span></li>
@@ -240,10 +277,19 @@
       <div class="stat reveal" data-reveal><span class="stat__num" data-count="3" data-suffix=" min">0</span><span class="stat__lbl">To the Hauptbahnhof</span></div>
       <div class="stat reveal" data-reveal><span class="stat__num" data-count="1" data-suffix=" stop">0</span><span class="stat__lbl">To the old town (U1)</span></div>
     </div>
-    <blockquote class="quote reveal" data-reveal>
-      <p>“Spotless, the pod beds are genius, and you literally step out of the station into it.”</p>
-      <cite>— a recent guest</cite>
-    </blockquote>
+    <div class="why-grid">
+      <blockquote class="quote reveal" data-reveal>
+        <p>“Spotless, the pod beds are genius, and you literally step out of the station into it.”</p>
+        <cite>— a recent guest</cite>
+      </blockquote>
+      <figure class="media reveal" data-reveal data-parallax="0.06" data-cursor="view">
+        <picture>
+          <source type="image/webp" srcset="assets/img/why-proof.webp" />
+          <img src="assets/img/why-proof.jpg" alt="Bright, tidy pod dorm with a large window onto the tree-lined street" loading="lazy" width="1200" height="900" />
+        </picture>
+        <span class="media__tag">Bright, tidy, spotless</span>
+      </figure>
+    </div>
   </div>
 </section>
 
