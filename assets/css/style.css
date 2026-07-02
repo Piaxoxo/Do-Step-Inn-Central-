@@ -320,15 +320,39 @@ body.has-cursor a,body.has-cursor button{cursor:none}
   .footer__grid{grid-template-columns:1fr}
   .topbar__nav{display:none}
 }
+@media(max-width:700px){
+  /* Booking lives in the thumb-zone pill on mobile — drop the redundant, oversized bar button */
+  .topbar .btn--book{display:none}
+  .topbar{padding:.6rem 1rem}
+  .topbar__brand img{height:30px}
+  .lang__btn{font-size:.9rem}
+  /* tighter vertical rhythm — less dead space */
+  .chapter{padding:3.4rem 0}
+  .hero{padding-bottom:2.5rem}
+  .section-head{margin-bottom:1.8rem}
+  .grid-2{gap:1.6rem}
+  .reassure{margin-top:1.4rem}
+  .stats{gap:1.6rem 2.4rem;margin-bottom:2.2rem}
+  .bignum{margin-top:1.2rem}
+  .community{min-height:78vh}
+  /* full-width, comfortable CTAs */
+  .hero__cta{gap:.7rem}
+  .hero__cta .btn,.center .btn{width:100%;justify-content:center}
+  .center .btn{max-width:420px}
+  /* larger, easier pill */
+  .pill{right:.9rem;bottom:.9rem;padding:1rem 1.4rem;font-size:1rem}
+  /* fill the booking mount so the engine has room */
+  #ibe-widget ibe-up{min-height:340px}
+}
 @media(max-width:640px){
   .shared-strip{grid-template-columns:1fr}
-  .shared-strip .media{min-height:220px}
+  .shared-strip .media{min-height:200px}
 }
 @media(max-width:560px){
   .amenities{grid-template-columns:1fr}
   .hero{align-items:flex-end}
   .scrollcue{display:none}
-  .topbar__brand img{height:32px}
+  .roomcard__media{min-height:260px}
 }
 
 /* ======================================================
