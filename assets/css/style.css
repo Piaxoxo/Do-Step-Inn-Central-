@@ -658,3 +658,22 @@ body.has-cursor a,body.has-cursor button{cursor:none}
 .made-by__name{font-family:var(--serif);font-weight:600;letter-spacing:.26em;color:var(--bandita-pink);font-size:.95rem;padding-left:.1rem}
 .made-by:hover .made-by__name{text-shadow:0 0 20px rgba(236,15,99,.55)}
 @media print{.nav-weather,.made-by{display:none!important}}
+
+/* ---------- Cookie notice ---------- */
+.cookiebar{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:140;max-width:660px;margin-inline:auto;
+  background:var(--ink);color:var(--soft-white);border-radius:16px;padding:1.1rem 1.2rem;
+  display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.4rem;justify-content:space-between;
+  box-shadow:0 30px 70px -28px rgba(0,0,0,.7);opacity:0;transform:translateY(20px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.cookiebar.is-in{opacity:1;transform:none}
+.cookiebar p{margin:0;font-size:.9rem;color:rgba(246,243,238,.82);flex:1 1 280px;line-height:1.5}
+.cookiebar a{color:var(--chair-mint);border-bottom:1px solid transparent}
+.cookiebar a:hover{border-color:var(--chair-mint)}
+.cookiebar__act{display:flex;gap:.6rem;flex:0 0 auto}
+.cookiebar .btn{padding:.7rem 1.1rem;font-size:.85rem}
+@media(max-width:700px){
+  body.has-cookiebar .pill,body.has-cookiebar .to-top{bottom:7rem}
+  .cookiebar__act{width:100%}
+  .cookiebar__act .btn{flex:1}
+}
+@media print{.cookiebar{display:none!important}}

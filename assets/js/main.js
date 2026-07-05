@@ -188,6 +188,29 @@
     });
   }
 
+  /* ---------- Cookie notice (essential-only site; informs about third-party embeds) ---------- */
+  (() => {
+    let stored = null;
+    try { stored = localStorage.getItem('dsi-cookie'); } catch (e) { return; }
+    if (stored) return;
+    const bar = document.createElement('div');
+    bar.className = 'cookiebar';
+    bar.setAttribute('role', 'dialog');
+    bar.setAttribute('aria-label', 'Cookie notice');
+    bar.innerHTML = '<p>We keep it light: no analytics, no ad trackers. A few embedded services (fonts, map, booking, weather) may process your IP. <a href="cookies.html">Cookie details</a> · <a href="privacy.html">Privacy</a></p>'
+      + '<div class="cookiebar__act"><button class="btn btn--ghost" type="button" data-ck="essential">Essential only</button><button class="btn btn--primary" type="button" data-ck="all">Got it</button></div>';
+    document.body.appendChild(bar);
+    document.body.classList.add('has-cookiebar');
+    requestAnimationFrame(() => bar.classList.add('is-in'));
+    const close = (v) => {
+      try { localStorage.setItem('dsi-cookie', v); } catch (e) { /* ignore */ }
+      bar.classList.remove('is-in');
+      document.body.classList.remove('has-cookiebar');
+      window.setTimeout(() => bar.remove(), 400);
+    };
+    bar.querySelectorAll('[data-ck]').forEach((b) => b.addEventListener('click', () => close(b.dataset.ck)));
+  })();
+
   /* ---------- Mobile menu ---------- */
   const menuToggle = $('.menu-toggle');
   const mobilemenu = $('#mobilemenu');
