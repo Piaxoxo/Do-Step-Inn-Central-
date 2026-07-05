@@ -677,3 +677,11 @@ body.has-cursor a,body.has-cursor button{cursor:none}
   .cookiebar__act .btn{flex:1}
 }
 @media print{.cookiebar{display:none!important}}
+
+/* ---------- Consent gate for third-party embeds ---------- */
+.embed-gate{display:flex;flex-direction:column;gap:.7rem;justify-content:center;min-height:200px;height:100%;
+  padding:1.3rem;text-align:left}
+.embed-gate .btn{align-self:flex-start}
+.map-embed .embed-gate{align-items:center;text-align:center}
+.map-embed .embed-gate .btn{align-self:center}
+.embed-gate .muted{margin:0}

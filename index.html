@@ -20,9 +20,7 @@
 <meta property="og:locale:alternate" content="it" />
 
 <!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/fonts.css" />
 
 <link rel="stylesheet" href="assets/css/style.css" />
 
@@ -419,13 +417,13 @@
     <div class="bookmount card">
       <h3 id="book-heading" tabindex="-1">Check availability</h3>
       <!-- Native mount for the uphotel IBE engine -->
-      <div id="ibe-widget" aria-live="polite">
-        <ibe-up ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89" language="en"></ibe-up>
-        <div class="bookmount__fallback">
-          <p class="muted">Pick your dates on our secure booking page:</p>
-          <a class="btn btn--primary btn--full"
-             href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
-             target="_blank" rel="noopener" data-cursor="book">Open secure booking →</a>
+      <div id="ibe-widget" aria-live="polite"
+           data-ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89"
+           data-ibe-url="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89">
+        <div class="embed-gate">
+          <p class="muted">The live booking calendar loads from our booking provider (uphotel) and may set cookies.</p>
+          <button class="btn btn--primary btn--full" type="button" data-load-booking data-cursor="book">Load booking calendar</button>
+          <p class="bookmount__fallback muted">Or <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89" target="_blank" rel="noopener" data-cursor="book">open the secure booking page →</a></p>
         </div>
       </div>
     </div>
@@ -462,9 +460,7 @@
   <span class="pill__dot"></span> Check availability
 </button>
 
-<!-- uphotel IBE engine (script + css before </body> as per provider) -->
-<script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js"></script>
-<link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
+<!-- uphotel IBE engine is loaded on demand (after consent) by main.js -->
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>

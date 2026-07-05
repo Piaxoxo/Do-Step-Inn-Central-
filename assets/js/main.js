@@ -204,6 +204,7 @@
     requestAnimationFrame(() => bar.classList.add('is-in'));
     const close = (v) => {
       try { localStorage.setItem('dsi-cookie', v); } catch (e) { /* ignore */ }
+      if (v === 'all' && typeof applyEmbedConsent === 'function') applyEmbedConsent();
       bar.classList.remove('is-in');
       document.body.classList.remove('has-cookiebar');
       window.setTimeout(() => bar.remove(), 400);
@@ -237,16 +238,31 @@
     window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
   }));
 
-  /* ---------- Booking engine health check (hide fallback only once it truly renders) ---------- */
-  window.addEventListener('load', () => {
+  /* ---------- Consent-gated third-party embeds (booking + map) ----------
+     Nothing external loads until the visitor accepts ("Got it") or clicks the
+     explicit "Load …" button — keeping the default page third-party-free. */
+  const fullConsent = () => { try { return localStorage.getItem('dsi-cookie') === 'all'; } catch (e) { return false; } };
+  function loadBooking() {
     const w = $('#ibe-widget');
-    if (!w) return;
-    window.setTimeout(() => {
-      const el = w.querySelector('ibe-up');
-      const rendered = !!customElements.get('ibe-up') && el && (el.shadowRoot || el.children.length > 0 || el.offsetHeight > 40);
-      w.classList.toggle('ibe-ok', !!rendered);
-    }, 3500);
-  });
+    if (!w || w.dataset.loaded) return; w.dataset.loaded = '1';
+    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = 'https://ibe.uphotel.agency/ibe.min.css'; document.head.appendChild(link);
+    const el = document.createElement('ibe-up'); el.setAttribute('ibe-key', w.dataset.ibeKey || ''); el.setAttribute('language', 'en');
+    const fb = document.createElement('p'); fb.className = 'bookmount__fallback muted';
+    fb.innerHTML = 'Trouble loading the calendar? <a class="link" href="' + (w.dataset.ibeUrl || '#') + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
+    w.innerHTML = ''; w.appendChild(el); w.appendChild(fb);
+    const s = document.createElement('script'); s.src = 'https://ibe.uphotel.agency/ibe.min.js'; document.body.appendChild(s);
+  }
+  function loadMap() {
+    const m = $('.map-embed[data-map-src]');
+    if (!m || m.dataset.loaded) return; m.dataset.loaded = '1';
+    const f = document.createElement('iframe'); f.title = 'Map — Do Step Inn Central, Südtiroler Platz 3, Vienna';
+    f.loading = 'lazy'; f.setAttribute('referrerpolicy', 'no-referrer'); f.src = m.dataset.mapSrc;
+    m.innerHTML = ''; m.appendChild(f);
+  }
+  function applyEmbedConsent() { if (fullConsent()) { loadBooking(); loadMap(); } }
+  $$('[data-load-booking]').forEach((b) => b.addEventListener('click', loadBooking));
+  $$('[data-load-map]').forEach((b) => b.addEventListener('click', loadMap));
+  applyEmbedConsent();
 
   /* ---------- Live Vienna weather — nav chip (every page) + the 24h section ---------- */
   {
