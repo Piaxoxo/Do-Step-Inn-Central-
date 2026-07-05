@@ -28,6 +28,7 @@
   --mint:#5FB894;
   --mint-deep:#3E8C6E;
   --focus:#2f7d63;
+  --bandita-pink:#EC0F63;
 
   --maxw:1240px;
   --gutter:clamp(1.25rem,5vw,4rem);
@@ -639,3 +640,21 @@ body.has-cursor a,body.has-cursor button{cursor:none}
   a{color:#000;border:0}
   .legal-hero{padding:1rem 0}
 }
+
+/* ---------- Nav live-weather chip (always visible) ---------- */
+.nav-weather{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);
+  font-size:.82rem;font-weight:500;color:var(--graphite);padding:.35rem .6rem;border-radius:100px;
+  white-space:nowrap;transition:background .25s}
+.nav-weather:hover{background:var(--concrete)}
+.nav-weather__dot{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--mint);animation:pulse 1.8s infinite}
+@media(max-width:420px){.nav-weather{padding:.3rem .4rem;font-size:.76rem}}
+
+/* ---------- Made by Bandita ---------- */
+.made-by{display:flex;align-items:center;justify-content:center;gap:.55rem;
+  padding:1.5rem var(--gutter) .2rem;color:var(--bandita-pink);transition:opacity .25s}
+.made-by:hover{opacity:.82}
+.made-by__label{font-family:var(--sans);font-size:.78rem;color:var(--steel);letter-spacing:.02em}
+.made-by__mark{display:inline-flex;color:var(--bandita-pink)}
+.made-by__name{font-family:var(--serif);font-weight:600;letter-spacing:.26em;color:var(--bandita-pink);font-size:.95rem;padding-left:.1rem}
+.made-by:hover .made-by__name{text-shadow:0 0 20px rgba(236,15,99,.55)}
+@media print{.nav-weather,.made-by{display:none!important}}

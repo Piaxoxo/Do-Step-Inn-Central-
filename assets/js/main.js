@@ -225,12 +225,8 @@
     }, 3500);
   });
 
-  /* ================= FIRST 24 HOURS — live weather + scroll journey ================= */
-  const vj = $('.vienna-journey-section');
-  if (vj) {
-    // --- Live Vienna weather (Open-Meteo, runs in the visitor's browser) ---
-    // A curated Vienna activity for every day — deterministic by date, filtered by weather,
-    // so the recommendation changes automatically each day.
+  /* ---------- Live Vienna weather — nav chip (every page) + the 24h section ---------- */
+  {
     const PICKS = {
       warm: ['Rent a bike along the Donaukanal', 'Swim at the Alte Donau', 'Picnic in the Stadtpark', 'Sunset from Kahlenberg', 'A long afternoon in a shady Gastgarten', 'Boat on the Neue Donau'],
       mild: ['Walk the Ring to Belvedere', 'Wander the MuseumsQuartier courtyards', 'Naschmarkt, then a slow stroll', 'A ride and a walk through the Prater', 'Rooftop view from Stephansdom', 'Coffee at Karlsplatz, then Karlskirche'],
@@ -238,40 +234,52 @@
       cold: ['Warm up in a proper Kaffeehaus', 'Schönbrunn halls and winter gardens', 'Hot chocolate and Sachertorte', 'Belvedere — Klimt, indoors', 'An afternoon at the Naturhistorisches Museum', 'A spa & sauna reset'],
     };
     const dayOfYear = () => { const n = new Date(); const s = new Date(n.getFullYear(), 0, 0); return Math.floor((n - s) / 86400000); };
-    const pickOfDay = (bucket) => { const a = PICKS[bucket] || PICKS.mild; return a[dayOfYear() % a.length]; };
-
-    const loadViennaWeather = async () => {
-      const tempEl = $('#weather-temp', vj);
-      const descEl = $('#weather-desc', vj);
-      const sugEl = $('#weather-suggestions', vj);
-      const pickEl = $('#weather-pick', vj);
-      if (!tempEl) return;
-      const render = (bucket, desc, sug) => {
-        descEl.textContent = desc;
-        sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
+    const pickOfDay = (b) => { const a = PICKS[b] || PICKS.mild; return a[dayOfYear() % a.length]; };
+    const icon = (code, isDay) => {
+      if (code === 0) return isDay ? '☀️' : '🌙';
+      if (code <= 3) return '⛅';
+      if (code === 45 || code === 48) return '🌫️';
+      if (code >= 51 && code <= 67) return '🌧️';
+      if (code >= 71 && code <= 77) return '🌨️';
+      if (code >= 80 && code <= 82) return '🌦️';
+      if (code >= 95) return '⛈️';
+      return '☁️';
+    };
+    const tempEl = $('#weather-temp'), descEl = $('#weather-desc'), sugEl = $('#weather-suggestions'), pickEl = $('#weather-pick'), navTemp = $('#nav-temp');
+    if (tempEl || navTemp) {
+      const paint = (bucket, desc, sug) => {
+        if (descEl) descEl.textContent = desc;
+        if (sugEl) sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
         if (pickEl) pickEl.textContent = pickOfDay(bucket);
       };
-      try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code,is_day&timezone=Europe%2FVienna');
-        const d = await res.json();
-        const temp = Math.round(d.current.temperature_2m);
-        const code = d.current.weather_code;
-        let bucket = 'mild', desc = 'Perfect on-foot weather for discovering Vienna.', sug = ['Belvedere', 'City walks', 'Outdoor cafés'];
-        if (code >= 51 && code <= 99) { bucket = 'rain'; desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
-        else if (temp >= 25) { bucket = 'warm'; desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
-        else if (temp >= 16) { bucket = 'mild'; desc = 'Perfect on-foot weather for discovering Vienna.'; sug = ['Belvedere', 'City walks', 'Outdoor cafés']; }
-        else if (temp < 8) { bucket = 'cold'; desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
-        tempEl.textContent = temp + '°';
-        if (!reduce) { tempEl.classList.remove('flip'); void tempEl.offsetWidth; tempEl.classList.add('flip'); }
-        render(bucket, desc, sug);
-      } catch (e) {
-        // Offline / API blocked: still give a real, date-driven recommendation.
-        tempEl.textContent = 'Vienna';
-        render('mild', 'Live weather is catching up — here’s a plan for today.', ['Belvedere', 'Cafés', 'City walks']);
-      }
-    };
-    loadViennaWeather();
+      (async () => {
+        try {
+          const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code,is_day&timezone=Europe%2FVienna');
+          const d = await res.json();
+          const temp = Math.round(d.current.temperature_2m);
+          const code = d.current.weather_code;
+          const isDay = d.current.is_day;
+          let bucket = 'mild', desc = 'Perfect on-foot weather for discovering Vienna.', sug = ['Belvedere', 'City walks', 'Outdoor cafés'];
+          if (code >= 51 && code <= 99) { bucket = 'rain'; desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
+          else if (temp >= 25) { bucket = 'warm'; desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
+          else if (temp >= 16) { bucket = 'mild'; }
+          else if (temp < 8) { bucket = 'cold'; desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
+          if (tempEl) { tempEl.textContent = temp + '°'; if (!reduce) { tempEl.classList.remove('flip'); void tempEl.offsetWidth; tempEl.classList.add('flip'); } }
+          if (navTemp) navTemp.textContent = `${icon(code, isDay)} ${temp}°`;
+          paint(bucket, desc, sug);
+        } catch (e) {
+          if (tempEl) tempEl.textContent = 'Vienna';
+          if (navTemp) navTemp.textContent = 'Vienna';
+          paint('mild', 'Live weather is catching up — here’s a plan for today.', ['Belvedere', 'Cafés', 'City walks']);
+        }
+      })();
+    }
+  }
 
+  /* ================= FIRST 24 HOURS — scroll journey ================= */
+  const vj = $('.vienna-journey-section');
+  if (vj) {
+    // --- Live Vienna weather (Open-Meteo, runs in the visitor's browser) ---
     // --- Live "this week in Vienna" feed (date-driven; swap in a real ICS/API later) ---
     const loadViennaEvents = () => {
       const el = $('#vienna-events', vj);
