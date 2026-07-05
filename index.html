@@ -340,7 +340,8 @@
         <p id="weather-desc">Checking the sky above the city.</p>
       </div>
       <div class="weather-suggestions">
-        <span class="mono">Perfect for</span>
+        <span class="mono">Today's pick</span>
+        <p id="weather-pick" class="weather-pick">Loading a plan for today…</p>
         <ul id="weather-suggestions">
           <li>Belvedere</li><li>Cafés</li><li>City walks</li>
         </ul>
@@ -419,9 +420,12 @@
       <!-- Native mount for the uphotel IBE engine -->
       <div id="ibe-widget" aria-live="polite">
         <ibe-up ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89" language="en"></ibe-up>
-        <p class="bookmount__fallback muted">Trouble loading the calendar?
-          <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
-             target="_blank" rel="noopener" data-cursor="book">Open the secure booking page →</a></p>
+        <div class="bookmount__fallback">
+          <p class="muted">Pick your dates on our secure booking page:</p>
+          <a class="btn btn--primary btn--full"
+             href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89"
+             target="_blank" rel="noopener" data-cursor="book">Open secure booking →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -444,7 +448,7 @@
       <a href="rooms.html">Rooms</a><a href="vienna.html">Vienna</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
     </nav>
   </div>
-  <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span>Vienna · Austria</span></div>
+  <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span><a href="imprint.html">Imprint</a> · <a href="legal-notes.html">Legal Notes</a> · <a href="terms.html">Terms</a></span></div>
 </footer>
 
 <!-- Persistent booking pill (mobile-first, thumb zone) -->

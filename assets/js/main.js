@@ -214,33 +214,60 @@
     window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
   }));
 
+  /* ---------- Booking engine health check (hide fallback only once it truly renders) ---------- */
+  window.addEventListener('load', () => {
+    const w = $('#ibe-widget');
+    if (!w) return;
+    window.setTimeout(() => {
+      const el = w.querySelector('ibe-up');
+      const rendered = !!customElements.get('ibe-up') && el && (el.shadowRoot || el.children.length > 0 || el.offsetHeight > 40);
+      w.classList.toggle('ibe-ok', !!rendered);
+    }, 3500);
+  });
+
   /* ================= FIRST 24 HOURS — live weather + scroll journey ================= */
   const vj = $('.vienna-journey-section');
   if (vj) {
     // --- Live Vienna weather (Open-Meteo, runs in the visitor's browser) ---
+    // A curated Vienna activity for every day — deterministic by date, filtered by weather,
+    // so the recommendation changes automatically each day.
+    const PICKS = {
+      warm: ['Rent a bike along the Donaukanal', 'Swim at the Alte Donau', 'Picnic in the Stadtpark', 'Sunset from Kahlenberg', 'A long afternoon in a shady Gastgarten', 'Boat on the Neue Donau'],
+      mild: ['Walk the Ring to Belvedere', 'Wander the MuseumsQuartier courtyards', 'Naschmarkt, then a slow stroll', 'A ride and a walk through the Prater', 'Rooftop view from Stephansdom', 'Coffee at Karlsplatz, then Karlskirche'],
+      rain: ['The Kunsthistorisches Museum', 'A classic Viennese coffee house', 'The Albertina and a melange', 'MQ galleries out of the rain', 'The indoor stalls at Naschmarkt', 'Time Travel Vienna, then Sachertorte'],
+      cold: ['Warm up in a proper Kaffeehaus', 'Schönbrunn halls and winter gardens', 'Hot chocolate and Sachertorte', 'Belvedere — Klimt, indoors', 'An afternoon at the Naturhistorisches Museum', 'A spa & sauna reset'],
+    };
+    const dayOfYear = () => { const n = new Date(); const s = new Date(n.getFullYear(), 0, 0); return Math.floor((n - s) / 86400000); };
+    const pickOfDay = (bucket) => { const a = PICKS[bucket] || PICKS.mild; return a[dayOfYear() % a.length]; };
+
     const loadViennaWeather = async () => {
       const tempEl = $('#weather-temp', vj);
       const descEl = $('#weather-desc', vj);
       const sugEl = $('#weather-suggestions', vj);
+      const pickEl = $('#weather-pick', vj);
       if (!tempEl) return;
+      const render = (bucket, desc, sug) => {
+        descEl.textContent = desc;
+        sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
+        if (pickEl) pickEl.textContent = pickOfDay(bucket);
+      };
       try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code,is_day&timezone=Europe%2FVienna');
         const d = await res.json();
         const temp = Math.round(d.current.temperature_2m);
         const code = d.current.weather_code;
-        let desc = 'A good day to explore Vienna.';
-        let sug = ['Belvedere', 'Cafés', 'City walks'];
-        if (code >= 51 && code <= 99) { desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
-        else if (temp >= 25) { desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
-        else if (temp >= 16) { desc = 'Perfect on-foot weather for discovering the city.'; sug = ['Belvedere', 'City walks', 'Outdoor cafés']; }
-        else if (temp < 8) { desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
+        let bucket = 'mild', desc = 'Perfect on-foot weather for discovering Vienna.', sug = ['Belvedere', 'City walks', 'Outdoor cafés'];
+        if (code >= 51 && code <= 99) { bucket = 'rain'; desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
+        else if (temp >= 25) { bucket = 'warm'; desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
+        else if (temp >= 16) { bucket = 'mild'; desc = 'Perfect on-foot weather for discovering Vienna.'; sug = ['Belvedere', 'City walks', 'Outdoor cafés']; }
+        else if (temp < 8) { bucket = 'cold'; desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
         tempEl.textContent = temp + '°';
         if (!reduce) { tempEl.classList.remove('flip'); void tempEl.offsetWidth; tempEl.classList.add('flip'); }
-        descEl.textContent = desc;
-        sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
+        render(bucket, desc, sug);
       } catch (e) {
+        // Offline / API blocked: still give a real, date-driven recommendation.
         tempEl.textContent = 'Vienna';
-        descEl.textContent = 'Check today’s mood and start your city story.';
+        render('mild', 'Live weather is catching up — here’s a plan for today.', ['Belvedere', 'Cafés', 'City walks']);
       }
     };
     loadViennaWeather();
@@ -322,5 +349,47 @@
       window.addEventListener('resize', () => { stopEls.forEach((c) => c.remove()); stopEls = []; len = 0; buildRoute(); drawJourney(); }, { passive: true });
       drawJourney();
     } else if (progPath) { progPath.style.strokeDashoffset = 0; }
+  }
+
+  /* ================= LEGAL PAGES ================= */
+  if (document.body.classList.contains('legal')) {
+    // Estimated reading time
+    const content = $('.legal-content');
+    const rt = $('#reading-time');
+    if (content && rt) {
+      const words = content.textContent.trim().split(/\s+/).length;
+      rt.textContent = Math.max(1, Math.round(words / 200)) + ' min read';
+    }
+    // Scrollspy TOC
+    const tocLinks = $$('.legal-toc a');
+    const sections = tocLinks.map((a) => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    if (sections.length && 'IntersectionObserver' in window) {
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const id = e.target.id;
+            tocLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+      sections.forEach((s) => spy.observe(s));
+    }
+    // Copy-link on each section heading
+    $$('.copylink').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.anchor;
+        const url = location.origin + location.pathname + '#' + id;
+        try { await navigator.clipboard.writeText(url); } catch (e) { /* ignore */ }
+        history.replaceState(null, '', '#' + id);
+        btn.classList.add('copied'); btn.setAttribute('aria-label', 'Link copied');
+        window.setTimeout(() => { btn.classList.remove('copied'); btn.setAttribute('aria-label', 'Copy link to section'); }, 1400);
+      });
+    });
+    // Back to top
+    const toTop = $('.to-top');
+    if (toTop) {
+      window.addEventListener('scroll', () => { toTop.classList.toggle('is-visible', window.scrollY > 700); }, { passive: true });
+      toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+    }
   }
 })();
