@@ -238,26 +238,10 @@
     window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
   }));
 
-  /* ---------- Consent-gated third-party embeds (booking + map) ----------
-     Nothing external loads until the visitor accepts ("Got it") or clicks the
-     explicit "Load …" button — keeping the default page third-party-free. */
+  /* ---------- Consent-gated map embed ----------
+     Booking is a plain link to the provider's own secure page (opens in a new tab),
+     so it loads no third party on our page. Only the map is an embedded third party. */
   const fullConsent = () => { try { return localStorage.getItem('dsi-cookie') === 'all'; } catch (e) { return false; } };
-  function loadBooking() {
-    const w = $('#ibe-widget');
-    if (!w || w.dataset.loaded) return; w.dataset.loaded = '1';
-    // Embed the booking flow from the provider's own domain (works even before the
-    // native <ibe-up> widget's domain whitelist is set up on uphotel's side).
-    const url = (w.dataset.ibeUrl || '') + '#/booking/search';
-    const frame = document.createElement('iframe');
-    frame.className = 'ibe-frame';
-    frame.title = 'Book your stay — Do Step Inn Central';
-    frame.src = url;
-    frame.loading = 'lazy';
-    frame.setAttribute('allow', 'payment');
-    const fb = document.createElement('p'); fb.className = 'bookmount__fallback muted';
-    fb.innerHTML = 'Calendar not showing? <a class="link" href="' + url + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
-    w.innerHTML = ''; w.appendChild(frame); w.appendChild(fb);
-  }
   function loadMap() {
     const m = $('.map-embed[data-map-src]');
     if (!m || m.dataset.loaded) return; m.dataset.loaded = '1';
@@ -265,8 +249,7 @@
     f.loading = 'lazy'; f.setAttribute('referrerpolicy', 'no-referrer'); f.src = m.dataset.mapSrc;
     m.innerHTML = ''; m.appendChild(f);
   }
-  function applyEmbedConsent() { if (fullConsent()) { loadBooking(); loadMap(); } }
-  $$('[data-load-booking]').forEach((b) => b.addEventListener('click', loadBooking));
+  function applyEmbedConsent() { if (fullConsent()) loadMap(); }
   $$('[data-load-map]').forEach((b) => b.addEventListener('click', loadMap));
   applyEmbedConsent();
 
@@ -313,9 +296,9 @@
           if (navTemp) navTemp.textContent = `${icon(code, isDay)} ${temp}°`;
           paint(bucket, desc, sug);
         } catch (e) {
-          if (tempEl) tempEl.textContent = 'Vienna';
+          if (tempEl) tempEl.textContent = '—°';
           if (navTemp) navTemp.textContent = 'Vienna';
-          paint('mild', 'Live weather is catching up — here’s a plan for today.', ['Belvedere', 'Cafés', 'City walks']);
+          paint('mild', 'A good day to explore Vienna — here’s today’s plan.', ['Belvedere', 'Cafés', 'City walks']);
         }
       })();
     }
