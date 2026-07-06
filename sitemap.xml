@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dostepinncentral.at/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://dostepinncentral.at/rooms</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dostepinncentral.at/vienna</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dostepinncentral.at/gallery</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dostepinncentral.at/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dostepinncentral.at/imprint</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dostepinncentral.at/legal-notes</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dostepinncentral.at/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dostepinncentral.at/cookies</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dostepinncentral.at/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

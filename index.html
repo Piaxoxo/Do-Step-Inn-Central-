@@ -6,11 +6,23 @@
 <title>Do Step Inn Central — Your first door in Vienna</title>
 <meta name="description" content="A stylish, independent hostel right above Vienna's Hauptbahnhof — 3 minutes from the platform to your bed. Pod beds, self-catering kitchen, contactless check-in. Your Vienna starts here." />
 <meta name="theme-color" content="#F6F3EE" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://dostepinncentral.at/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="business.business" />
+<meta property="og:site_name" content="Do Step Inn Central" />
+<meta property="og:url" content="https://dostepinncentral.at/" />
 <meta property="og:title" content="Do Step Inn Central — Your first door in Vienna" />
 <meta property="og:description" content="A stylish, independent hostel right above Vienna's Hauptbahnhof. Your Vienna starts here." />
+<meta property="og:image" content="https://dostepinncentral.at/assets/img/door-window.jpg" />
+<meta property="og:image:width" content="1300" />
+<meta property="og:image:height" content="975" />
+<meta property="og:image:alt" content="Do Step Inn Central lounge window looking onto Südtiroler Platz, Vienna" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Do Step Inn Central — Your first door in Vienna" />
+<meta name="twitter:description" content="A stylish, independent hostel right above Vienna's Hauptbahnhof. Your Vienna starts here." />
+<meta name="twitter:image" content="https://dostepinncentral.at/assets/img/door-window.jpg" />
 <meta property="og:locale" content="en" />
 <meta property="og:locale:alternate" content="de" />
 <meta property="og:locale:alternate" content="ko" />
@@ -19,10 +31,12 @@
 <meta property="og:locale:alternate" content="es" />
 <meta property="og:locale:alternate" content="it" />
 
-<!-- Fonts -->
-<link rel="stylesheet" href="assets/css/fonts.css?v=3" />
+<!-- Fonts: preload the two above-the-fold faces to cut first-paint latency -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-600-latin.woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/fonts.css?v=4" />
 
-<link rel="stylesheet" href="assets/css/style.css?v=3" />
+<link rel="stylesheet" href="assets/css/style.css?v=4" />
 
 <!-- SEO: structured data -->
 <script type="application/ld+json">
@@ -31,7 +45,10 @@
   "@type": "Hostel",
   "name": "Do Step Inn Central",
   "description": "A stylish, independent self-service hostel directly above Vienna's Hauptbahnhof.",
-  "image": "assets/logo/dostepinn-central.svg",
+  "image": "https://dostepinncentral.at/assets/img/door-window.jpg",
+  "url": "https://dostepinncentral.at/",
+  "telephone": "+43 1 890 23 51",
+  "email": "office@dostepinn.at",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Südtiroler Platz 3",
@@ -39,7 +56,15 @@
     "addressLocality": "Vienna",
     "addressCountry": "AT"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 48.1847,
+    "longitude": 16.3756
+  },
   "priceRange": "€",
+  "currenciesAccepted": "EUR",
+  "checkinTime": "00:00",
+  "checkoutTime": "10:00",
   "amenityFeature": [
     {"@type":"LocationFeatureSpecification","name":"Free WiFi","value":true},
     {"@type":"LocationFeatureSpecification","name":"Self-catering kitchen","value":true},
@@ -102,6 +127,7 @@
   <a href="gallery.html">Gallery</a>
   <a href="contact.html">Contact</a>
   <a href="#book" class="mm-book" data-open-booking>Check availability</a>
+  <a href="tel:+4318902351" class="mm-call" data-cursor="link">📞 Call +43 1 890 23 51</a>
 </nav>
 
 <main id="main">
@@ -404,13 +430,19 @@
 
 <!-- ============ CHAPTER 9 — BOOK ============ -->
 <section class="chapter book" id="book" data-chapter="9" data-theme-trigger="book">
-  <div class="wrap grid-2">
-    <div>
-      <p class="kicker reveal" data-reveal>Chapter 9 — Begin</p>
-      <h2 class="display reveal" data-reveal>Book your<br/>adventure.</h2>
+  <div class="wrap">
+    <div class="book-head">
+      <div>
+        <p class="kicker reveal" data-reveal>Chapter 9 — Begin</p>
+        <h2 class="display reveal" data-reveal>Book your<br/>adventure.</h2>
+      </div>
       <div class="reassure reveal" data-reveal>
         <p><b>Do Step Inn Central</b><br/>Südtiroler Platz 3, 1040 Vienna, Austria</p>
         <p class="muted">Directly above Wien Hauptbahnhof · U1 Südtiroler Platz. Contactless check-in — your code arrives with your booking.</p>
+        <div class="book-actions">
+          <a class="btn btn--primary" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">Book now →</a>
+          <a class="btn btn--ghost" href="tel:+4318902351" data-cursor="link">📞 Call +43 1 890 23 51</a>
+        </div>
       </div>
     </div>
     <div class="bookmount card">
@@ -439,7 +471,9 @@
     </div>
     <address class="footer__contact">
       Südtiroler Platz 3<br/>1040 Vienna, Austria<br/>
-      <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89" target="_blank" rel="noopener">Book a bed</a>
+      <a class="link" href="tel:+4318902351">+43 1 890 23 51</a><br/>
+      <a class="link" href="mailto:office@dostepinn.at">office@dostepinn.at</a><br/>
+      <a class="link" href="#book" data-open-booking data-cursor="book">Book a bed →</a>
     </address>
     <nav class="footer__nav" aria-label="Footer">
       <a href="rooms.html">Rooms</a><a href="vienna.html">Vienna</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
@@ -459,6 +493,6 @@
 </button>
 
 <!-- uphotel IBE engine is loaded on demand (after consent) by main.js -->
-<script src="assets/js/main.js?v=3" defer></script>
+<script src="assets/js/main.js?v=4" defer></script>
 </body>
 </html>
