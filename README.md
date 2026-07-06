@@ -1,5 +1,9 @@
 # Do Step Inn Central — Homepage
 
+**🔗 Live:** https://do-step-inn-central.vercel.app
+Branch preview: https://do-step-inn-central-git-claude-dostepinn-homepag-167a38-bandita.vercel.app
+Auto-deploys from branch `claude/dostepinn-homepage-strategy-r9krog` via Vercel.
+
 An immersive, scroll-driven homepage for the Vienna hostel **Do Step Inn Central**
 (Südtiroler Platz 3, 1040 Vienna — directly above the Hauptbahnhof).
 
