@@ -685,3 +685,7 @@ body.has-cursor a,body.has-cursor button{cursor:none}
 .map-embed .embed-gate{align-items:center;text-align:center}
 .map-embed .embed-gate .btn{align-self:center}
 .embed-gate .muted{margin:0}
+
+/* ---------- Inline booking iframe ---------- */
+.ibe-frame{width:100%;min-height:760px;border:0;border-radius:12px;background:#fff;display:block}
+@media(max-width:700px){.ibe-frame{min-height:640px}}

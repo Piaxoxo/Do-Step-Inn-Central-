@@ -245,12 +245,18 @@
   function loadBooking() {
     const w = $('#ibe-widget');
     if (!w || w.dataset.loaded) return; w.dataset.loaded = '1';
-    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = 'https://ibe.uphotel.agency/ibe.min.css'; document.head.appendChild(link);
-    const el = document.createElement('ibe-up'); el.setAttribute('ibe-key', w.dataset.ibeKey || ''); el.setAttribute('language', 'en');
+    // Embed the booking flow from the provider's own domain (works even before the
+    // native <ibe-up> widget's domain whitelist is set up on uphotel's side).
+    const url = (w.dataset.ibeUrl || '') + '#/booking/search';
+    const frame = document.createElement('iframe');
+    frame.className = 'ibe-frame';
+    frame.title = 'Book your stay — Do Step Inn Central';
+    frame.src = url;
+    frame.loading = 'lazy';
+    frame.setAttribute('allow', 'payment');
     const fb = document.createElement('p'); fb.className = 'bookmount__fallback muted';
-    fb.innerHTML = 'Trouble loading the calendar? <a class="link" href="' + (w.dataset.ibeUrl || '#') + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
-    w.innerHTML = ''; w.appendChild(el); w.appendChild(fb);
-    const s = document.createElement('script'); s.src = 'https://ibe.uphotel.agency/ibe.min.js'; document.body.appendChild(s);
+    fb.innerHTML = 'Calendar not showing? <a class="link" href="' + url + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
+    w.innerHTML = ''; w.appendChild(frame); w.appendChild(fb);
   }
   function loadMap() {
     const m = $('.map-embed[data-map-src]');
