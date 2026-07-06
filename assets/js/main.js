@@ -238,10 +238,21 @@
     window.setTimeout(() => bookHeading?.focus({ preventScroll: true }), reduce ? 0 : 600);
   }));
 
-  /* ---------- Consent-gated map embed ----------
-     Booking is a plain link to the provider's own secure page (opens in a new tab),
-     so it loads no third party on our page. Only the map is an embedded third party. */
+  /* ---------- Consent-gated third-party embeds (booking + map) ----------
+     Nothing external loads until the visitor accepts ("Got it") or clicks the
+     explicit "Load …" button. The uphotel domain whitelist is set, so the native
+     <ibe-up> calendar renders inline once loaded. */
   const fullConsent = () => { try { return localStorage.getItem('dsi-cookie') === 'all'; } catch (e) { return false; } };
+  function loadBooking() {
+    const w = $('#ibe-widget');
+    if (!w || w.dataset.loaded) return; w.dataset.loaded = '1';
+    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = 'https://ibe.uphotel.agency/ibe.min.css'; document.head.appendChild(link);
+    const el = document.createElement('ibe-up'); el.setAttribute('ibe-key', w.dataset.ibeKey || ''); el.setAttribute('language', 'en');
+    const fb = document.createElement('p'); fb.className = 'bookmount__fallback muted';
+    fb.innerHTML = 'Trouble loading the calendar? <a class="link" href="' + (w.dataset.ibeUrl || '#') + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
+    w.innerHTML = ''; w.appendChild(el); w.appendChild(fb);
+    const s = document.createElement('script'); s.src = 'https://ibe.uphotel.agency/ibe.min.js'; document.body.appendChild(s);
+  }
   function loadMap() {
     const m = $('.map-embed[data-map-src]');
     if (!m || m.dataset.loaded) return; m.dataset.loaded = '1';
@@ -249,7 +260,8 @@
     f.loading = 'lazy'; f.setAttribute('referrerpolicy', 'no-referrer'); f.src = m.dataset.mapSrc;
     m.innerHTML = ''; m.appendChild(f);
   }
-  function applyEmbedConsent() { if (fullConsent()) loadMap(); }
+  function applyEmbedConsent() { if (fullConsent()) { loadBooking(); loadMap(); } }
+  $$('[data-load-booking]').forEach((b) => b.addEventListener('click', loadBooking));
   $$('[data-load-map]').forEach((b) => b.addEventListener('click', loadMap));
   applyEmbedConsent();
 

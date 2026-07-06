@@ -415,9 +415,14 @@
     </div>
     <div class="bookmount card">
       <h3 id="book-heading" tabindex="-1">Check availability</h3>
-      <div id="ibe-widget" aria-live="polite">
-        <p class="muted" style="margin:0 0 1.3rem">Check live availability and book securely — three minutes from the platform to your bed.</p>
-        <a class="btn btn--primary btn--full" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">Check dates &amp; book →</a>
+      <div id="ibe-widget" aria-live="polite"
+           data-ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89"
+           data-ibe-url="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search">
+        <div class="embed-gate">
+          <p class="muted">The live booking calendar loads from our booking provider (uphotel) and may set cookies.</p>
+          <button class="btn btn--primary btn--full" type="button" data-load-booking data-cursor="book">Load booking calendar</button>
+          <p class="bookmount__fallback muted">Or <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">open the secure booking page →</a></p>
+        </div>
       </div>
     </div>
   </div>
