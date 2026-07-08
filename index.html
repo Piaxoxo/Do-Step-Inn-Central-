@@ -34,9 +34,9 @@
 <!-- Fonts: preload the two above-the-fold faces to cut first-paint latency -->
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-latin.woff2" crossorigin />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-600-latin.woff2" crossorigin />
-<link rel="stylesheet" href="assets/css/fonts.css?v=4" />
+<link rel="stylesheet" href="assets/css/fonts.css?v=5" />
 
-<link rel="stylesheet" href="assets/css/style.css?v=4" />
+<link rel="stylesheet" href="assets/css/style.css?v=5" />
 
 <!-- SEO: structured data -->
 <script type="application/ld+json">
@@ -81,7 +81,7 @@
 
 <body data-theme="arrival">
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a data-i18n="skip" class="skip-link" href="#main">Skip to content</a>
 
 <!-- Custom cursor (desktop, motion-safe) -->
 <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
@@ -95,39 +95,39 @@
     <img src="assets/logo/dostepinn-central.svg" alt="Do Step Inn Central" width="147" height="47" />
   </a>
   <nav class="topbar__nav" aria-label="Primary">
-    <a href="rooms.html" data-cursor="link">Rooms</a>
-    <a href="vienna.html" data-cursor="link">Vienna</a>
-    <a href="gallery.html" data-cursor="link">Gallery</a>
-    <a href="contact.html" data-cursor="link">Contact</a>
+    <a data-i18n="nav_rooms" href="rooms.html" data-cursor="link">Rooms</a>
+    <a data-i18n="nav_vienna" href="vienna.html" data-cursor="link">Vienna</a>
+    <a data-i18n="nav_gallery" href="gallery.html" data-cursor="link">Gallery</a>
+    <a data-i18n="nav_contact" href="contact.html" data-cursor="link">Contact</a>
   </nav>
   <div class="topbar__actions">
     <a class="nav-weather" href="#firstday" aria-label="Live weather in Vienna" title="Live weather in Vienna" data-cursor="link"><span class="nav-weather__dot"></span><span id="nav-temp">Vienna</span></a>
     <div class="lang" role="group" aria-label="Language">
       <button class="lang__btn" aria-haspopup="listbox" aria-expanded="false" data-cursor="link">
-        <span aria-hidden="true">🌐</span> EN
+        <span aria-hidden="true">🌐</span> <span class="lang__code">EN</span>
       </button>
       <ul class="lang__menu" role="listbox" hidden>
-        <li role="option" aria-selected="true">English</li>
-        <li role="option">Deutsch</li>
-        <li role="option">한국어</li>
-        <li role="option">日本語</li>
-        <li role="option">ไทย</li>
-        <li role="option">Español</li>
-        <li role="option">Italiano</li>
+        <li role="option" data-lang="en" aria-selected="true">English</li>
+        <li role="option" data-lang="de">Deutsch</li>
+        <li role="option" data-lang="ko">한국어</li>
+        <li role="option" data-lang="ja">日本語</li>
+        <li role="option" data-lang="th">ไทย</li>
+        <li role="option" data-lang="es">Español</li>
+        <li role="option" data-lang="it">Italiano</li>
       </ul>
     </div>
-    <button class="btn btn--book" data-open-booking data-cursor="book">Check availability</button>
+    <button data-i18n="vienna_end_cta1" class="btn btn--book" data-open-booking data-cursor="book">Check availability</button>
     <button class="menu-toggle" aria-label="Menu" aria-controls="mobilemenu" aria-expanded="false"><span></span></button>
   </div>
 </header>
 
 <nav class="mobilemenu" id="mobilemenu" aria-label="Mobile navigation" hidden>
-  <a href="rooms.html">Rooms</a>
-  <a href="vienna.html">Vienna</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="contact.html">Contact</a>
-  <a href="#book" class="mm-book" data-open-booking>Check availability</a>
-  <a href="tel:+4318902351" class="mm-call" data-cursor="link">📞 Call +43 1 890 23 51</a>
+  <a data-i18n="nav_rooms" href="rooms.html">Rooms</a>
+  <a data-i18n="nav_vienna" href="vienna.html">Vienna</a>
+  <a data-i18n="nav_gallery" href="gallery.html">Gallery</a>
+  <a data-i18n="nav_contact" href="contact.html">Contact</a>
+  <a data-i18n="vienna_end_cta1" href="#book" class="mm-book" data-open-booking>Check availability</a>
+  <a data-i18n="cta_call" href="tel:+4318902351" class="mm-call" data-cursor="link">📞 Call +43 1 890 23 51</a>
 </nav>
 
 <main id="main">
@@ -143,23 +143,23 @@
   </div>
 
   <div class="hero__inner">
-    <p class="hero__eyebrow reveal" data-reveal>Südtiroler Platz · above the Hauptbahnhof</p>
-    <h1 class="hero__title">
-      <span class="line"><span class="word">Vienna</span></span>
+    <p data-i18n="hero_eyebrow" class="hero__eyebrow reveal" data-reveal>Südtiroler Platz · above the Hauptbahnhof</p>
+    <h1 class="hero__title" id="heroTitle">
+      <span class="line"><span data-i18n="nav_vienna" class="word">Vienna</span></span>
       <span class="line"><span class="word">starts</span> <span class="word">here.</span></span>
     </h1>
-    <p class="hero__sub reveal" data-reveal>
+    <p class="hero__sub reveal" data-reveal data-i18n="hero_sub">
       Drop your bag. The city is already outside — three minutes from the platform to your bed.
     </p>
     <div class="hero__cta reveal" data-reveal>
-      <button class="btn btn--primary" data-open-booking data-cursor="book">Check dates</button>
-      <a class="btn btn--ghost" href="#thedoor" data-cursor="link">Take me inside</a>
+      <button data-i18n="hero_cta1" class="btn btn--primary" data-open-booking data-cursor="book">Check dates</button>
+      <a data-i18n="hero_cta2" class="btn btn--ghost" href="#thedoor" data-cursor="link">Take me inside</a>
     </div>
   </div>
 
   <a href="#thedoor" class="scrollcue" aria-label="Scroll to arrive">
     <span class="scrollcue__dot"></span>
-    <span class="scrollcue__txt">scroll to arrive</span>
+    <span data-i18n="scrollcue" class="scrollcue__txt">scroll to arrive</span>
   </a>
 </section>
 
@@ -167,16 +167,16 @@
 <section class="chapter thedoor" id="thedoor" data-chapter="2" data-theme-trigger="door">
   <div class="wrap grid-2">
     <div class="thedoor__lead">
-      <p class="kicker reveal" data-reveal>Chapter 2 — The door</p>
-      <h2 class="display reveal" data-reveal>It's right<br/>here.</h2>
-      <p class="lede reveal" data-reveal>
+      <p data-i18n="ch2_kicker" class="kicker reveal" data-reveal>Chapter 2 — The door</p>
+      <h2 data-i18n="ch2_h" class="display reveal" data-reveal>It's right<br/>here.</h2>
+      <p class="lede reveal" data-reveal data-i18n="ch2_lede">
         You don't hunt for us. Step off the train, up to Südtiroler Platz, and you're home.
         No taxi, no metro, no getting lost with a backpack.
       </p>
       <div class="bignum" aria-hidden="true">
         <span class="bignum__value" data-count="3">0</span><span class="bignum__unit">min</span>
       </div>
-      <p class="bignum__cap reveal" data-reveal>from the platform to your bed</p>
+      <p data-i18n="ch2_bignumcap" class="bignum__cap reveal" data-reveal>from the platform to your bed</p>
     </div>
 
     <div class="thedoor__aside">
@@ -185,7 +185,7 @@
           <source type="image/webp" srcset="assets/img/door-window.webp" />
           <img src="assets/img/door-window.jpg" alt="Floor-to-ceiling lounge window looking out onto Südtiroler Platz and the park" loading="lazy" width="1300" height="975" />
         </picture>
-        <span class="media__tag">Right on Südtiroler Platz</span>
+        <span data-i18n="ch2_tag_window" class="media__tag">Right on Südtiroler Platz</span>
       </figure>
       <div class="checkin card reveal" data-reveal>
         <figure class="card__media" data-cursor="view">
@@ -193,10 +193,10 @@
             <source type="image/webp" srcset="assets/img/checkin.webp" />
             <img src="assets/img/checkin.jpg" alt="Hostel corridor with keypad-locked room doors" loading="lazy" width="1000" height="750" />
           </picture>
-          <span class="media__tag">Your keypad · your code</span>
+          <span data-i18n="ch2_tag_keypad" class="media__tag">Your keypad · your code</span>
         </figure>
-        <h3>Contactless check-in</h3>
-        <p class="muted">Your code, your time. Arrive at 6am or midnight — the city never made you wait, and neither do we.</p>
+        <h3 data-i18n="ch2_checkin_h">Contactless check-in</h3>
+        <p data-i18n="ch2_checkin_p" class="muted">Your code, your time. Arrive at 6am or midnight — the city never made you wait, and neither do we.</p>
         <ol class="steps">
           <li><span>1</span> Book online</li>
           <li><span>2</span> Get your door &amp; bed code</li>
@@ -216,9 +216,9 @@
     <div class="community__scrim"></div>
   </div>
   <div class="wrap community__inner">
-    <p class="kicker light reveal" data-reveal>Chapter 3 — Community</p>
-    <h2 class="display xl light reveal" data-reveal>Arrive a stranger.<br/>Leave with a route.</h2>
-    <p class="lede light reveal" data-reveal>
+    <p data-i18n="ch3_kicker" class="kicker light reveal" data-reveal>Chapter 3 — Community</p>
+    <h2 data-i18n="ch3_h" class="display xl light reveal" data-reveal>Arrive a stranger.<br/>Leave with a route.</h2>
+    <p class="lede light reveal" data-reveal data-i18n="ch3_lede">
       A suitcase-stacked reception, a pallet-wood bar, a kitchen that smells of everyone's dinner.
       This is the part of travelling you actually remember.
     </p>
@@ -229,8 +229,8 @@
 <section class="chapter rooms" id="rooms" data-chapter="4" data-theme-trigger="rooms">
   <div class="wrap">
     <header class="section-head">
-      <p class="kicker reveal" data-reveal>Chapter 4 — Rooms</p>
-      <h2 class="display reveal" data-reveal>Where you'll sleep.</h2>
+      <p data-i18n="ch4_kicker" class="kicker reveal" data-reveal>Chapter 4 — Rooms</p>
+      <h2 data-i18n="ch4_h" class="display reveal" data-reveal>Where you'll sleep.</h2>
     </header>
     <div class="cards">
       <article class="roomcard" data-cursor="view" data-tilt>
@@ -239,12 +239,12 @@
             <source type="image/webp" srcset="assets/img/room-pod.webp" />
             <img src="assets/img/room-pod.jpg" alt="Wooden pod beds with individual keypad locks and a bright window seat" loading="lazy" width="1200" height="900" />
           </picture>
-          <span class="media__tag">Pod dorm · keypad lock</span>
+          <span data-i18n="ch4_pod_tag" class="media__tag">Pod dorm · keypad lock</span>
         </div>
         <div class="roomcard__body">
-          <h3>The Pod Bed</h3>
-          <p>4–6 sharing, but the bed is all yours: solid wood, a curtain that actually closes, your own light, socket and a private keypad lock.</p>
-          <ul class="chips"><li>Lockable pod</li><li>Reading light</li><li>Under-bed storage</li></ul>
+          <h3 data-i18n="ch4_pod_h">The Pod Bed</h3>
+          <p data-i18n="ch4_pod_p">4–6 sharing, but the bed is all yours: solid wood, a curtain that actually closes, your own light, socket and a private keypad lock.</p>
+          <ul class="chips"><li data-i18n="ch4_pod_c1">Lockable pod</li><li data-i18n="ch4_pod_c2">Reading light</li><li data-i18n="ch4_pod_c3">Under-bed storage</li></ul>
         </div>
       </article>
       <article class="roomcard" data-cursor="view" data-tilt>
@@ -253,17 +253,17 @@
             <source type="image/webp" srcset="assets/img/room-private.webp" />
             <img src="assets/img/room-private.jpg" alt="Private room with a made double bed, desk and window" loading="lazy" width="1200" height="900" />
           </picture>
-          <span class="media__tag">Private room</span>
+          <span data-i18n="ch4_priv_tag" class="media__tag">Private room</span>
         </div>
         <div class="roomcard__body">
-          <h3>The Private Room</h3>
-          <p>Your own door, a desk by the window and the trees outside — hostel prices, a little more quiet. Shared bathrooms, spotless.</p>
-          <ul class="chips"><li>Desk &amp; window</li><li>Work-ready WiFi</li><li>Shared bath</li></ul>
+          <h3 data-i18n="ch4_priv_h">The Private Room</h3>
+          <p data-i18n="ch4_priv_p">Your own door, a desk by the window and the trees outside — hostel prices, a little more quiet. Shared bathrooms, spotless.</p>
+          <ul class="chips"><li data-i18n="ch4_priv_c1">Desk &amp; window</li><li data-i18n="ch4_priv_c2">Work-ready WiFi</li><li data-i18n="ch4_priv_c3">Shared bath</li></ul>
         </div>
       </article>
     </div>
     <div class="center reveal" data-reveal>
-      <button class="btn btn--primary" data-open-booking data-cursor="book">See dates &amp; prices</button>
+      <button data-i18n="ch4_cta" class="btn btn--primary" data-open-booking data-cursor="book">See dates &amp; prices</button>
     </div>
   </div>
 </section>
@@ -272,30 +272,30 @@
 <section class="chapter shared" id="shared" data-chapter="5" data-theme-trigger="shared">
   <div class="wrap">
     <header class="section-head">
-      <p class="kicker reveal" data-reveal>Chapter 5 — Shared spaces</p>
-      <h2 class="display reveal" data-reveal>Where you'll<br/>actually live.</h2>
+      <p data-i18n="ch5_kicker" class="kicker reveal" data-reveal>Chapter 5 — Shared spaces</p>
+      <h2 data-i18n="ch5_h" class="display reveal" data-reveal>Where you'll<br/>actually live.</h2>
     </header>
     <div class="shared-strip reveal" data-reveal>
       <figure class="media" data-cursor="view">
         <picture><source type="image/webp" srcset="assets/img/kitchen.webp" /><img src="assets/img/kitchen.jpg" alt="Communal self-catering kitchen with herb-print wall and recycling station" loading="lazy" width="1000" height="750" /></picture>
-        <span class="media__tag">Kitchen</span>
+        <span data-i18n="ch5_tag_kitchen" class="media__tag">Kitchen</span>
       </figure>
       <figure class="media" data-cursor="view">
         <picture><source type="image/webp" srcset="assets/img/lounge.webp" /><img src="assets/img/lounge.jpg" alt="Pallet-wood lounge with cushions and the suitcase reception behind" loading="lazy" width="1000" height="750" /></picture>
-        <span class="media__tag">Lounge</span>
+        <span data-i18n="ch5_tag_lounge" class="media__tag">Lounge</span>
       </figure>
       <figure class="media" data-cursor="view">
         <picture><source type="image/webp" srcset="assets/img/bathroom.webp" /><img src="assets/img/bathroom.jpg" alt="Clean, modern shared bathroom with showers and sinks" loading="lazy" width="1000" height="750" /></picture>
-        <span class="media__tag">Spotless bathrooms</span>
+        <span data-i18n="ch5_tag_bath" class="media__tag">Spotless bathrooms</span>
       </figure>
     </div>
     <ul class="amenities">
-      <li class="reveal" data-reveal data-cursor="view"><b>Self-catering kitchen</b><span>Cook together. Big fridge, real pans, herb-print walls.</span></li>
-      <li class="reveal" data-reveal data-cursor="view"><b>The lounge</b><span>Pallet sofas, denim stools, big windows onto the square.</span></li>
-      <li class="reveal" data-reveal data-cursor="view"><b>Luggage storage</b><span>Drop bags before check-in, grab them after check-out.</span></li>
-      <li class="reveal" data-reveal data-cursor="view"><b>24h security</b><span>Full-day security and lockable pods. Sleep easy.</span></li>
-      <li class="reveal" data-reveal data-cursor="view"><b>Free WiFi</b><span>Fast enough to work, upload and plan tomorrow.</span></li>
-      <li class="reveal" data-reveal data-cursor="view"><b>Housekeeping</b><span>Clean is the thing guests mention most. We keep it that way.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a1_b">Self-catering kitchen</b><span data-i18n="ch5_a1_s">Cook together. Big fridge, real pans, herb-print walls.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a2_b">The lounge</b><span data-i18n="ch5_a2_s">Pallet sofas, denim stools, big windows onto the square.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a3_b">Luggage storage</b><span data-i18n="ch5_a3_s">Drop bags before check-in, grab them after check-out.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a4_b">24h security</b><span data-i18n="ch5_a4_s">Full-day security and lockable pods. Sleep easy.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a5_b">Free WiFi</b><span data-i18n="ch5_a5_s">Fast enough to work, upload and plan tomorrow.</span></li>
+      <li class="reveal" data-reveal data-cursor="view"><b data-i18n="ch5_a6_b">Housekeeping</b><span data-i18n="ch5_a6_s">Clean is the thing guests mention most. We keep it that way.</span></li>
     </ul>
   </div>
 </section>
@@ -304,25 +304,25 @@
 <section class="chapter why" id="why" data-chapter="6" data-theme-trigger="why">
   <div class="wrap">
     <header class="section-head">
-      <p class="kicker reveal" data-reveal>Chapter 6 — Why stay here</p>
-      <h2 class="display reveal" data-reveal>The quiet proof.</h2>
+      <p data-i18n="ch6_kicker" class="kicker reveal" data-reveal>Chapter 6 — Why stay here</p>
+      <h2 data-i18n="ch6_h" class="display reveal" data-reveal>The quiet proof.</h2>
     </header>
     <div class="stats">
-      <div class="stat reveal" data-reveal><span class="stat__num" data-count="8.9" data-decimals="1">0</span><span class="stat__lbl">Location score</span></div>
-      <div class="stat reveal" data-reveal><span class="stat__num" data-count="3" data-suffix=" min">0</span><span class="stat__lbl">To the Hauptbahnhof</span></div>
-      <div class="stat reveal" data-reveal><span class="stat__num" data-count="1" data-suffix=" stop">0</span><span class="stat__lbl">To the old town (U1)</span></div>
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="8.9" data-decimals="1">0</span><span data-i18n="ch6_stat1" class="stat__lbl">Location score</span></div>
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="3" data-suffix=" min">0</span><span data-i18n="ch6_stat2" class="stat__lbl">To the Hauptbahnhof</span></div>
+      <div class="stat reveal" data-reveal><span class="stat__num" data-count="1" data-suffix=" stop">0</span><span data-i18n="ch6_stat3" class="stat__lbl">To the old town (U1)</span></div>
     </div>
     <div class="why-grid">
       <blockquote class="quote reveal" data-reveal>
-        <p>“Spotless, the pod beds are genius, and you literally step out of the station into it.”</p>
-        <cite>— a recent guest</cite>
+        <p data-i18n="ch6_quote">“Spotless, the pod beds are genius, and you literally step out of the station into it.”</p>
+        <cite data-i18n="ch6_cite">— a recent guest</cite>
       </blockquote>
       <figure class="media reveal" data-reveal data-parallax="0.06" data-cursor="view">
         <picture>
           <source type="image/webp" srcset="assets/img/why-proof.webp" />
           <img src="assets/img/why-proof.jpg" alt="Bright, tidy pod dorm with a large window onto the tree-lined street" loading="lazy" width="1200" height="900" />
         </picture>
-        <span class="media__tag">Bright, tidy, spotless</span>
+        <span data-i18n="ch6_tag" class="media__tag">Bright, tidy, spotless</span>
       </figure>
     </div>
   </div>
@@ -332,18 +332,18 @@
 <section class="chapter vienna" id="vienna" data-chapter="7" data-theme-trigger="vienna">
   <div class="wrap">
     <header class="section-head">
-      <p class="kicker reveal" data-reveal>Chapter 7 — Vienna</p>
-      <h2 class="display reveal" data-reveal>Step outside.</h2>
-      <p class="lede reveal" data-reveal>The city is an extension of the hostel. Most of it, you can walk to.</p>
+      <p data-i18n="ch7_kicker" class="kicker reveal" data-reveal>Chapter 7 — Vienna</p>
+      <h2 data-i18n="ch7_h" class="display reveal" data-reveal>Step outside.</h2>
+      <p data-i18n="ch7_lede" class="lede reveal" data-reveal>The city is an extension of the hostel. Most of it, you can walk to.</p>
     </header>
     <ul class="places">
-      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span class="place__d">~10 min walk</span><b>Belvedere Palace</b></li>
-      <li class="place reveal" data-reveal data-parallax="0.09" data-cursor="view"><span class="place__d">1 stop</span><b>Naschmarkt</b></li>
-      <li class="place reveal" data-reveal data-parallax="0.12" data-cursor="view"><span class="place__d">U1 · a few minutes</span><b>Stephansplatz &amp; the Ring</b></li>
-      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span class="place__d">on your doorstep</span><b>Wieden cafés</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span data-i18n="ch7_p1_d" class="place__d">~10 min walk</span><b data-i18n="ch7_p1_b">Belvedere Palace</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.09" data-cursor="view"><span data-i18n="ch7_p2_d" class="place__d">1 stop</span><b data-i18n="ch7_p2_b">Naschmarkt</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.12" data-cursor="view"><span data-i18n="ch7_p3_d" class="place__d">U1 · a few minutes</span><b data-i18n="ch7_p3_b">Stephansplatz &amp; the Ring</b></li>
+      <li class="place reveal" data-reveal data-parallax="0.06" data-cursor="view"><span data-i18n="ch7_p4_d" class="place__d">on your doorstep</span><b data-i18n="ch7_p4_b">Wieden cafés</b></li>
     </ul>
     <div class="center reveal" data-reveal>
-      <button class="btn btn--primary" data-open-booking data-cursor="book">Ready when you are</button>
+      <button data-i18n="ch7_cta" class="btn btn--primary" data-open-booking data-cursor="book">Ready when you are</button>
     </div>
   </div>
 </section>
@@ -352,23 +352,23 @@
 <section class="vienna-journey-section" id="firstday" data-chapter="8" data-theme-trigger="vienna">
   <div class="wrap">
     <header class="journey-header">
-      <span class="eyebrow mono"><span class="live-dot"></span> Live from Vienna</span>
-      <h2 class="display reveal" data-reveal>Your first 24 hours<br />in Vienna</h2>
-      <p class="lede reveal" data-reveal>The moment your train pulls in, the trip has already started. Drop your bag, step outside, and let the city set the pace.</p>
+      <span class="eyebrow mono"><span class="live-dot"></span> <span data-i18n="j_eyebrow_live">Live from Vienna</span></span>
+      <h2 data-i18n="j_h" class="display reveal" data-reveal>Your first 24 hours<br />in Vienna</h2>
+      <p data-i18n="j_lede" class="lede reveal" data-reveal>The moment your train pulls in, the trip has already started. Drop your bag, step outside, and let the city set the pace.</p>
     </header>
 
     <!-- Live station-board weather -->
     <div class="vienna-live-card reveal" data-reveal role="group" aria-label="Live weather in Vienna">
       <div class="live-now">
-        <span class="live-label mono">Today in Vienna</span>
+        <span data-i18n="j_live_label" class="live-label mono">Today in Vienna</span>
         <h3 id="weather-temp" class="mono" aria-live="polite">—°</h3>
-        <p id="weather-desc">Checking the sky above the city.</p>
+        <p data-i18n="j_weather_desc_init" id="weather-desc">Checking the sky above the city.</p>
       </div>
       <div class="weather-suggestions">
-        <span class="mono">Today's pick</span>
-        <p id="weather-pick" class="weather-pick">Loading a plan for today…</p>
+        <span data-i18n="j_pick_label" class="mono">Today's pick</span>
+        <p data-i18n="j_pick_init" id="weather-pick" class="weather-pick">Loading a plan for today…</p>
         <ul id="weather-suggestions">
-          <li>Belvedere</li><li>Cafés</li><li>City walks</li>
+          <li data-i18n="j_sug1">Belvedere</li><li data-i18n="j_sug2">Cafés</li><li data-i18n="j_sug3">City walks</li>
         </ul>
       </div>
     </div>
@@ -377,8 +377,8 @@
       <!-- Sticky night map with the animated Vienna route -->
       <aside class="journey-map" aria-hidden="true">
         <div class="map-grid"></div>
-        <span class="map-label map-label--top mono">08:30 · Hauptbahnhof</span>
-        <span class="map-label map-label--bot mono">22:00 · Your story</span>
+        <span data-i18n="j_map_top" class="map-label map-label--top mono">08:30 · Hauptbahnhof</span>
+        <span data-i18n="j_map_bot" class="map-label map-label--bot mono">22:00 · Your story</span>
         <svg class="map-route" viewBox="0 0 44 62" preserveAspectRatio="xMidYMid slice">
           <defs>
             <linearGradient id="v24grad" x1="0" y1="0" x2="0" y2="1">
@@ -391,22 +391,22 @@
           <circle id="v24-marker" cx="22" cy="4" r="1.1" />
         </svg>
         <div class="floating-ticket">
-          <span class="mono">Do Step Inn Central · Boarding pass</span>
-          <strong>Start here.<br />Go anywhere.</strong>
+          <span data-i18n="j_ticket_pass" class="mono">Do Step Inn Central · Boarding pass</span>
+          <strong data-i18n="j_ticket_strong">Start here.<br />Go anywhere.</strong>
           <span class="ticket-barcode" aria-hidden="true"></span>
         </div>
       </aside>
 
       <!-- The journey (not cards — a route you read) -->
       <ol class="journey-timeline">
-        <li class="journey-step active"><span class="time mono">08:30</span><div class="step-body"><h3>Off the train</h3><p>You step onto Südtiroler Platz, bag in hand. The city is already outside the doors.</p></div></li>
-        <li class="journey-step"><span class="time mono">09:00</span><div class="step-body"><h3>Drop your bag</h3><p>Three minutes to Do Step Inn Central. Check in with your code, stash your luggage, travel light.</p></div></li>
-        <li class="journey-step"><span class="time mono">10:00</span><div class="step-body"><h3>Find your first coffee</h3><p>Start slow. A Wieden café, a melange, and Vienna waking up around you.</p></div></li>
-        <li class="journey-step"><span class="time mono">12:00</span><div class="step-body"><h3>Walk to Belvedere</h3><p>Ten minutes on foot to one of the city's most beautiful palaces. Your first real Vienna moment.</p></div></li>
-        <li class="journey-step"><span class="time mono">15:00</span><div class="step-body"><h3>Step into your room</h3><p>Fresh sheets, a lockable pod that's all yours, a window to the trees. Reset for the evening.</p></div></li>
-        <li class="journey-step"><span class="time mono">18:00</span><div class="step-body"><h3>Golden hour</h3><p>The streets turn warm, the light gets soft, and your camera roll starts filling itself.</p></div></li>
-        <li class="journey-step"><span class="time mono">20:00</span><div class="step-body"><h3>Cook, connect, continue</h3><p>The shared kitchen is where strangers become the reason you extend your trip.</p></div></li>
-        <li class="journey-step"><span class="time mono">22:00</span><div class="step-body"><h3>Your first Vienna story</h3><p>You came for a bed. You end the day with names, places, and plans for tomorrow.</p></div></li>
+        <li class="journey-step active"><span class="time mono">08:30</span><div class="step-body"><h3 data-i18n="j_s1_h">Off the train</h3><p data-i18n="j_s1_p">You step onto Südtiroler Platz, bag in hand. The city is already outside the doors.</p></div></li>
+        <li class="journey-step"><span class="time mono">09:00</span><div class="step-body"><h3 data-i18n="j_s2_h">Drop your bag</h3><p data-i18n="j_s2_p">Three minutes to Do Step Inn Central. Check in with your code, stash your luggage, travel light.</p></div></li>
+        <li class="journey-step"><span class="time mono">10:00</span><div class="step-body"><h3 data-i18n="j_s3_h">Find your first coffee</h3><p data-i18n="j_s3_p">Start slow. A Wieden café, a melange, and Vienna waking up around you.</p></div></li>
+        <li class="journey-step"><span class="time mono">12:00</span><div class="step-body"><h3 data-i18n="j_s4_h">Walk to Belvedere</h3><p data-i18n="j_s4_p">Ten minutes on foot to one of the city's most beautiful palaces. Your first real Vienna moment.</p></div></li>
+        <li class="journey-step"><span class="time mono">15:00</span><div class="step-body"><h3 data-i18n="j_s5_h">Step into your room</h3><p data-i18n="j_s5_p">Fresh sheets, a lockable pod that's all yours, a window to the trees. Reset for the evening.</p></div></li>
+        <li class="journey-step"><span class="time mono">18:00</span><div class="step-body"><h3 data-i18n="j_s6_h">Golden hour</h3><p data-i18n="j_s6_p">The streets turn warm, the light gets soft, and your camera roll starts filling itself.</p></div></li>
+        <li class="journey-step"><span class="time mono">20:00</span><div class="step-body"><h3 data-i18n="j_s7_h">Cook, connect, continue</h3><p data-i18n="j_s7_p">The shared kitchen is where strangers become the reason you extend your trip.</p></div></li>
+        <li class="journey-step"><span class="time mono">22:00</span><div class="step-body"><h3 data-i18n="j_s8_h">Your first Vienna story</h3><p data-i18n="j_s8_p">You came for a bed. You end the day with names, places, and plans for tomorrow.</p></div></li>
       </ol>
     </div>
   </div>
@@ -415,14 +415,14 @@
   <div class="v24-outro">
     <div class="wrap v24-outro__grid">
       <div class="event-feed">
-        <span class="eyebrow mono"><span class="live-dot"></span> This week in Vienna</span>
+        <span class="eyebrow mono"><span class="live-dot"></span> <span data-i18n="j_events_eyebrow">This week in Vienna</span></span>
         <ul class="departures" id="vienna-events" aria-label="Upcoming Vienna highlights" aria-live="polite">
-          <li><span class="mono">—</span><b>Loading Vienna highlights…</b><span class="mono"></span></li>
+          <li><span class="mono">—</span><b data-i18n="j_events_loading">Loading Vienna highlights…</b><span class="mono"></span></li>
         </ul>
       </div>
       <div class="v24-cta">
-        <h3 class="display">Your story starts with one step.</h3>
-        <button class="btn btn--primary" data-open-booking data-cursor="book">Take the first step</button>
+        <h3 data-i18n="j_cta_h" class="display">Your story starts with one step.</h3>
+        <button data-i18n="j_cta_btn" class="btn btn--primary" data-open-booking data-cursor="book">Take the first step</button>
       </div>
     </div>
   </div>
@@ -433,27 +433,27 @@
   <div class="wrap">
     <div class="book-head">
       <div>
-        <p class="kicker reveal" data-reveal>Chapter 9 — Begin</p>
-        <h2 class="display reveal" data-reveal>Book your<br/>adventure.</h2>
+        <p data-i18n="ch9_kicker" class="kicker reveal" data-reveal>Chapter 9 — Begin</p>
+        <h2 data-i18n="ch9_h" class="display reveal" data-reveal>Book your<br/>adventure.</h2>
       </div>
       <div class="reassure reveal" data-reveal>
-        <p><b>Do Step Inn Central</b><br/>Südtiroler Platz 3, 1040 Vienna, Austria</p>
-        <p class="muted">Directly above Wien Hauptbahnhof · U1 Südtiroler Platz. Contactless check-in — your code arrives with your booking.</p>
+        <p><b data-i18n="contact_info_h">Do Step Inn Central</b><br/>Südtiroler Platz 3, 1040 Vienna, Austria</p>
+        <p data-i18n="ch9_addr_muted" class="muted">Directly above Wien Hauptbahnhof · U1 Südtiroler Platz. Contactless check-in — your code arrives with your booking.</p>
         <div class="book-actions">
-          <a class="btn btn--primary" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">Book now →</a>
-          <a class="btn btn--ghost" href="tel:+4318902351" data-cursor="link">📞 Call +43 1 890 23 51</a>
+          <a data-i18n="cta_booknow" class="btn btn--primary" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">Book now →</a>
+          <a data-i18n="cta_call" class="btn btn--ghost" href="tel:+4318902351" data-cursor="link">📞 Call +43 1 890 23 51</a>
         </div>
       </div>
     </div>
     <div class="bookmount card">
-      <h3 id="book-heading" tabindex="-1">Check availability</h3>
+      <h3 data-i18n="vienna_end_cta1" id="book-heading" tabindex="-1">Check availability</h3>
       <div id="ibe-widget" aria-live="polite"
            data-ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89"
            data-ibe-url="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search">
         <div class="embed-gate">
-          <p class="muted">The live booking calendar loads from our booking provider (uphotel) and may set cookies.</p>
-          <button class="btn btn--primary btn--full" type="button" data-load-booking data-cursor="book">Load booking calendar</button>
-          <p class="bookmount__fallback muted">Or <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">open the secure booking page →</a></p>
+          <p data-i18n="ch9_gate_muted" class="muted">The live booking calendar loads from our booking provider (uphotel) and may set cookies.</p>
+          <button data-i18n="ch9_gate_btn" class="btn btn--primary btn--full" type="button" data-load-booking data-cursor="book">Load booking calendar</button>
+          <p data-i18n="ch9_fallback" class="bookmount__fallback muted">Or <a class="link" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-cursor="book">open the secure booking page →</a></p>
         </div>
       </div>
     </div>
@@ -467,21 +467,21 @@
   <div class="wrap footer__grid">
     <div class="footer__brand">
       <img src="assets/logo/dostepinn-central.svg" alt="Do Step Inn Central" width="180" height="57" />
-      <p class="muted">Your first door in Vienna.</p>
+      <p data-i18n="foot_tagline" class="muted">Your first door in Vienna.</p>
     </div>
     <address class="footer__contact">
       Südtiroler Platz 3<br/>1040 Vienna, Austria<br/>
       <a class="link" href="tel:+4318902351">+43 1 890 23 51</a><br/>
       <a class="link" href="mailto:office@dostepinn.at">office@dostepinn.at</a><br/>
-      <a class="link" href="#book" data-open-booking data-cursor="book">Book a bed →</a>
+      <a data-i18n="cta_bookbed" class="link" href="#book" data-open-booking data-cursor="book">Book a bed →</a>
     </address>
     <nav class="footer__nav" aria-label="Footer">
-      <a href="rooms.html">Rooms</a><a href="vienna.html">Vienna</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+      <a data-i18n="nav_rooms" href="rooms.html">Rooms</a><a data-i18n="nav_vienna" href="vienna.html">Vienna</a><a data-i18n="nav_gallery" href="gallery.html">Gallery</a><a data-i18n="nav_contact" href="contact.html">Contact</a>
     </nav>
   </div>
-  <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span><a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy</a> · <a href="cookies.html">Cookies</a> · <a href="legal-notes.html">Legal Notes</a> · <a href="terms.html">Terms</a></span></div>
+  <div class="wrap footer__legal muted"><span>© <span id="year">2026</span> Do Step Inn Central</span><span><a data-i18n="foot_imprint" href="imprint.html">Imprint</a> · <a data-i18n="foot_privacy" href="privacy.html">Privacy</a> · <a data-i18n="foot_cookies" href="cookies.html">Cookies</a> · <a data-i18n="foot_legalnotes" href="legal-notes.html">Legal Notes</a> · <a data-i18n="foot_terms" href="terms.html">Terms</a></span></div>
   <a class="made-by" href="https://bandita-pink.vercel.app" target="_blank" rel="noopener" aria-label="Made by Bandita — Marketing Agency" data-cursor="link">
-    <span class="made-by__label">Made by</span>
+    <span data-i18n="foot_madeby" class="made-by__label">Made by</span>
     <span class="made-by__mark" aria-hidden="true"><svg viewBox="0 0 40 40" width="26" height="26"><circle cx="20" cy="20" r="18.6" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="20" y="26.5" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="19" font-weight="600" fill="currentColor">B</text></svg></span>
     <span class="made-by__name">BANDITA</span>
   </a>
@@ -489,10 +489,11 @@
 
 <!-- Persistent booking pill (mobile-first, thumb zone) -->
 <button class="pill" data-open-booking data-cursor="book" aria-label="Check availability">
-  <span class="pill__dot"></span> Check availability
+  <span class="pill__dot"></span> <span data-i18n="cta_check">Check availability</span>
 </button>
 
 <!-- uphotel IBE engine is loaded on demand (after consent) by main.js -->
-<script src="assets/js/main.js?v=4" defer></script>
+<script src="assets/js/i18n.js?v=5" defer></script>
+<script src="assets/js/main.js?v=5" defer></script>
 </body>
 </html>

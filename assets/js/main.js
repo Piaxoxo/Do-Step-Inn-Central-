@@ -165,28 +165,8 @@
     vo.observe(cv);
   }
 
-  /* ---------- Language menu ---------- */
-  const langBtn = $('.lang__btn');
-  const langMenu = $('.lang__menu');
-  if (langBtn) {
-    const toggle = (open) => {
-      langMenu.hidden = !open;
-      langBtn.setAttribute('aria-expanded', String(open));
-    };
-    langBtn.addEventListener('click', () => toggle(langMenu.hidden));
-    langMenu.addEventListener('click', (e) => {
-      const li = e.target.closest('[role="option"]');
-      if (!li) return;
-      $$('[role="option"]', langMenu).forEach((o) => o.setAttribute('aria-selected', 'false'));
-      li.setAttribute('aria-selected', 'true');
-      langBtn.childNodes[langBtn.childNodes.length - 1].textContent = ' ' + li.textContent.slice(0, 2).toUpperCase();
-      toggle(false);
-      // NOTE: wire real i18n routing (EN/DE/KO/JA/TH/ES/IT) here.
-    });
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.lang')) toggle(false);
-    });
-  }
+  /* ---------- i18n helper (dictionary + language menu live in i18n.js) ---------- */
+  const t = (k, fb) => (window.I18N ? window.I18N.t(k) : (fb != null ? fb : k));
 
   /* ---------- Cookie notice (essential-only site; informs about third-party embeds) ---------- */
   (() => {
@@ -197,8 +177,8 @@
     bar.className = 'cookiebar';
     bar.setAttribute('role', 'dialog');
     bar.setAttribute('aria-label', 'Cookie notice');
-    bar.innerHTML = '<p>We keep it light: no analytics, no ad trackers. A few embedded services (fonts, map, booking, weather) may process your IP. <a href="cookies.html">Cookie details</a> · <a href="privacy.html">Privacy</a></p>'
-      + '<div class="cookiebar__act"><button class="btn btn--ghost" type="button" data-ck="essential">Essential only</button><button class="btn btn--primary" type="button" data-ck="all">Got it</button></div>';
+    bar.innerHTML = '<p>' + t('cookie_text') + '</p>'
+      + '<div class="cookiebar__act"><button class="btn btn--ghost" type="button" data-ck="essential">' + t('cookie_essential') + '</button><button class="btn btn--primary" type="button" data-ck="all">' + t('cookie_accept') + '</button></div>';
     document.body.appendChild(bar);
     document.body.classList.add('has-cookiebar');
     requestAnimationFrame(() => bar.classList.add('is-in'));
@@ -247,7 +227,8 @@
     const w = $('#ibe-widget');
     if (!w || w.dataset.loaded) return; w.dataset.loaded = '1';
     const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = 'https://ibe.uphotel.agency/ibe.min.css'; document.head.appendChild(link);
-    const el = document.createElement('ibe-up'); el.setAttribute('ibe-key', w.dataset.ibeKey || ''); el.setAttribute('language', 'en');
+    const ibeLang = (window.I18N && window.I18N.lang === 'de') ? 'de' : 'en'; // provider supports de/en
+    const el = document.createElement('ibe-up'); el.setAttribute('ibe-key', w.dataset.ibeKey || ''); el.setAttribute('language', ibeLang);
     const fb = document.createElement('p'); fb.className = 'bookmount__fallback muted';
     fb.innerHTML = 'Trouble loading the calendar? <a class="link" href="' + (w.dataset.ibeUrl || '#') + '" target="_blank" rel="noopener">Open the secure booking page →</a>';
     w.innerHTML = ''; w.appendChild(el); w.appendChild(fb);
@@ -267,14 +248,9 @@
 
   /* ---------- Live Vienna weather — nav chip (every page) + the 24h section ---------- */
   {
-    const PICKS = {
-      warm: ['Rent a bike along the Donaukanal', 'Swim at the Alte Donau', 'Picnic in the Stadtpark', 'Sunset from Kahlenberg', 'A long afternoon in a shady Gastgarten', 'Boat on the Neue Donau'],
-      mild: ['Walk the Ring to Belvedere', 'Wander the MuseumsQuartier courtyards', 'Naschmarkt, then a slow stroll', 'A ride and a walk through the Prater', 'Rooftop view from Stephansdom', 'Coffee at Karlsplatz, then Karlskirche'],
-      rain: ['The Kunsthistorisches Museum', 'A classic Viennese coffee house', 'The Albertina and a melange', 'MQ galleries out of the rain', 'The indoor stalls at Naschmarkt', 'Time Travel Vienna, then Sachertorte'],
-      cold: ['Warm up in a proper Kaffeehaus', 'Schönbrunn halls and winter gardens', 'Hot chocolate and Sachertorte', 'Belvedere — Klimt, indoors', 'An afternoon at the Naturhistorisches Museum', 'A spa & sauna reset'],
-    };
     const dayOfYear = () => { const n = new Date(); const s = new Date(n.getFullYear(), 0, 0); return Math.floor((n - s) / 86400000); };
-    const pickOfDay = (b) => { const a = PICKS[b] || PICKS.mild; return a[dayOfYear() % a.length]; };
+    const pickOfDay = (b) => t('pick_' + b + (dayOfYear() % 6 + 1));
+    const SUG = { mild: ['wx_sug_mild1', 'wx_sug_mild2', 'wx_sug_mild3'], rain: ['wx_sug_rain1', 'wx_sug_rain2', 'wx_sug_rain3'], warm: ['wx_sug_warm1', 'wx_sug_warm2', 'wx_sug_warm3'], cold: ['wx_sug_cold1', 'wx_sug_cold2', 'wx_sug_cold3'] };
     const icon = (code, isDay) => {
       if (code === 0) return isDay ? '☀️' : '🌙';
       if (code <= 3) return '⛅';
@@ -287,10 +263,13 @@
     };
     const tempEl = $('#weather-temp'), descEl = $('#weather-desc'), sugEl = $('#weather-suggestions'), pickEl = $('#weather-pick'), navTemp = $('#nav-temp');
     if (tempEl || navTemp) {
-      const paint = (bucket, desc, sug) => {
-        if (descEl) descEl.textContent = desc;
-        if (sugEl) sugEl.innerHTML = sug.map((s) => `<li>${s}</li>`).join('');
-        if (pickEl) pickEl.textContent = pickOfDay(bucket);
+      let state = null;
+      const paint = () => {
+        if (!state) return;
+        const b = state.bucket;
+        if (descEl) descEl.textContent = state.fallback ? t('wx_desc_fallback') : t('wx_desc_' + b);
+        if (sugEl) sugEl.innerHTML = (state.fallback ? SUG.mild : (SUG[b] || SUG.mild)).map((k) => `<li>${t(k)}</li>`).join('');
+        if (pickEl) pickEl.textContent = pickOfDay(b);
       };
       (async () => {
         try {
@@ -299,20 +278,23 @@
           const temp = Math.round(d.current.temperature_2m);
           const code = d.current.weather_code;
           const isDay = d.current.is_day;
-          let bucket = 'mild', desc = 'Perfect on-foot weather for discovering Vienna.', sug = ['Belvedere', 'City walks', 'Outdoor cafés'];
-          if (code >= 51 && code <= 99) { bucket = 'rain'; desc = 'Rainy Vienna. Coffee-house weather — museums, markets and slow mornings.'; sug = ['Museums', 'Coffee houses', 'Indoor markets']; }
-          else if (temp >= 25) { bucket = 'warm'; desc = 'Warm and bright. Parks, the Danube and long golden-hour walks.'; sug = ['Danube', 'Parks', 'Sunset walks']; }
-          else if (temp >= 16) { bucket = 'mild'; }
-          else if (temp < 8) { bucket = 'cold'; desc = 'Cold outside, cosy inside. Palaces, culture and hot chocolate.'; sug = ['Palaces', 'Museums', 'Hot chocolate']; }
+          let bucket = 'mild';
+          if (code >= 51 && code <= 99) bucket = 'rain';
+          else if (temp >= 25) bucket = 'warm';
+          else if (temp >= 16) bucket = 'mild';
+          else if (temp < 8) bucket = 'cold';
           if (tempEl) { tempEl.textContent = temp + '°'; if (!reduce) { tempEl.classList.remove('flip'); void tempEl.offsetWidth; tempEl.classList.add('flip'); } }
           if (navTemp) navTemp.textContent = `${icon(code, isDay)} ${temp}°`;
-          paint(bucket, desc, sug);
+          state = { bucket: bucket, fallback: false };
+          paint();
         } catch (e) {
           if (tempEl) tempEl.textContent = '—°';
           if (navTemp) navTemp.textContent = 'Vienna';
-          paint('mild', 'A good day to explore Vienna — here’s today’s plan.', ['Belvedere', 'Cafés', 'City walks']);
+          state = { bucket: 'mild', fallback: true };
+          paint();
         }
       })();
+      document.addEventListener('i18n:changed', paint);
     }
   }
 
@@ -324,28 +306,28 @@
     const loadViennaEvents = () => {
       const el = $('#vienna-events', vj);
       if (!el) return;
-      // Curated recurring Vienna happenings by weekday (0=Sun … 6=Sat).
+      // Curated recurring Vienna happenings by weekday (0=Sun … 6=Sat); labels via i18n.
       const byDay = {
-        0: [{ t: 'Danube Island morning run', time: '09:00' }, { t: 'Karlsplatz & MQ stroll', time: '11:00' }],
-        1: [{ t: 'Kunsthistorisches Museum', time: '10:00' }, { t: 'Coffee-house afternoon', time: '15:00' }],
-        2: [{ t: 'Belvedere galleries', time: '10:00' }, { t: 'Naschmarkt lunch', time: '13:00' }],
-        3: [{ t: 'MuseumsQuartier courtyard', time: '16:00' }, { t: 'Ringstraße tram loop', time: '18:00' }],
-        4: [{ t: 'Naschmarkt evening & street food', time: '18:00' }, { t: 'Prater lights', time: '20:00' }],
-        5: [{ t: 'Belvedere late-night opening', time: '21:00' }, { t: 'Kärntner Straße night walk', time: '20:00' }],
-        6: [{ t: 'Naschmarkt flea market', time: '09:00' }, { t: 'Danube canal bars', time: '19:00' }],
+        0: [{ k: 'ev_0a', time: '09:00' }, { k: 'ev_0b', time: '11:00' }],
+        1: [{ k: 'ev_1a', time: '10:00' }, { k: 'ev_1b', time: '15:00' }],
+        2: [{ k: 'ev_2a', time: '10:00' }, { k: 'ev_2b', time: '13:00' }],
+        3: [{ k: 'ev_3a', time: '16:00' }, { k: 'ev_3b', time: '18:00' }],
+        4: [{ k: 'ev_4a', time: '18:00' }, { k: 'ev_4b', time: '20:00' }],
+        5: [{ k: 'ev_5a', time: '21:00' }, { k: 'ev_5b', time: '20:00' }],
+        6: [{ k: 'ev_6a', time: '09:00' }, { k: 'ev_6b', time: '19:00' }],
       };
-      const dows = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
       const now = new Date();
       const rows = [];
       for (let i = 0; i < 5; i++) {
         const d = new Date(now); d.setDate(now.getDate() + i);
         const opts = byDay[d.getDay()];
         const pick = opts[i % opts.length];
-        rows.push(`<li><span class="mono">${dows[d.getDay()]} ${d.getDate()}</span><b>${pick.t}</b><span class="mono">${pick.time}</span></li>`);
+        rows.push(`<li><span class="mono">${t('ev_dow' + d.getDay())} ${d.getDate()}</span><b>${t(pick.k)}</b><span class="mono">${pick.time}</span></li>`);
       }
       el.innerHTML = rows.join('');
     };
     loadViennaEvents();
+    document.addEventListener('i18n:changed', loadViennaEvents);
 
     // --- Active step highlight ---
     const steps = $$('.journey-step', vj);
