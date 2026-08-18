@@ -153,18 +153,6 @@
     });
   }
 
-  /* ---------- Lazy community video ---------- */
-  const cv = $('[data-lazyvideo]');
-  if (cv && 'IntersectionObserver' in window) {
-    const vo = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && !reduce) { cv.play?.().catch(() => {}); }
-        else { cv.pause?.(); }
-      });
-    }, { threshold: 0.25 });
-    vo.observe(cv);
-  }
-
   /* ---------- i18n helper (dictionary + language menu live in i18n.js) ---------- */
   const t = (k, fb) => (window.I18N ? window.I18N.t(k) : (fb != null ? fb : k));
 

@@ -34,9 +34,9 @@
 <!-- Fonts: preload the two above-the-fold faces to cut first-paint latency -->
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-latin.woff2" crossorigin />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-600-latin.woff2" crossorigin />
-<link rel="stylesheet" href="assets/css/fonts.css?v=5" />
+<link rel="stylesheet" href="assets/css/fonts.css?v=6" />
 
-<link rel="stylesheet" href="assets/css/style.css?v=5" />
+<link rel="stylesheet" href="assets/css/style.css?v=6" />
 
 <!-- SEO: structured data -->
 <script type="application/ld+json">
@@ -136,9 +136,10 @@
 <!-- ============ CHAPTER 1 — ARRIVAL ============ -->
 <section class="hero" id="arrival" data-chapter="1" data-theme-trigger="arrival">
   <div class="hero__media">
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata">
-      <source src="assets/video/hero-01.mp4" type="video/mp4" />
-    </video>
+    <picture>
+      <source type="image/webp" srcset="assets/img/door-window.webp" />
+      <img class="hero__video" src="assets/img/door-window.jpg" alt="Bright lounge window looking onto Südtiroler Platz, Vienna" width="1300" height="975" fetchpriority="high" />
+    </picture>
     <div class="hero__scrim"></div>
   </div>
 
@@ -210,9 +211,10 @@
 <!-- ============ CHAPTER 3 — COMMUNITY ============ -->
 <section class="chapter community" id="community" data-chapter="3" data-theme-trigger="community">
   <div class="community__media">
-    <video class="community__video" muted loop playsinline preload="none" data-lazyvideo poster="assets/img/community.jpg">
-      <source src="assets/video/hero-02.mp4" type="video/mp4" />
-    </video>
+    <picture>
+      <source type="image/webp" srcset="assets/img/community.webp" />
+      <img class="community__video" src="assets/img/community.jpg" alt="Suitcase-stacked reception and pallet-wood bar in the common area" width="1800" height="1350" loading="lazy" />
+    </picture>
     <div class="community__scrim"></div>
   </div>
   <div class="wrap community__inner">
@@ -493,7 +495,7 @@
 </button>
 
 <!-- uphotel IBE engine is loaded on demand (after consent) by main.js -->
-<script src="assets/js/i18n.js?v=5" defer></script>
-<script src="assets/js/main.js?v=5" defer></script>
+<script src="assets/js/i18n.js?v=6" defer></script>
+<script src="assets/js/main.js?v=6" defer></script>
 </body>
 </html>
