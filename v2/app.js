@@ -20,16 +20,16 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.setSize(innerWidth, innerHeight);
 
 const scene = new THREE.Scene();
-const GROUND = 0x140f09;
+const GROUND = 0x33261a;               // warmer, lighter ground (was near-black) — brighter overall
 scene.background = new THREE.Color(GROUND);
-scene.fog = new THREE.FogExp2(GROUND, 0.05);
+scene.fog = new THREE.FogExp2(GROUND, 0.018);  // thinner haze so panels stay bright with depth
 
 const camera = new THREE.PerspectiveCamera(58, innerWidth / innerHeight, 0.1, 120);
 camera.position.set(0, 0, 9);
 
 /* ---------- photo panels along -Z (the "corridor") ---------- */
 const PHOTOS = ['door-window', 'community', 'room-pod', 'kitchen', 'room-private', 'lounge', 'why-proof', 'bathroom', 'checkin'];
-const GAP = 6;
+const GAP = 5.4;
 const loader = new THREE.TextureLoader();
 const panels = [];
 
@@ -37,7 +37,7 @@ PHOTOS.forEach((name, i) => {
   const tex = loader.load(`/assets/img/${name}.jpg`);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  const w = 6.4, h = 4.3;
+  const w = 7.2, h = 4.8;
   const mat = new THREE.MeshBasicMaterial({ map: tex });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
   const side = i % 2 ? 1 : -1;
