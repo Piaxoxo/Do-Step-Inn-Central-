@@ -78,9 +78,14 @@ let scrollT = 0;           // 0..1 target from scroll
 let curT = 0;              // eased
 const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
 
+function introEnd() {
+  // the 3D fly-through completes as the content section scrolls in
+  const c = document.querySelector('.content');
+  const end = c ? c.offsetTop - innerHeight * 0.5 : (document.body.scrollHeight - innerHeight);
+  return Math.max(1, end);
+}
 function onScroll() {
-  const max = document.body.scrollHeight - innerHeight;
-  scrollT = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+  scrollT = Math.min(1, Math.max(0, scrollY / introEnd()));
 }
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
