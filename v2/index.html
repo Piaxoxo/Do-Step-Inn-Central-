@@ -6,7 +6,7 @@
 <title>Do Step Inn Central — 3D Prototype</title>
 <meta name="robots" content="noindex" />
 <meta name="theme-color" content="#140f09" />
-<link rel="stylesheet" href="../assets/css/fonts.css?v=6" />
+<link rel="stylesheet" href="/assets/css/fonts.css?v=6" />
 <style>
   :root{
     --ground:#140f09;--ink:#F1E8D8;--muted:#B0A085;--amber:#F4A81A;--yellow:#F5C50E;
@@ -22,7 +22,7 @@
   /* fallback hero image when WebGL is unavailable */
   .no-webgl #scene{display:none}
   .fallback-bg{position:fixed;inset:0;z-index:0;display:none;
-    background:linear-gradient(180deg,rgba(20,15,9,.5),rgba(20,15,9,.85)),url(../assets/img/door-window.jpg) center/cover}
+    background:linear-gradient(180deg,rgba(20,15,9,.5),rgba(20,15,9,.85)),url(/assets/img/door-window.jpg) center/cover}
   .no-webgl .fallback-bg{display:block}
 
   /* preloader */
@@ -115,7 +115,12 @@
 
 <div class="scrollcue">scroll to arrive</div>
 
-<script>addEventListener('scroll',()=>{if(scrollY>40)document.documentElement.classList.add('scrolled')},{passive:true});</script>
-<script type="module" src="./app.js?v=1"></script>
+<script>
+  addEventListener('scroll',()=>{if(scrollY>40)document.documentElement.classList.add('scrolled')},{passive:true});
+  // safety net: never let the preloader hang, even if the scene is slow or a module fails
+  setTimeout(()=>document.documentElement.classList.add('scene-ready'),6000);
+  addEventListener('error',()=>document.documentElement.classList.add('scene-ready'),true);
+</script>
+<script type="module" src="/v2/app.js?v=2"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import * as THREE from '../assets/vendor/three.module.js';
+import * as THREE from '/assets/vendor/three.module.js';
 
 /* Do Step Inn Central — 3D prototype (Phase 1).
    Warm, scroll-driven depth: the camera glides forward through floating
@@ -34,7 +34,7 @@ const loader = new THREE.TextureLoader();
 const panels = [];
 
 PHOTOS.forEach((name, i) => {
-  const tex = loader.load(`../assets/img/${name}.jpg`);
+  const tex = loader.load(`/assets/img/${name}.jpg`);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const w = 6.4, h = 4.3;
