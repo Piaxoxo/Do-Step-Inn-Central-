@@ -59,10 +59,6 @@
   .scrollcue::before{content:"";display:block;width:1px;height:34px;background:linear-gradient(var(--amber),transparent);margin:0 auto .6rem}
   .scene-ready.scrolled .scrollcue{opacity:0}
 
-  .flag{position:fixed;bottom:1rem;left:1rem;z-index:30;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;
-    color:var(--muted);background:rgba(20,15,9,.6);border:1px solid rgba(244,168,26,.2);border-radius:8px;padding:.45rem .7rem;max-width:60vw}
-  .flag b{color:var(--yellow)}
-
   /* topbar */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
     padding:.9rem clamp(1rem,4vw,2.2rem);transition:background .4s ease;pointer-events:none}
@@ -124,6 +120,8 @@
   .faq p{color:var(--muted);margin:.7rem 0 0;max-width:64ch}
   .book2{text-align:center}
   .book2 .addr{color:var(--muted);margin:0 auto 1.6rem;font-size:1rem}
+  .bookmount{background:#F6F3EE;color:#17161A;border-radius:20px;padding:clamp(1rem,3vw,2rem);max-width:980px;margin:0 auto 1.8rem;overflow-x:auto;box-shadow:0 30px 70px -40px rgba(0,0,0,.7);text-align:left}
+  .bookmount ibe-up{display:block;min-height:120px}
   .no-webgl [data-reveal]{opacity:1 !important;transform:none !important}
 
   @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none}}
@@ -145,8 +143,6 @@
     <a class="btn btn--p btn--sm" href="#book">Buchen</a>
   </div>
 </header>
-
-<div class="flag">PROTOTYP · Fotos = <b>Platzhalter</b> (echte folgen)</div>
 
 <main>
   <section class="panel">
@@ -262,10 +258,13 @@
 
     <section class="section book2" id="book">
       <p class="kick" data-reveal style="justify-content:center">Beginnen</p>
-      <h2 data-reveal>Deine Geschichte beginnt mit einem Schritt.</h2>
-      <p class="addr" data-reveal><b>Do Step Inn Central</b> · Südtiroler Platz 3, 1040 Wien<br/>Direkt über Wien Hauptbahnhof · U1 Südtiroler Platz</p>
+      <h2 data-reveal>Verfügbarkeit &amp; Buchung</h2>
+      <p class="addr" data-reveal><b>Do Step Inn Central</b> · Südtiroler Platz 3, 1040 Wien<br/>Direkt über Wien Hauptbahnhof · U1 Südtiroler Platz — dein Code kommt mit der Buchung.</p>
+      <div class="bookmount" data-reveal>
+        <ibe-up ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89" language="de"></ibe-up>
+      </div>
       <div class="btns" data-reveal style="justify-content:center">
-        <a class="btn btn--p" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener">Jetzt buchen →</a>
+        <a class="btn btn--p" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener">Sichere Buchungsseite öffnen →</a>
         <a class="btn btn--g" href="tel:+4318902351">📞 +43 1 890 23 51</a>
       </div>
     </section>
@@ -291,5 +290,8 @@
   document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
 </script>
 <script type="module" src="/v2/app.js?v=2"></script>
+<!-- uphotel IBE booking widget (loads on this whitelisted domain) -->
+<link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js"></script>
 </body>
 </html>
