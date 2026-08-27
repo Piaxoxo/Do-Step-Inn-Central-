@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="/assets/css/fonts.css?v=6" />
 <style>
   :root{
-    --ground:#140f09;--ink:#F1E8D8;--muted:#B0A085;--amber:#F4A81A;--yellow:#F5C50E;
+    --ground:#140f09;--ink:#F1E8D8;--muted:#B0A085;--faint:#7d715c;--amber:#F4A81A;--yellow:#F5C50E;
+    --mint:#5FB894;--mint-deep:#3E8C6E;
     --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
   }
   *{box-sizing:border-box}
@@ -118,6 +119,22 @@
   .faq summary::after{content:"+";color:var(--amber);font-family:var(--sans)}
   .faq details[open] summary::after{content:"–"}
   .faq p{color:var(--muted);margin:.7rem 0 0;max-width:64ch}
+  /* live weather + events (mint accent from the original brand) */
+  .live-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+  .live-card{background:#1f1710;border:1px solid rgba(95,184,148,.24);border-radius:20px;padding:1.6rem}
+  .live-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:.55rem;margin:0 0 .6rem}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--mint);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,184,148,.5)}70%{box-shadow:0 0 0 9px rgba(95,184,148,0)}100%{box-shadow:0 0 0 0 rgba(95,184,148,0)}}
+  #wx-temp{font-family:var(--serif);font-size:clamp(2.8rem,8vw,4.2rem);line-height:1;margin:.4rem 0 .3rem;color:var(--ink)}
+  #wx-desc{color:var(--muted);margin:0 0 1.4rem}
+  .wx-pick .lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .wx-pick p{font-family:var(--serif);font-size:1.2rem;margin:.3rem 0 .8rem;color:var(--mint)}
+  .events{list-style:none;padding:0;margin:0}
+  .events li{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:baseline;padding:.75rem 0;border-top:1px solid rgba(95,184,148,.16)}
+  .events li:first-child{border-top:0}
+  .events li .mono{font-family:var(--mono);font-size:.72rem;color:var(--mint)}
+  .events li b{font-weight:600;font-size:.98rem}
+  @media(max-width:760px){.live-grid{grid-template-columns:1fr}}
   .book2{text-align:center}
   .book2 .addr{color:var(--muted);margin:0 auto 1.6rem;font-size:1rem}
   .bookmount{background:#F6F3EE;color:#17161A;border-radius:20px;padding:clamp(1rem,3vw,2rem);max-width:980px;margin:0 auto 1.8rem;overflow-x:auto;box-shadow:0 30px 70px -40px rgba(0,0,0,.7);text-align:left}
@@ -234,6 +251,28 @@
       </div>
     </section>
 
+    <section class="section" id="wien-live">
+      <p class="kick" data-reveal style="color:var(--mint)">Wien · live</p>
+      <h2 data-reveal>Deine ersten 24 Stunden — heute.</h2>
+      <p class="intro" data-reveal>Sobald dein Zug einfährt, hat die Reise schon begonnen. Live-Wetter und, was diese Woche in Wien läuft.</p>
+      <div class="live-grid">
+        <div class="live-card" data-reveal>
+          <span class="live-label"><span class="live-dot"></span> Heute in Wien</span>
+          <h3 id="wx-temp" class="mono" aria-live="polite">—°</h3>
+          <p id="wx-desc">Ich schaue kurz zum Himmel über der Stadt …</p>
+          <div class="wx-pick">
+            <span class="lbl">Heutiger Tipp</span>
+            <p id="wx-pick">Lade einen Plan für heute …</p>
+            <ul id="wx-sug" class="chips"><li>Belvedere</li><li>Cafés</li><li>Spaziergänge</li></ul>
+          </div>
+        </div>
+        <div class="live-card" data-reveal>
+          <span class="live-label"><span class="live-dot"></span> Diese Woche in Wien</span>
+          <ul id="wien-events" class="events" aria-live="polite"><li><span class="mono">—</span><b>Lade Wien-Highlights …</b><span class="mono"></span></li></ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <p class="kick" data-reveal>Der leise Beweis</p>
       <div class="stat3" data-reveal>
@@ -288,6 +327,48 @@
   // reveal content independently of the 3D module (works even without WebGL)
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.18,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+</script>
+<script>
+  /* Live Vienna weather (Open-Meteo — runs in the visitor's browser, no cookies) + weekly events */
+  (function(){
+    var tempEl=document.getElementById('wx-temp'),descEl=document.getElementById('wx-desc'),
+        sugEl=document.getElementById('wx-sug'),pickEl=document.getElementById('wx-pick');
+    var PICKS={
+      warm:['Rad am Donaukanal','Baden an der Alten Donau','Picknick im Stadtpark','Sonnenuntergang am Kahlenberg','Langer Nachmittag im schattigen Gastgarten','Boot auf der Neuen Donau'],
+      mild:['Den Ring zum Belvedere entlang','Durch die MQ-Höfe schlendern','Naschmarkt, dann gemütlich bummeln','Fahrt & Spaziergang durch den Prater','Dachblick vom Stephansdom','Kaffee am Karlsplatz, dann Karlskirche'],
+      rain:['Das Kunsthistorische Museum','Ein klassisches Wiener Kaffeehaus','Die Albertina und eine Melange','MQ-Galerien im Trockenen','Die Marktstände am Naschmarkt','Time Travel Vienna, dann Sachertorte'],
+      cold:['Aufwärmen im echten Kaffeehaus','Schönbrunn-Säle & Wintergärten','Heiße Schokolade und Sachertorte','Belvedere — Klimt, drinnen','Nachmittag im Naturhistorischen Museum','Spa & Sauna zum Reset']
+    };
+    var DESC={mild:'Perfektes Wetter, um Wien zu Fuß zu entdecken.',rain:'Regnerisches Wien — Kaffeehaus-Wetter: Museen, Märkte, langsame Vormittage.',warm:'Warm und hell. Parks, die Donau und lange Golden-Hour-Spaziergänge.',cold:'Draußen kalt, drinnen gemütlich. Paläste, Kultur und heiße Schokolade.',fallback:'Ein guter Tag, um Wien zu entdecken — hier ist dein Plan für heute.'};
+    var SUG={mild:['Belvedere','Spaziergänge','Cafés im Freien'],rain:['Museen','Kaffeehäuser','Indoor-Märkte'],warm:['Donau','Parks','Sonnenuntergang'],cold:['Paläste','Museen','Heiße Schokolade']};
+    var doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5);
+    function pick(b){var a=PICKS[b]||PICKS.mild;return a[doy%a.length];}
+    function paint(b,fb){ if(descEl)descEl.textContent=fb?DESC.fallback:DESC[b];
+      if(sugEl)sugEl.innerHTML=(SUG[b]||SUG.mild).map(function(s){return '<li>'+s+'</li>';}).join('');
+      if(pickEl)pickEl.textContent=pick(b); }
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code&timezone=Europe%2FVienna')
+      .then(function(r){return r.json();})
+      .then(function(d){var t=Math.round(d.current.temperature_2m),c=d.current.weather_code,b='mild';
+        if(c>=51&&c<=99)b='rain'; else if(t>=25)b='warm'; else if(t>=16)b='mild'; else if(t<8)b='cold';
+        if(tempEl)tempEl.textContent=t+'°'; paint(b,false);})
+      .catch(function(){ if(tempEl)tempEl.textContent='—°'; paint('mild',true); });
+
+    var el=document.getElementById('wien-events');
+    if(el){
+      var byDay={0:[['Donauinsel-Morgenlauf','09:00'],['Karlsplatz & MQ-Bummel','11:00']],
+        1:[['Kunsthistorisches Museum','10:00'],['Kaffeehaus-Nachmittag','15:00']],
+        2:[['Belvedere-Galerien','10:00'],['Naschmarkt-Lunch','13:00']],
+        3:[['MuseumsQuartier-Hof','16:00'],['Ringstraßen-Tramrunde','18:00']],
+        4:[['Naschmarkt-Abend & Street Food','18:00'],['Prater-Lichter','20:00']],
+        5:[['Belvedere Langnacht','21:00'],['Kärntner Straße bei Nacht','20:00']],
+        6:[['Naschmarkt-Flohmarkt','09:00'],['Donaukanal-Bars','19:00']]};
+      var dows=['SO','MO','DI','MI','DO','FR','SA'],now=new Date(),rows=[];
+      for(var i=0;i<5;i++){var dt=new Date(now);dt.setDate(now.getDate()+i);
+        var opts=byDay[dt.getDay()],p=opts[i%opts.length];
+        rows.push('<li><span class="mono">'+dows[dt.getDay()]+' '+dt.getDate()+'</span><b>'+p[0]+'</b><span class="mono">'+p[1]+'</span></li>');}
+      el.innerHTML=rows.join('');
+    }
+  })();
 </script>
 <script type="module" src="/v2/app.js?v=2"></script>
 <!-- uphotel IBE booking widget (loads on this whitelisted domain) -->
