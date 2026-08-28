@@ -14,7 +14,7 @@ a:hover{text-decoration:underline}
 /* topbar (matches the main v2 page) */
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
   padding:.9rem clamp(1rem,4vw,2.2rem);background:linear-gradient(180deg,rgba(20,15,9,.9),rgba(20,15,9,.6));backdrop-filter:blur(6px)}
-.topbar__logo{height:32px;width:auto;filter:brightness(0) invert(1);opacity:.95;display:block}
+.topbar__logo{height:34px;width:auto;opacity:.98;display:block}
 .topbar__actions{display:flex;gap:.55rem;align-items:center}
 .tb-call{font-family:var(--mono);font-size:.82rem;color:var(--ink);white-space:nowrap;padding:.5rem .6rem}
 .btn{font-family:var(--sans);font-weight:600;font-size:.9rem;padding:.6rem 1.15rem;border-radius:100px;text-decoration:none;display:inline-block}
