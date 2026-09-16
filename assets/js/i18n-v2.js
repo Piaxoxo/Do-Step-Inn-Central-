@@ -60,7 +60,7 @@
     "faq_q5":"Wie groß ist das Hostel?","faq_a5":"Wir sind familiengeführt und mit nur 19 Zimmern bewusst kein Massenbetrieb — trotz Self-Check-in bleibt es heimelig und persönlich.",
     "st_1":"zu Fuß zum Hauptbahnhof","st_2":"Zimmer · familiengeführt","st_3":"Self-Check-in, Tag & Nacht",
     "st_quote":"„Blitzsauber, die verschließbaren Betten sind genial, und man ist in zwei Minuten vom Bahnhof da.“<cite>— ein aktueller Gast</cite>",
-    "foot_imprint":"Impressum","foot_privacy":"Datenschutz","ga_kick":"Galerie","ga_h":"Ein Blick ins Haus.","ga_intro":"Echte Fotos: die verschließbaren Betten, die gelben Zimmer und der Gemeinschaftsbereich, in dem Reisende zusammenkommen.",
+    "foot_imprint":"Impressum","foot_privacy":"Datenschutz","ga_kick":"Galerie","ga_h":"Ein Blick ins Haus.","ga_intro":"Echte Fotos: die selbst gebauten, verschließbaren Holz-Betten, die Zimmer und die Lage direkt am Südtiroler Platz.",
     "scrollcue":"scroll to arrive","pre_text":"entsperre deine erste Tür …"
   },
   "en":{
@@ -121,7 +121,7 @@
     "faq_q5":"How big is the hostel?","faq_a5":"We’re family-run and, with only 19 rooms, deliberately not a mass operation — even with self-check-in it stays homely and personal.",
     "st_1":"walk to the main station","st_2":"rooms · family-run","st_3":"self-check-in, day & night",
     "st_quote":"“Spotlessly clean, the lockable beds are genius, and you’re there in two minutes from the station.”<cite>— a recent guest</cite>",
-    "foot_imprint":"Imprint","foot_privacy":"Privacy","ga_kick":"Gallery","ga_h":"A look inside.","ga_intro":"Real photos: the lockable beds, the yellow rooms and the common area where travellers come together.",
+    "foot_imprint":"Imprint","foot_privacy":"Privacy","ga_kick":"Gallery","ga_h":"A look inside.","ga_intro":"Real photos: the self-built lockable wooden beds, the rooms and the location right on Südtiroler Platz.",
     "scrollcue":"scroll to arrive","pre_text":"unlocking your first door …"
   },
   "ko":{
@@ -182,7 +182,7 @@
     "faq_q5":"호스텔 규모는 어떻게 되나요?","faq_a5":"저희는 가족이 운영하며 객실이 단 19개로 의도적으로 대형 숙소가 아닙니다 — 셀프 체크인에도 아늑하고 개인적인 분위기가 유지됩니다.",
     "st_1":"중앙역까지 도보","st_2":"객실 · 가족 운영","st_3":"셀프 체크인, 낮 & 밤",
     "st_quote":"“티끌 하나 없이 깨끗하고, 잠금형 침대는 정말 기발하며, 역에서 2분이면 도착합니다.”<cite>— 최근 투숙객</cite>",
-    "foot_imprint":"임프린트","foot_privacy":"개인정보","ga_kick":"갤러리","ga_h":"집 안을 들여다보기.","ga_intro":"실제 사진: 잠금형 침대, 노란 객실, 그리고 여행자들이 모이는 공용 공간.",
+    "foot_imprint":"임프린트","foot_privacy":"개인정보","ga_kick":"갤러리","ga_h":"집 안을 들여다보기.","ga_intro":"실제 사진: 직접 만든 잠금형 원목 침대, 객실, 그리고 쥐트티롤러 광장 바로 앞의 위치.",
     "scrollcue":"스크롤하여 도착","pre_text":"첫 번째 문을 여는 중 …"
   },
   "ja":{
@@ -243,7 +243,7 @@
     "faq_q5":"ホステルの規模は?","faq_a5":"私たちは家族経営で、客室はわずか19室 — あえて大型施設にはしていません。セルフチェックインでもアットホームで personal な雰囲気です。",
     "st_1":"中央駅まで徒歩","st_2":"客室 · 家族経営","st_3":"セルフチェックイン、昼 & 夜",
     "st_quote":"「ピカピカに清潔で、施錠できるベッドは秀逸。駅から2分で着きます。」<cite>— 最近のゲスト</cite>",
-    "foot_imprint":"インプリント","foot_privacy":"プライバシー","ga_kick":"ギャラリー","ga_h":"館内をのぞいてみる。","ga_intro":"本物の写真:施錠できるベッド、黄色い客室、そして旅人が集う共用スペース。",
+    "foot_imprint":"インプリント","foot_privacy":"プライバシー","ga_kick":"ギャラリー","ga_h":"館内をのぞいてみる。","ga_intro":"本物の写真:自社製作の施錠できる木製ベッド、客室、そしてズュートティロラー広場すぐそばの立地。",
     "scrollcue":"スクロールして到着","pre_text":"最初のドアを解錠中 …"
   },
   "th":{
@@ -304,7 +304,7 @@
     "faq_q5":"โฮสเทลใหญ่แค่ไหน?","faq_a5":"เราบริหารแบบครอบครัว และด้วยเพียง 19 ห้อง จึงตั้งใจไม่ให้เป็นที่พักขนาดใหญ่ — แม้เช็คอินเองก็ยังอบอุ่นและเป็นกันเอง",
     "st_1":"เดินถึงสถานีหลัก","st_2":"ห้อง · ครอบครัวบริหาร","st_3":"เช็คอินเอง กลางวัน & กลางคืน",
     "st_quote":"“สะอาดเอี่ยม เตียงล็อกได้ฉลาดมาก และถึงในสองนาทีจากสถานี”<cite>— แขกคนล่าสุด</cite>",
-    "foot_imprint":"ผู้จัดทำ","foot_privacy":"ความเป็นส่วนตัว","ga_kick":"แกลเลอรี","ga_h":"มองเข้าไปในบ้าน","ga_intro":"ภาพจริง: เตียงล็อกได้ ห้องสีเหลือง และพื้นที่ส่วนกลางที่นักเดินทางมารวมตัวกัน",
+    "foot_imprint":"ผู้จัดทำ","foot_privacy":"ความเป็นส่วนตัว","ga_kick":"แกลเลอรี","ga_h":"มองเข้าไปในบ้าน","ga_intro":"ภาพจริง: เตียงไม้ล็อกได้ที่สร้างเอง ห้องพัก และทำเลตรงจัตุรัสซืดทิโรเลอร์",
     "scrollcue":"เลื่อนเพื่อมาถึง","pre_text":"กำลังปลดล็อกประตูแรกของคุณ …"
   },
   "es":{
@@ -365,7 +365,7 @@
     "faq_q5":"¿Cómo de grande es el hostel?","faq_a5":"Somos de gestión familiar y, con solo 19 habitaciones, deliberadamente no somos un gran complejo — con auto-check-in sigue siendo acogedor y personal.",
     "st_1":"a pie hasta la estación central","st_2":"habitaciones · gestión familiar","st_3":"auto-check-in, día y noche",
     "st_quote":"«Impecable de limpio, las camas con cerradura son geniales y llegas en dos minutos desde la estación.»<cite>— un huésped reciente</cite>",
-    "foot_imprint":"Aviso legal","foot_privacy":"Privacidad","ga_kick":"Galería","ga_h":"Un vistazo por dentro.","ga_intro":"Fotos reales: las camas con cerradura, las habitaciones amarillas y la zona común donde los viajeros se encuentran.",
+    "foot_imprint":"Aviso legal","foot_privacy":"Privacidad","ga_kick":"Galería","ga_h":"Un vistazo por dentro.","ga_intro":"Fotos reales: las camas de madera con cerradura hechas por nosotros, las habitaciones y la ubicación en Südtiroler Platz.",
     "scrollcue":"desliza para llegar","pre_text":"abriendo tu primera puerta …"
   },
   "it":{
@@ -426,7 +426,7 @@
     "faq_q5":"Quanto è grande l’ostello?","faq_a5":"Siamo a conduzione familiare e, con sole 19 camere, volutamente non un grande complesso — anche con il self check-in resta accogliente e personale.",
     "st_1":"a piedi dalla stazione centrale","st_2":"camere · a conduzione familiare","st_3":"self check-in, giorno e notte",
     "st_quote":"«Pulitissimo, i letti con serratura sono geniali e dalla stazione ci arrivi in due minuti.»<cite>— un ospite recente</cite>",
-    "foot_imprint":"Note legali","foot_privacy":"Privacy","ga_kick":"Galleria","ga_h":"Uno sguardo dentro.","ga_intro":"Foto reali: i letti con serratura, le camere gialle e la zona comune dove i viaggiatori si incontrano.",
+    "foot_imprint":"Note legali","foot_privacy":"Privacy","ga_kick":"Galleria","ga_h":"Uno sguardo dentro.","ga_intro":"Foto reali: i letti in legno con serratura costruiti da noi, le camere e la posizione proprio in Südtiroler Platz.",
     "scrollcue":"scorri per arrivare","pre_text":"sblocco della tua prima porta …"
   }
   };
