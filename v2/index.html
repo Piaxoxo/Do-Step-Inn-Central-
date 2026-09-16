@@ -70,6 +70,18 @@
   .tb-call{font-family:var(--mono);font-size:.82rem;color:var(--ink);text-decoration:none;padding:.5rem .6rem;white-space:nowrap}
   .btn--sm{padding:.6rem 1.15rem;font-size:.9rem}
   @media(max-width:560px){.tb-call span{display:none}}
+  /* language switcher */
+  .lang{position:relative}
+  .lang__btn{display:inline-flex;align-items:center;gap:.35rem;background:transparent;border:1.5px solid rgba(241,232,216,.24);
+    color:var(--ink);font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;padding:.5rem .7rem;border-radius:100px;cursor:pointer;transition:border-color .2s,color .2s}
+  .lang__btn:hover{border-color:var(--amber);color:var(--amber)}
+  .lang__menu{position:absolute;right:0;top:calc(100% + .4rem);z-index:60;list-style:none;margin:0;padding:.35rem;min-width:150px;
+    background:#1c150d;border:1px solid rgba(244,168,26,.2);border-radius:14px;box-shadow:0 24px 50px -24px rgba(0,0,0,.8)}
+  .lang__menu[hidden]{display:none}
+  .lang__menu li{font-family:var(--sans);font-size:.9rem;color:var(--ink);padding:.5rem .7rem;border-radius:9px;cursor:pointer}
+  .lang__menu li:hover{background:rgba(244,168,26,.12)}
+  .lang__menu li[aria-selected="true"]{color:var(--amber);font-weight:600}
+  @media(max-width:560px){.lang__code{display:none}.lang__btn{padding:.5rem .6rem}}
 
   /* footer */
   .v2foot{position:relative;z-index:10;background:var(--ground);color:var(--muted);padding:3rem 7vw;
@@ -148,7 +160,7 @@
 </head>
 <body>
 
-<div id="pre"><div class="keypad">■ ■ ■ ■<div class="dots"><span>•</span><span>•</span><span>•</span></div><small>entsperre deine erste Tür …</small></div></div>
+<div id="pre"><div class="keypad">■ ■ ■ ■<div class="dots"><span>•</span><span>•</span><span>•</span></div><small data-i18n="pre_text">entsperre deine erste Tür …</small></div></div>
 
 <canvas id="scene" aria-hidden="true"></canvas>
 <div class="fallback-bg" aria-hidden="true"></div>
@@ -156,120 +168,143 @@
 <header class="topbar">
   <a href="/v2/" aria-label="Do Step Inn Central"><img class="topbar__logo" src="/assets/logo/dostepinn-central-light.svg?v=2" alt="Do Step Inn Central" width="120" height="38" /></a>
   <div class="topbar__actions">
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button class="lang__btn" aria-haspopup="listbox" aria-expanded="false"><span aria-hidden="true">🌐</span> <span class="lang__code">DE</span></button>
+      <ul class="lang__menu" role="listbox" hidden>
+        <li role="option" data-lang="de" aria-selected="true">Deutsch</li>
+        <li role="option" data-lang="en">English</li>
+        <li role="option" data-lang="ko">한국어</li>
+        <li role="option" data-lang="ja">日本語</li>
+        <li role="option" data-lang="th">ไทย</li>
+        <li role="option" data-lang="es">Español</li>
+        <li role="option" data-lang="it">Italiano</li>
+      </ul>
+    </div>
     <a class="tb-call" href="tel:+4318902351">📞 <span>+43 1 890 23 51</span></a>
-    <a class="btn btn--p btn--sm" href="#book">Buchen</a>
+    <a class="btn btn--p btn--sm" href="#book" data-i18n="nav_book">Buchen</a>
   </div>
 </header>
 
 <main>
   <section class="panel">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>Südtiroler Platz · 2 Minuten vom Hauptbahnhof</p>
+      <p class="eyebrow" data-reveal data-i18n="hero_eyebrow">Südtiroler Platz · 2 Minuten vom Hauptbahnhof</p>
       <h1 data-reveal>Vienna<br/>starts here.</h1>
-      <p class="lede" data-reveal>Scroll — und tritt durch die Tür. Zwei Minuten vom Hauptbahnhof zu deinem eigenen verschließbaren Bett, mitten durch ein Self-Check-in-Hostel.</p>
+      <p class="lede" data-reveal data-i18n="hero_lede">Scroll — und tritt durch die Tür. Zwei Minuten vom Hauptbahnhof zu deinem eigenen verschließbaren Bett, mitten durch ein Self-Check-in-Hostel.</p>
       <div class="btns" data-reveal>
-        <a class="btn btn--p" href="#book">Verfügbarkeit</a>
-        <a class="btn btn--g" href="tel:+4318902351">📞 Anrufen</a>
+        <a class="btn btn--p" href="#book" data-i18n="cta_availability">Verfügbarkeit</a>
+        <a class="btn btn--g" href="tel:+4318902351" data-i18n="cta_call">📞 Anrufen</a>
       </div>
     </div>
   </section>
 
   <section class="panel" style="justify-content:flex-end">
     <div class="wrap card" data-reveal>
-      <h2>Die Schwelle</h2>
-      <p class="lede" style="margin-top:.6rem">Eines der ersten Self-Check-in-Hostels Europas. Kein Empfang, keine Warteschlange — dein Zugangscode kommt mit der Buchung. Du checkst selbst ein, wann immer dein Zug ankommt.</p>
+      <h2 data-i18n="c1_h">Die Schwelle</h2>
+      <p class="lede" style="margin-top:.6rem" data-i18n="c1_p">Eines der ersten Self-Check-in-Hostels Europas. Kein Empfang, keine Warteschlange — dein Zugangscode kommt mit der Buchung. Du checkst selbst ein, wann immer dein Zug ankommt.</p>
     </div>
   </section>
 
   <section class="panel">
     <div class="wrap card" data-reveal>
-      <h2>Ankommen. Bleiben.</h2>
-      <p class="lede" style="margin-top:.6rem">Familiengeführt, nur 19 Zimmer — kein Massenbetrieb, sondern heimelig. Großzügiger Gemeinschaftsbereich, gratis WLAN im ganzen Haus und eine Küche zum gemeinsamen Kochen. Das ist der Teil vom Reisen, den man wirklich behält.</p>
+      <h2 data-i18n="c2_h">Ankommen. Bleiben.</h2>
+      <p class="lede" style="margin-top:.6rem" data-i18n="c2_p">Familiengeführt, nur 19 Zimmer — kein Massenbetrieb, sondern heimelig. Großzügiger Gemeinschaftsbereich, gratis WLAN im ganzen Haus und eine Küche zum gemeinsamen Kochen. Das ist der Teil vom Reisen, den man wirklich behält.</p>
     </div>
   </section>
 
   <div class="content">
     <section class="section" id="zimmer">
-      <p class="kick" data-reveal>Zimmer</p>
-      <h2 data-reveal>Ein Bett, das sich komplett verschließen lässt.</h2>
+      <p class="kick" data-reveal data-i18n="z_kick">Zimmer</p>
+      <h2 data-reveal data-i18n="z_h">Ein Bett, das sich komplett verschließen lässt.</h2>
       <div class="rooms2">
         <article class="room" data-reveal>
           <img src="/assets/img/room-pod.jpg" alt="Selbst gebautes, komplett verschließbares Bett mit eigener Lampe und Steckdose" loading="lazy" width="1200" height="900" />
           <div class="room__b">
-            <h3>Das verschließbare Bett</h3>
-            <p>Selbst designt und im Haus gebaut: ein komplett verschließbares Bett — kein normales Stockbett. Eigene Steckdose und Leselampe, deutlich mehr Privatsphäre und Sicherheit. Und wenn dir nach Quatschen ist, lässt du es einfach offen und nutzt es wie ein klassisches Stockbett.</p>
-            <ul class="chips"><li>Komplett verschließbar</li><li>Steckdose &amp; Lampe</li><li>Eigens zugeteilt</li></ul>
-            <a class="btn btn--p" href="#book">Termine &amp; Preise</a>
+            <h3 data-i18n="z_r1_h">Das verschließbare Bett</h3>
+            <p data-i18n="z_r1_p">Selbst designt und im Haus gebaut: ein komplett verschließbares Bett — kein normales Stockbett. Eigene Steckdose und Leselampe, deutlich mehr Privatsphäre und Sicherheit. Und wenn dir nach Quatschen ist, lässt du es einfach offen und nutzt es wie ein klassisches Stockbett.</p>
+            <ul class="chips"><li data-i18n="z_r1_c1">Komplett verschließbar</li><li data-i18n="z_r1_c2">Steckdose &amp; Lampe</li><li data-i18n="z_r1_c3">Eigens zugeteilt</li></ul>
+            <a class="btn btn--p" href="#book" data-i18n="z_prices">Termine &amp; Preise</a>
           </div>
         </article>
         <article class="room" data-reveal>
           <img src="/assets/img/room-private.jpg" alt="Privatzimmer mit Doppelbett und Schreibtisch" loading="lazy" width="1200" height="900" />
           <div class="room__b">
-            <h3>Das Privatzimmer</h3>
-            <p>Eigene Tür, gemachtes Doppelbett, Schreibtisch am Fenster. Hostel-Preis, etwas mehr Ruhe — ideal für Paare, Leiseschläfer und alle, die kurz arbeiten wollen. Blitzsaubere Gemeinschaftsbäder gleich um die Ecke.</p>
-            <ul class="chips"><li>Eigene Tür</li><li>Schreibtisch &amp; Fenster</li><li>Arbeits-WLAN</li></ul>
-            <a class="btn btn--p" href="#book">Termine &amp; Preise</a>
+            <h3 data-i18n="z_r2_h">Das Privatzimmer</h3>
+            <p data-i18n="z_r2_p">Eigene Tür, gemachtes Doppelbett, Schreibtisch am Fenster. Hostel-Preis, etwas mehr Ruhe — ideal für Paare, Leiseschläfer und alle, die kurz arbeiten wollen. Blitzsaubere Gemeinschaftsbäder gleich um die Ecke.</p>
+            <ul class="chips"><li data-i18n="z_r2_c1">Eigene Tür</li><li data-i18n="z_r2_c2">Schreibtisch &amp; Fenster</li><li data-i18n="z_r2_c3">Arbeits-WLAN</li></ul>
+            <a class="btn btn--p" href="#book" data-i18n="z_prices">Termine &amp; Preise</a>
           </div>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <p class="kick" data-reveal>Jeder Aufenthalt inklusive</p>
-      <h2 data-reveal>Alles, was du brauchst. Nichts, was du nicht brauchst.</h2>
+      <p class="kick" data-reveal data-i18n="am_kick">Jeder Aufenthalt inklusive</p>
+      <h2 data-reveal data-i18n="am_h">Alles, was du brauchst. Nichts, was du nicht brauchst.</h2>
       <div class="amen">
-        <div data-reveal><b>Selbstversorger-Küche</b><span>Gut ausgestattet, großer Kühlschrank — gemeinsam kochen ist das soziale Herz des Hauses.</span></div>
-        <div data-reveal><b>Gratis WLAN im ganzen Haus</b><span>Schnell genug zum Arbeiten, Hochladen und Morgen-planen.</span></div>
-        <div data-reveal><b>Gemeinschaftsbereich</b><span>Großzügige Lounge zum Ankommen, Pläne schmieden und neue Leute treffen.</span></div>
-        <div data-reveal><b>Verschließbare Betten</b><span>Selbst gebaut, komplett verschließbar — Privatsphäre und Sicherheit inklusive.</span></div>
-        <div data-reveal><b>Self-Check-in</b><span>Dein Code kommt mit der Buchung. Ankommen, wann du willst — Tag und Nacht.</span></div>
-        <div data-reveal><b>Familiengeführt · 19 Zimmer</b><span>Kein Massenbetrieb — trotz Self-Check-in bleibt es heimelig.</span></div>
+        <div data-reveal><b data-i18n="am_1b">Selbstversorger-Küche</b><span data-i18n="am_1s">Gut ausgestattet, großer Kühlschrank — gemeinsam kochen ist das soziale Herz des Hauses.</span></div>
+        <div data-reveal><b data-i18n="am_2b">Gratis WLAN im ganzen Haus</b><span data-i18n="am_2s">Schnell genug zum Arbeiten, Hochladen und Morgen-planen.</span></div>
+        <div data-reveal><b data-i18n="am_3b">Gemeinschaftsbereich</b><span data-i18n="am_3s">Großzügige Lounge zum Ankommen, Pläne schmieden und neue Leute treffen.</span></div>
+        <div data-reveal><b data-i18n="am_4b">Verschließbare Betten</b><span data-i18n="am_4s">Selbst gebaut, komplett verschließbar — Privatsphäre und Sicherheit inklusive.</span></div>
+        <div data-reveal><b data-i18n="am_5b">Self-Check-in</b><span data-i18n="am_5s">Dein Code kommt mit der Buchung. Ankommen, wann du willst — Tag und Nacht.</span></div>
+        <div data-reveal><b data-i18n="am_6b">Familiengeführt · 19 Zimmer</b><span data-i18n="am_6s">Kein Massenbetrieb — trotz Self-Check-in bleibt es heimelig.</span></div>
       </div>
     </section>
 
     <section class="section">
-      <p class="kick" data-reveal>So funktioniert der kontaktlose Check-in</p>
-      <h2 data-reveal>Dein Code, deine Zeit.</h2>
+      <p class="kick" data-reveal data-i18n="ci_kick">So funktioniert der kontaktlose Check-in</p>
+      <h2 data-reveal data-i18n="ci_h">Dein Code, deine Zeit.</h2>
       <div class="steps">
-        <div data-reveal><b>1 · Buchen</b><span>In ein paar Taps online reservieren. Kein Papierkram, keine Anrufe.</span></div>
-        <div data-reveal><b>2 · Code erhalten</b><span>Vor der Anreise kommen Tür- und Bett-Code per E-Mail — ob 6 Uhr früh oder Mitternacht.</span></div>
-        <div data-reveal><b>3 · Reinspazieren</b><span>Code eingeben, Bett aufschließen, drin sein. Kein Empfang, keine Wartezeit — wann immer dein Zug ankommt.</span></div>
+        <div data-reveal><b data-i18n="ci_1b">1 · Buchen</b><span data-i18n="ci_1s">In ein paar Taps online reservieren. Kein Papierkram, keine Anrufe.</span></div>
+        <div data-reveal><b data-i18n="ci_2b">2 · Code erhalten</b><span data-i18n="ci_2s">Vor der Anreise kommen Tür- und Bett-Code per E-Mail — ob 6 Uhr früh oder Mitternacht.</span></div>
+        <div data-reveal><b data-i18n="ci_3b">3 · Reinspazieren</b><span data-i18n="ci_3s">Code eingeben, Bett aufschließen, drin sein. Kein Empfang, keine Wartezeit — wann immer dein Zug ankommt.</span></div>
       </div>
     </section>
 
     <section class="section" id="lage">
-      <p class="kick" data-reveal>Lage · vor deiner Tür</p>
-      <h2 data-reveal>Die Stadt ist eine Verlängerung des Hostels.</h2>
-      <p class="intro" data-reveal>Du stehst am Südtiroler Platz, direkt vor dem Hauptbahnhof. Die historische Altstadt erreichst du zu Fuß in 15–20 Minuten, das Belvedere in rund 10 — und die U1 vor der Haustür bringt dich in wenigen Minuten überall hin.</p>
+      <p class="kick" data-reveal data-i18n="lo_kick">Lage · vor deiner Tür</p>
+      <h2 data-reveal data-i18n="lo_h">Die Stadt ist eine Verlängerung des Hostels.</h2>
+      <p class="intro" data-reveal data-i18n="lo_intro">Du stehst am Südtiroler Platz, direkt vor dem Hauptbahnhof. Die historische Altstadt erreichst du zu Fuß in 15–20 Minuten, das Belvedere in rund 10 — und die U1 vor der Haustür bringt dich in wenigen Minuten überall hin.</p>
       <div class="places2" data-reveal>
-        <span><small>~10 MIN</small> Schloss Belvedere</span>
-        <span><small>~10 MIN</small> Botanischer Garten &amp; Heeresmuseum</span>
-        <span><small>15–20 MIN</small> Historische Altstadt</span>
-        <span><small>2 STAT · U1</small> Stephansplatz &amp; Innenstadt</span>
-        <span><small>DIREKT · U1</small> Prater &amp; Donauinsel</span>
-        <span><small>~5 MIN</small> Favoritenstraße · Shopping</span>
-        <span><small>IM BAHNHOF</small> Mall &amp; Supermarkt</span>
-        <span><small>~15 MIN</small> Flughafen (S7/CAT)</span>
+        <span data-i18n="lo_p1"><small>~10 MIN</small> Schloss Belvedere</span>
+        <span data-i18n="lo_p2"><small>~10 MIN</small> Botanischer Garten &amp; Heeresmuseum</span>
+        <span data-i18n="lo_p3"><small>15–20 MIN</small> Historische Altstadt</span>
+        <span data-i18n="lo_p4"><small>2 STAT · U1</small> Stephansplatz &amp; Innenstadt</span>
+        <span data-i18n="lo_p5"><small>DIREKT · U1</small> Prater &amp; Donauinsel</span>
+        <span data-i18n="lo_p6"><small>~5 MIN</small> Favoritenstraße · Shopping</span>
+        <span data-i18n="lo_p7"><small>IM BAHNHOF</small> Mall &amp; Supermarkt</span>
+        <span data-i18n="lo_p8"><small>~15 MIN</small> Flughafen (S7/CAT)</span>
+      </div>
+    </section>
+
+    <section class="section" id="ueber-uns">
+      <p class="kick" data-reveal data-i18n="ab_kick">Über uns</p>
+      <h2 data-reveal data-i18n="ab_h">Familiengeführt — seit dem ersten Do Step Inn.</h2>
+      <p class="intro" data-reveal data-i18n="ab_intro">Angefangen hat alles vor über zehn Jahren im <b>Do Step Inn Hotel</b> in der Felberstraße 20. Mit dem Standort am Südtiroler Platz gehen wir einen Schritt weiter: backpacker-freundlicher, innovativer — mit selbst konstruierten, verschließbaren Betten und einem Self-Check-in-System, das es so kein zweites Mal gibt.</p>
+      <div class="amen">
+        <div data-reveal><b data-i18n="ab_1b">Familienbetrieb</b><span data-i18n="ab_1s">Kein Massenbetrieb. Nur 19 Zimmer, persönlich geführt — trotz Self-Check-in bleibt es heimelig.</span></div>
+        <div data-reveal><b data-i18n="ab_2b">Ein diverses Team</b><span data-i18n="ab_2s">Ein dynamisches, junges Team, das Wien liebt und Reisende aus aller Welt willkommen heißt.</span></div>
+        <div data-reveal><b data-i18n="ab_3b">Etwas anderes</b><span data-i18n="ab_3s">Selbst gebaute verschließbare Betten und Self-Check-in: eine neue Art zu übernachten, mitten in Wien.</span></div>
       </div>
     </section>
 
     <section class="section" id="wien-live">
-      <p class="kick" data-reveal style="color:var(--mint)">Wien · live</p>
-      <h2 data-reveal>Deine ersten 24 Stunden — heute.</h2>
-      <p class="intro" data-reveal>Sobald dein Zug einfährt, hat die Reise schon begonnen. Live-Wetter und, was diese Woche in Wien läuft.</p>
+      <p class="kick" data-reveal style="color:var(--mint)" data-i18n="wl_kick">Wien · live</p>
+      <h2 data-reveal data-i18n="wl_h">Deine ersten 24 Stunden — heute.</h2>
+      <p class="intro" data-reveal data-i18n="wl_intro">Sobald dein Zug einfährt, hat die Reise schon begonnen. Live-Wetter und, was diese Woche in Wien läuft.</p>
       <div class="live-grid">
         <div class="live-card" data-reveal>
-          <span class="live-label"><span class="live-dot"></span> Heute in Wien</span>
+          <span class="live-label"><span class="live-dot"></span> <span data-i18n="wl_today">Heute in Wien</span></span>
           <h3 id="wx-temp" class="mono" aria-live="polite">—°</h3>
           <p id="wx-desc">Ich schaue kurz zum Himmel über der Stadt …</p>
           <div class="wx-pick">
-            <span class="lbl">Heutiger Tipp</span>
+            <span class="lbl" data-i18n="wl_tip">Heutiger Tipp</span>
             <p id="wx-pick">Lade einen Plan für heute …</p>
             <ul id="wx-sug" class="chips"><li>Belvedere</li><li>Cafés</li><li>Spaziergänge</li></ul>
           </div>
         </div>
         <div class="live-card" data-reveal>
-          <span class="live-label"><span class="live-dot"></span> Diese Woche in Wien</span>
+          <span class="live-label"><span class="live-dot"></span> <span data-i18n="wl_week">Diese Woche in Wien</span></span>
           <ul id="wien-events" class="events" aria-live="polite"><li><span class="mono">—</span><b>Lade Wien-Highlights …</b><span class="mono"></span></li></ul>
         </div>
       </div>
@@ -278,47 +313,47 @@
     <section class="section">
       <p class="kick" data-reveal>Der leise Beweis</p>
       <div class="stat3" data-reveal>
-        <div><b>2 Min</b><span>zu Fuß zum Hauptbahnhof</span></div>
-        <div><b>19</b><span>Zimmer · familiengeführt</span></div>
-        <div><b>24/7</b><span>Self-Check-in, Tag &amp; Nacht</span></div>
+        <div><b>2 Min</b><span data-i18n="st_1">zu Fuß zum Hauptbahnhof</span></div>
+        <div><b>19</b><span data-i18n="st_2">Zimmer · familiengeführt</span></div>
+        <div><b>24/7</b><span data-i18n="st_3">Self-Check-in, Tag &amp; Nacht</span></div>
       </div>
-      <blockquote class="q" data-reveal>„Blitzsauber, die verschließbaren Betten sind genial, und man ist in zwei Minuten vom Bahnhof da."<cite>— ein aktueller Gast</cite></blockquote>
+      <blockquote class="q" data-reveal data-i18n="st_quote">„Blitzsauber, die verschließbaren Betten sind genial, und man ist in zwei Minuten vom Bahnhof da."<cite>— ein aktueller Gast</cite></blockquote>
     </section>
 
     <section class="section">
-      <p class="kick" data-reveal>Gut zu wissen</p>
+      <p class="kick" data-reveal data-i18n="faq_kick">Gut zu wissen</p>
       <h2 data-reveal>FAQ</h2>
       <div class="faq" data-reveal>
-        <details><summary>Wie funktioniert der Self-Check-in?</summary><p>Nach der Buchung bekommst du deinen Zugangscode per E-Mail. Es gibt keinen Empfang zum Anstellen — du checkst selbst ein und kannst jederzeit ankommen, Tag und Nacht.</p></details>
-        <details><summary>Was ist das Besondere an den Betten?</summary><p>Unsere Betten sind selbst designt und im Haus gebaut: Sie lassen sich komplett verschließen und haben eine eigene Steckdose und Leselampe — mehr Privatsphäre und Sicherheit als ein normales Stockbett. Lieber offen? Dann nutzt du es einfach wie ein klassisches Stockbett.</p></details>
-        <details><summary>Gibt es eine Küche?</summary><p>Ja — eine gut ausgestattete Selbstversorger-Küche mit großem Kühlschrank. Gemeinsam kochen; es ist das soziale Herz des Hauses.</p></details>
-        <details><summary>Wie weit sind Bahnhof und Flughafen?</summary><p>Wien Hauptbahnhof ist nur 2 Gehminuten entfernt — direkt am Südtiroler Platz. Vom selben Bahnhof bist du in ca. 15 Minuten mit dem Zug (S7/CAT) am Flughafen.</p></details>
-        <details><summary>Wie groß ist das Hostel?</summary><p>Wir sind familiengeführt und mit nur 19 Zimmern bewusst kein Massenbetrieb — trotz Self-Check-in bleibt es heimelig und persönlich.</p></details>
+        <details><summary data-i18n="faq_q1">Wie funktioniert der Self-Check-in?</summary><p data-i18n="faq_a1">Nach der Buchung bekommst du deinen Zugangscode per E-Mail. Es gibt keinen Empfang zum Anstellen — du checkst selbst ein und kannst jederzeit ankommen, Tag und Nacht.</p></details>
+        <details><summary data-i18n="faq_q2">Was ist das Besondere an den Betten?</summary><p data-i18n="faq_a2">Unsere Betten sind selbst designt und im Haus gebaut: Sie lassen sich komplett verschließen und haben eine eigene Steckdose und Leselampe — mehr Privatsphäre und Sicherheit als ein normales Stockbett. Lieber offen? Dann nutzt du es einfach wie ein klassisches Stockbett.</p></details>
+        <details><summary data-i18n="faq_q3">Gibt es eine Küche?</summary><p data-i18n="faq_a3">Ja — eine gut ausgestattete Selbstversorger-Küche mit großem Kühlschrank. Gemeinsam kochen; es ist das soziale Herz des Hauses.</p></details>
+        <details><summary data-i18n="faq_q4">Wie weit sind Bahnhof und Flughafen?</summary><p data-i18n="faq_a4">Wien Hauptbahnhof ist nur 2 Gehminuten entfernt — direkt am Südtiroler Platz. Vom selben Bahnhof bist du in ca. 15 Minuten mit dem Zug (S7/CAT) am Flughafen.</p></details>
+        <details><summary data-i18n="faq_q5">Wie groß ist das Hostel?</summary><p data-i18n="faq_a5">Wir sind familiengeführt und mit nur 19 Zimmern bewusst kein Massenbetrieb — trotz Self-Check-in bleibt es heimelig und persönlich.</p></details>
       </div>
     </section>
 
     <section class="section book2" id="book">
-      <p class="kick" data-reveal style="justify-content:center">Beginnen</p>
-      <h2 data-reveal>Verfügbarkeit &amp; Buchung</h2>
-      <p class="addr" data-reveal><b>Do Step Inn Central</b> · Südtiroler Platz 3, 1040 Wien<br/>2 Minuten vom Wien Hauptbahnhof · U1 Südtiroler Platz — dein Code kommt mit der Buchung.</p>
+      <p class="kick" data-reveal style="justify-content:center" data-i18n="bk_kick">Beginnen</p>
+      <h2 data-reveal data-i18n="bk_h">Verfügbarkeit &amp; Buchung</h2>
+      <p class="addr" data-reveal data-i18n="bk_addr"><b>Do Step Inn Central</b> · Südtiroler Platz 3, 1040 Wien<br/>2 Minuten vom Wien Hauptbahnhof · U1 Südtiroler Platz — dein Code kommt mit der Buchung.</p>
       <div class="bookmount" data-reveal>
         <ibe-up ibe-key="78c820ab-21ac-4763-a6d6-767d2e845c89" language="de"></ibe-up>
       </div>
       <div class="btns" data-reveal style="justify-content:center">
-        <a class="btn btn--p" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener">Sichere Buchungsseite öffnen →</a>
+        <a class="btn btn--p" href="https://ibe-server.myibe.com/ibe-preview/78c820ab-21ac-4763-a6d6-767d2e845c89#/booking/search" target="_blank" rel="noopener" data-i18n="bk_secure">Sichere Buchungsseite öffnen →</a>
         <a class="btn btn--g" href="tel:+4318902351">📞 +43 1 890 23 51</a>
       </div>
     </section>
 
     <footer class="v2foot">
       <div>© <span id="yr">2026</span> Do Step Inn Central · Südtiroler Platz 3, 1040 Wien</div>
-      <div><a href="/v2/imprint">Impressum</a> · <a href="/v2/privacy">Datenschutz</a></div>
+      <div><a href="/v2/imprint" data-i18n="foot_imprint">Impressum</a> · <a href="/v2/privacy" data-i18n="foot_privacy">Datenschutz</a></div>
       <a class="madeby" href="https://bandita-pink.vercel.app" target="_blank" rel="noopener">Made by BANDITA</a>
     </footer>
   </div>
 </main>
 
-<div class="scrollcue">scroll to arrive</div>
+<div class="scrollcue" data-i18n="scrollcue">scroll to arrive</div>
 
 <script>
   addEventListener('scroll',()=>{if(scrollY>40)document.documentElement.classList.add('scrolled')},{passive:true});
@@ -335,28 +370,38 @@
   (function(){
     var tempEl=document.getElementById('wx-temp'),descEl=document.getElementById('wx-desc'),
         sugEl=document.getElementById('wx-sug'),pickEl=document.getElementById('wx-pick');
-    var PICKS={
-      warm:['Rad am Donaukanal','Baden an der Alten Donau','Picknick im Stadtpark','Sonnenuntergang am Kahlenberg','Langer Nachmittag im schattigen Gastgarten','Boot auf der Neuen Donau'],
-      mild:['Den Ring zum Belvedere entlang','Durch die MQ-Höfe schlendern','Naschmarkt, dann gemütlich bummeln','Fahrt & Spaziergang durch den Prater','Dachblick vom Stephansdom','Kaffee am Karlsplatz, dann Karlskirche'],
-      rain:['Das Kunsthistorische Museum','Ein klassisches Wiener Kaffeehaus','Die Albertina und eine Melange','MQ-Galerien im Trockenen','Die Marktstände am Naschmarkt','Time Travel Vienna, dann Sachertorte'],
-      cold:['Aufwärmen im echten Kaffeehaus','Schönbrunn-Säle & Wintergärten','Heiße Schokolade und Sachertorte','Belvedere — Klimt, drinnen','Nachmittag im Naturhistorischen Museum','Spa & Sauna zum Reset']
+    // German fallbacks used before i18n loads; localised copies live in i18n-v2.js
+    var FB={
+      wl_desc_mild:'Perfektes Wetter, um Wien zu Fuß zu entdecken.',
+      wl_desc_rain:'Regnerisches Wien — Kaffeehaus-Wetter: Museen, Märkte, langsame Vormittage.',
+      wl_desc_warm:'Warm und hell. Parks, die Donau und lange Golden-Hour-Spaziergänge.',
+      wl_desc_cold:'Draußen kalt, drinnen gemütlich. Paläste, Kultur und heiße Schokolade.',
+      wl_desc_fallback:'Ein guter Tag, um Wien zu entdecken — hier ist dein Plan für heute.',
+      wl_sug_mild:'Belvedere, Spaziergänge, Cafés im Freien',
+      wl_sug_rain:'Museen, Kaffeehäuser, Indoor-Märkte',
+      wl_sug_warm:'Donau, Parks, Sonnenuntergang',
+      wl_sug_cold:'Paläste, Museen, Heiße Schokolade'
     };
-    var DESC={mild:'Perfektes Wetter, um Wien zu Fuß zu entdecken.',rain:'Regnerisches Wien — Kaffeehaus-Wetter: Museen, Märkte, langsame Vormittage.',warm:'Warm und hell. Parks, die Donau und lange Golden-Hour-Spaziergänge.',cold:'Draußen kalt, drinnen gemütlich. Paläste, Kultur und heiße Schokolade.',fallback:'Ein guter Tag, um Wien zu entdecken — hier ist dein Plan für heute.'};
-    var SUG={mild:['Belvedere','Spaziergänge','Cafés im Freien'],rain:['Museen','Kaffeehäuser','Indoor-Märkte'],warm:['Donau','Parks','Sonnenuntergang'],cold:['Paläste','Museen','Heiße Schokolade']};
+    function tr(k){ try{ if(window.I18N&&I18N.t){var v=I18N.t(k); if(v&&v!==k) return v;} }catch(e){} return FB[k]; }
     var doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5);
-    function pick(b){var a=PICKS[b]||PICKS.mild;return a[doy%a.length];}
-    function paint(b,fb){ if(descEl)descEl.textContent=fb?DESC.fallback:DESC[b];
-      if(sugEl)sugEl.innerHTML=(SUG[b]||SUG.mild).map(function(s){return '<li>'+s+'</li>';}).join('');
-      if(pickEl)pickEl.textContent=pick(b); }
+    var state={bucket:'mild',fallback:false};
+    function paint(){ var b=state.bucket;
+      if(descEl)descEl.textContent=state.fallback?tr('wl_desc_fallback'):tr('wl_desc_'+b);
+      var sug=(tr('wl_sug_'+b)||'').split(',').map(function(x){return x.trim();}).filter(Boolean);
+      if(sugEl)sugEl.innerHTML=sug.map(function(s){return '<li>'+s+'</li>';}).join('');
+      if(pickEl&&sug.length)pickEl.textContent=sug[doy%sug.length]; }
     fetch('https://api.open-meteo.com/v1/forecast?latitude=48.2082&longitude=16.3738&current=temperature_2m,weather_code&timezone=Europe%2FVienna')
       .then(function(r){return r.json();})
       .then(function(d){var t=Math.round(d.current.temperature_2m),c=d.current.weather_code,b='mild';
         if(c>=51&&c<=99)b='rain'; else if(t>=25)b='warm'; else if(t>=16)b='mild'; else if(t<8)b='cold';
-        if(tempEl)tempEl.textContent=t+'°'; paint(b,false);})
-      .catch(function(){ if(tempEl)tempEl.textContent='—°'; paint('mild',true); });
+        if(tempEl)tempEl.textContent=t+'°'; state.bucket=b; state.fallback=false; paint();})
+      .catch(function(){ if(tempEl)tempEl.textContent='—°'; state.bucket='mild'; state.fallback=true; paint(); });
 
+    // events — Vienna-specific names stay put; weekday labels localise via Intl
     var el=document.getElementById('wien-events');
-    if(el){
+    var LOC={en:'en-GB',de:'de-DE',ko:'ko-KR',ja:'ja-JP',th:'th-TH',es:'es-ES',it:'it-IT'};
+    function renderEvents(){ if(!el)return;
+      var lang=(window.I18N&&I18N.lang)||'de',loc=LOC[lang]||'de-DE';
       var byDay={0:[['Donauinsel-Morgenlauf','09:00'],['Karlsplatz & MQ-Bummel','11:00']],
         1:[['Kunsthistorisches Museum','10:00'],['Kaffeehaus-Nachmittag','15:00']],
         2:[['Belvedere-Galerien','10:00'],['Naschmarkt-Lunch','13:00']],
@@ -364,14 +409,18 @@
         4:[['Naschmarkt-Abend & Street Food','18:00'],['Prater-Lichter','20:00']],
         5:[['Belvedere Langnacht','21:00'],['Kärntner Straße bei Nacht','20:00']],
         6:[['Naschmarkt-Flohmarkt','09:00'],['Donaukanal-Bars','19:00']]};
-      var dows=['SO','MO','DI','MI','DO','FR','SA'],now=new Date(),rows=[];
+      var now=new Date(),rows=[];
       for(var i=0;i<5;i++){var dt=new Date(now);dt.setDate(now.getDate()+i);
         var opts=byDay[dt.getDay()],p=opts[i%opts.length];
-        rows.push('<li><span class="mono">'+dows[dt.getDay()]+' '+dt.getDate()+'</span><b>'+p[0]+'</b><span class="mono">'+p[1]+'</span></li>');}
+        var dow;try{dow=dt.toLocaleDateString(loc,{weekday:'short'}).toUpperCase().replace('.','');}catch(e){dow='';}
+        rows.push('<li><span class="mono">'+dow+' '+dt.getDate()+'</span><b>'+p[0]+'</b><span class="mono">'+p[1]+'</span></li>');}
       el.innerHTML=rows.join('');
     }
+    renderEvents();
+    document.addEventListener('i18n:changed',function(){ paint(); renderEvents(); });
   })();
 </script>
+<script src="/assets/js/i18n-v2.js?v=1" defer></script>
 <script type="module" src="/v2/app.js?v=2"></script>
 <!-- uphotel IBE booking widget (loads on this whitelisted domain) -->
 <link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
