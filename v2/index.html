@@ -3,170 +3,220 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Do Step Inn Central — 3D Prototype</title>
+<title>Do Step Inn Central — Self-Check-in Hostel Wien</title>
 <meta name="robots" content="noindex" />
-<meta name="theme-color" content="#33261a" />
+<meta name="theme-color" content="#160f08" />
 <link rel="stylesheet" href="/assets/css/fonts.css?v=6" />
+<link rel="stylesheet" href="/assets/css/fonts-v2.css?v=1" />
 <style>
   :root{
-    --ground:#140f09;--ink:#F1E8D8;--muted:#B0A085;--faint:#7d715c;--amber:#F4A81A;--yellow:#F5C50E;
-    --mint:#5FB894;--mint-deep:#3E8C6E;
-    --serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+    --ground:#140f09;--coal:#160f08;--ink:#F1E8D8;--muted:#B0A085;--faint:#7d715c;
+    --amber:#F4A81A;--yellow:#F5C50E;--mint:#5FB894;--mint-deep:#3E8C6E;
+    --paper:#ece3d3;--cream:#FBF7F0;--inkdark:#241a12;
+    --display:'Fredoka','Inter',system-ui,sans-serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+    /* per-section adaptive tokens (defaults = cream section) */
+    --acc:#C77E12;--tile:#ffffff;--tileln:rgba(30,20,8,.10);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:var(--ground);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
   a{color:inherit}
+  @media(hover:hover){*{cursor:none}}
 
-  /* fixed 3D canvas behind everything */
+  /* fixed 3D canvas behind the hero */
   #scene{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0}
-  /* fallback hero image when WebGL is unavailable */
   .no-webgl #scene{display:none}
   .fallback-bg{position:fixed;inset:0;z-index:0;display:none;
-    background:linear-gradient(180deg,rgba(20,15,9,.5),rgba(20,15,9,.85)),url(/assets/img/door-window.jpg) center/cover}
+    background:radial-gradient(120% 90% at 50% 0%,#2a1c0e,#140f09 70%)}
   .no-webgl .fallback-bg{display:block}
 
+  /* custom cursor */
+  .cursor{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--amber);
+    pointer-events:none;z-index:200;transform:translate(-50%,-50%);opacity:0;
+    transition:width .22s,height .22s,background .22s,opacity .25s;mix-blend-mode:difference}
+  .cursor.on{opacity:1}
+  .cursor.big{width:48px;height:48px;background:var(--mint)}
+  @media(hover:none){.cursor{display:none}*{cursor:auto}}
+
   /* preloader */
-  #pre{position:fixed;inset:0;z-index:50;background:var(--ground);display:grid;place-items:center;transition:opacity .8s ease,visibility .8s}
+  #pre{position:fixed;inset:0;z-index:50;background:var(--coal);display:grid;place-items:center;transition:opacity .8s ease,visibility .8s}
   .scene-ready #pre{opacity:0;visibility:hidden}
   .keypad{font-family:var(--mono);color:var(--amber);letter-spacing:.4em;font-size:.9rem;text-align:center}
   .keypad small{display:block;color:var(--muted);letter-spacing:.24em;margin-top:1rem;font-size:.7rem}
   .keypad .dots span{animation:blink 1.2s infinite}
-  .keypad .dots span:nth-child(2){animation-delay:.2s}
-  .keypad .dots span:nth-child(3){animation-delay:.4s}
+  .keypad .dots span:nth-child(2){animation-delay:.2s}.keypad .dots span:nth-child(3){animation-delay:.4s}
   @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
 
-  /* content overlay */
   main{position:relative;z-index:10}
-  .panel{min-height:100vh;display:flex;align-items:center;padding:8vh 7vw}
-  .wrap{max-width:640px}
-  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin:0 0 1.2rem}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(3rem,10vw,7rem);line-height:.98;letter-spacing:-.02em;margin:0;text-shadow:0 8px 40px rgba(0,0,0,.55)}
-  h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.05;margin:0 0 1rem;text-shadow:0 6px 30px rgba(0,0,0,.5)}
-  p.lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--ink);max-width:46ch;margin:1.4rem 0 0;text-shadow:0 2px 20px rgba(0,0,0,.6)}
-  .card{background:rgba(20,15,9,.42);backdrop-filter:blur(6px);border:1px solid rgba(244,168,26,.18);border-radius:20px;padding:clamp(1.6rem,4vw,2.6rem)}
-  .btns{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
-  .btn{font-family:var(--sans);font-weight:600;font-size:1rem;padding:.9rem 1.5rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,background .2s}
-  .btn--p{background:var(--amber);color:#1a1206}
-  .btn--p:hover{transform:translateY(-2px)}
-  .btn--g{color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(241,232,216,.4)}
-  .btn--g:hover{box-shadow:inset 0 0 0 1.5px var(--amber);color:var(--amber)}
 
-  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease}
+  /* hero */
+  .hero{position:relative;z-index:10;min-height:100svh;display:flex;align-items:center;padding:12vh 7vw 8vh}
+  .hero .wrap{max-width:min(880px,92vw)}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);margin:0 0 1.4rem}
+  .hero__h{font-family:var(--display);font-weight:700;font-size:clamp(3.1rem,12vw,8rem);line-height:.9;letter-spacing:-.01em;margin:0;
+    text-shadow:0 10px 44px rgba(0,0,0,.5)}
+  .hero__h .hl{color:var(--amber)}
+  p.lede{font-size:clamp(1.05rem,2.3vw,1.35rem);color:var(--ink);max-width:52ch;margin:1.6rem 0 0;line-height:1.5;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+  .btns{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.2rem}
+  .btn{font-family:var(--display);font-weight:600;font-size:1.02rem;padding:.9rem 1.6rem;border-radius:100px;text-decoration:none;display:inline-block;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s}
+  .btn--p{background:var(--amber);color:#231500}
+  .btn--p:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 30px -12px rgba(244,168,26,.7)}
+  .btn--g{color:var(--ink);box-shadow:inset 0 0 0 2px rgba(241,232,216,.4)}
+  .btn--g:hover{box-shadow:inset 0 0 0 2px var(--amber);color:var(--amber);transform:translateY(-3px)}
+
+  [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
   [data-reveal].in{opacity:1;transform:none}
 
-  .scrollcue{position:fixed;left:50%;bottom:2rem;transform:translateX(-50%);z-index:20;font-family:var(--mono);
-    font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);text-align:center;transition:opacity .4s}
-  .scrollcue::before{content:"";display:block;width:1px;height:34px;background:linear-gradient(var(--amber),transparent);margin:0 auto .6rem}
-  .scene-ready.scrolled .scrollcue{opacity:0}
+  .scrollcue{position:fixed;left:50%;bottom:1.6rem;transform:translateX(-50%);z-index:20;font-family:var(--mono);
+    font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);text-align:center;transition:opacity .4s}
+  .scrollcue::before{content:"";display:block;width:1px;height:30px;background:linear-gradient(var(--amber),transparent);margin:0 auto .5rem}
+  .scrolled .scrollcue{opacity:0}
 
   /* topbar */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
-    padding:.9rem clamp(1rem,4vw,2.2rem);transition:background .4s ease;pointer-events:none}
+    padding:.75rem clamp(1rem,4vw,2rem);transition:background .35s ease,backdrop-filter .35s;pointer-events:none}
   .topbar>*{pointer-events:auto}
-  .scrolled .topbar{background:linear-gradient(180deg,rgba(20,15,9,.75),transparent)}
-  .topbar__logo{height:34px;width:auto;opacity:.98;display:block}
+  .scrolled .topbar{background:rgba(18,12,6,.82);backdrop-filter:blur(12px)}
+  .topbar__logo{height:32px;width:auto;display:block}
   .topbar__actions{display:flex;gap:.55rem;align-items:center}
   .tb-call{font-family:var(--mono);font-size:.82rem;color:var(--ink);text-decoration:none;padding:.5rem .6rem;white-space:nowrap}
-  .btn--sm{padding:.6rem 1.15rem;font-size:.9rem}
+  .btn--sm{padding:.62rem 1.15rem;font-size:.92rem}
   @media(max-width:560px){.tb-call span{display:none}}
-  /* language switcher */
   .lang{position:relative}
-  .lang__btn{display:inline-flex;align-items:center;gap:.35rem;background:transparent;border:1.5px solid rgba(241,232,216,.24);
-    color:var(--ink);font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;padding:.5rem .7rem;border-radius:100px;cursor:pointer;transition:border-color .2s,color .2s}
+  .lang__btn{display:inline-flex;align-items:center;gap:.35rem;background:transparent;border:1.5px solid rgba(241,232,216,.28);
+    color:var(--ink);font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;padding:.5rem .7rem;border-radius:100px;transition:border-color .2s,color .2s}
   .lang__btn:hover{border-color:var(--amber);color:var(--amber)}
   .lang__menu{position:absolute;right:0;top:calc(100% + .4rem);z-index:60;list-style:none;margin:0;padding:.35rem;min-width:150px;
     background:#1c150d;border:1px solid rgba(244,168,26,.2);border-radius:14px;box-shadow:0 24px 50px -24px rgba(0,0,0,.8)}
   .lang__menu[hidden]{display:none}
-  .lang__menu li{font-family:var(--sans);font-size:.9rem;color:var(--ink);padding:.5rem .7rem;border-radius:9px;cursor:pointer}
+  .lang__menu li{font-size:.9rem;color:var(--ink);padding:.5rem .7rem;border-radius:9px}
   .lang__menu li:hover{background:rgba(244,168,26,.12)}
   .lang__menu li[aria-selected="true"]{color:var(--amber);font-weight:600}
   @media(max-width:560px){.lang__code{display:none}.lang__btn{padding:.5rem .6rem}}
 
-  /* footer */
-  .v2foot{position:relative;z-index:10;background:var(--ground);color:var(--muted);padding:3rem 7vw;
-    display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;font-size:.82rem;
-    border-top:1px solid rgba(244,168,26,.16)}
-  .v2foot a{color:var(--muted);text-decoration:none}
-  .v2foot a:hover{color:var(--amber)}
-  .madeby{font-family:var(--mono);letter-spacing:.12em;color:var(--amber)!important}
+  /* hallo marquee */
+  .hallo{position:relative;z-index:10;background:var(--coal);color:var(--ink);overflow:hidden;padding:1.15rem 0;
+    border-top:1px solid rgba(244,168,26,.16);border-bottom:1px solid rgba(244,168,26,.16)}
+  .hallo__track{display:flex;width:max-content;gap:0;animation:marq 32s linear infinite;font-family:var(--display);font-weight:600;
+    font-size:clamp(1.5rem,4vw,2.4rem);white-space:nowrap}
+  .hallo:hover .hallo__track{animation-play-state:paused}
+  .hallo__track b{font-weight:600;padding:0 1.6rem}
+  .hallo__track b:nth-child(even){color:var(--amber)}
+  .hallo__track b:nth-child(3n){color:var(--mint)}
+  .hallo__track .dot{color:var(--faint)}
+  @keyframes marq{to{transform:translateX(-50%)}}
 
-  /* ---- content (real hostel substance, solid warm bg over the canvas) ---- */
-  .content{position:relative;z-index:10;background:var(--ground)}
-  .section{max-width:1160px;margin:0 auto;padding:clamp(3.5rem,8vw,6rem) 7vw;border-top:1px solid rgba(244,168,26,.10)}
-  .section:first-child{border-top:0}
-  .section .kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin:0 0 1rem;display:flex;align-items:center;gap:.7rem}
-  .section .kick::before{content:"";width:24px;height:1px;background:var(--amber)}
-  .section h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.08;margin:0 0 1.4rem;text-shadow:none;text-wrap:balance}
-  .section .intro{color:var(--muted);max-width:56ch;margin:0 0 2rem;font-size:1.05rem}
-  .rooms2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-  .room{background:#1f1710;border:1px solid rgba(244,168,26,.14);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+  /* ---------- content: light paper with bold color blocks ---------- */
+  .content{position:relative;z-index:10;background:var(--paper);padding:clamp(.6rem,2vw,1.2rem) clamp(.5rem,2vw,1.2rem) 0}
+  .section{max-width:1180px;margin:0 auto clamp(.7rem,2vw,1.1rem);padding:clamp(2.6rem,6vw,4.8rem) clamp(1.5rem,5vw,3.4rem);
+    border-radius:clamp(22px,3vw,38px);background:var(--cream);color:var(--inkdark);position:relative;overflow:hidden}
+  .section--mint{background:var(--mint);color:#0b1c15;--acc:#0b1c15;--tile:rgba(255,255,255,.18);--tileln:rgba(255,255,255,.38)}
+  .section--amber{background:var(--yellow);color:#2c1d00;--acc:#2c1d00;--tile:rgba(255,255,255,.32);--tileln:rgba(44,29,0,.16)}
+  .section--dark{background:var(--coal);color:var(--ink);--acc:var(--amber);--tile:#1f1710;--tileln:rgba(244,168,26,.16)}
+  .kick{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin:0 0 1rem;display:flex;align-items:center;gap:.7rem;font-weight:500}
+  .kick::before{content:"";width:24px;height:2px;background:var(--acc);border-radius:2px}
+  .section h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5.2vw,3.5rem);line-height:1.02;margin:0 0 1.3rem;letter-spacing:-.01em;text-wrap:balance}
+  .intro{max-width:58ch;margin:0 0 2rem;font-size:1.06rem;line-height:1.6;opacity:.82}
+  h3,.amen b,.steps b,.room__b h3,.faq summary{font-family:var(--display);font-weight:600}
+
+  .rooms2{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
+  .room{background:var(--tile);border:1px solid var(--tileln);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease}
+  .room:hover{transform:translateY(-5px)}
   .room>img{width:100%;height:240px;object-fit:cover;display:block}
   .room__b{padding:1.5rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-  .room__b h3{font-family:var(--serif);font-size:1.5rem;margin:0}
-  .room__b>p{color:var(--muted);margin:0;font-size:.95rem;line-height:1.55}
+  .room__b h3{font-size:1.5rem;margin:0}
+  .room__b>p{margin:0;font-size:.95rem;line-height:1.55;opacity:.78}
   .chips{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;padding:0;margin:.2rem 0 0}
-  .chips li{font-family:var(--mono);font-size:.7rem;color:var(--ink);border:1px solid rgba(244,168,26,.22);border-radius:100px;padding:.3rem .7rem}
-  .room .btn{margin-top:.6rem;align-self:flex-start}
+  .chips li{font-family:var(--mono);font-size:.7rem;border:1px solid var(--tileln);border-radius:100px;padding:.3rem .7rem}
+  .room .btn{margin-top:.6rem;align-self:flex-start;font-size:.92rem;padding:.7rem 1.25rem}
   .amen{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
-  .amen div{background:#1f1710;border:1px solid rgba(244,168,26,.12);border-radius:16px;padding:1.3rem}
-  .amen b{display:block;font-family:var(--serif);font-size:1.15rem;margin-bottom:.35rem}
-  .amen span{color:var(--muted);font-size:.9rem;line-height:1.5}
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:190px;grid-auto-flow:dense;gap:.9rem}
-  .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block;border:1px solid rgba(244,168,26,.14)}
-  .gallery-grid .tall{grid-row:span 2}
-  .gallery-grid .wide{grid-column:span 2}
-  @media(max-width:760px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.gallery-grid .wide{grid-column:span 1}}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-  .steps div{background:#1f1710;border:1px solid rgba(244,168,26,.12);border-radius:16px;padding:1.4rem}
-  .steps b{font-family:var(--serif);font-size:1.2rem;color:var(--amber);display:block;margin-bottom:.4rem}
-  .steps span{color:var(--muted);font-size:.92rem;line-height:1.55}
-  .places2{display:flex;flex-wrap:wrap;gap:.7rem}
-  .places2 span{border:1px solid rgba(244,168,26,.2);border-radius:100px;padding:.55rem 1rem;font-size:.95rem;display:flex;gap:.5rem;align-items:baseline}
-  .places2 small{color:var(--amber);font-family:var(--mono);font-size:.66rem;letter-spacing:.05em}
-  .stat3{display:flex;gap:clamp(1.5rem,5vw,3.5rem);flex-wrap:wrap;margin:0 0 2rem}
-  .stat3 b{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3rem);color:var(--amber);display:block;line-height:1}
-  .stat3 span{color:var(--muted);font-size:.85rem}
-  blockquote.q{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.4;font-style:italic;
-    border-left:2px solid var(--amber);padding-left:1.4rem;margin:0;max-width:32ch}
-  blockquote.q cite{display:block;font-size:.9rem;font-style:normal;color:var(--muted);margin-top:1rem;font-family:var(--sans)}
-  .faq details{border-top:1px solid rgba(244,168,26,.14);padding:1.1rem 0}
-  .faq summary{font-family:var(--serif);font-size:1.15rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";color:var(--amber);font-family:var(--sans)}
-  .faq details[open] summary::after{content:"–"}
-  .faq p{color:var(--muted);margin:.7rem 0 0;max-width:64ch}
-  /* live weather + events (mint accent from the original brand) */
-  .live-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-  .live-card{background:#1f1710;border:1px solid rgba(95,184,148,.24);border-radius:20px;padding:1.6rem}
-  .live-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:.55rem;margin:0 0 .6rem}
+  .amen div{background:var(--tile);border:1px solid var(--tileln);border-radius:18px;padding:1.3rem;transition:transform .2s ease}
+  .amen div:hover{transform:translateY(-4px)}
+  .amen b{display:block;font-size:1.15rem;margin-bottom:.35rem}
+  .amen span{font-size:.9rem;line-height:1.5;opacity:.8}
+
+  /* self-check-in block */
+  .ci-channel{background:var(--tile);border:1px solid var(--tileln);border-radius:20px;padding:1.3rem 1.5rem;margin:0 0 2rem;
+    font-size:1.05rem;line-height:1.55;display:flex;gap:1rem;align-items:flex-start;max-width:70ch}
+  .ci-channel .ic{font-size:1.5rem;line-height:1;flex:none}
+  .ci-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0 2rem}
+  .ci-tags span{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;border:1px solid var(--tileln);border-radius:100px;padding:.4rem .85rem}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;counter-reset:step}
+  .steps div{background:var(--tile);border:1px solid var(--tileln);border-radius:18px;padding:1.5rem}
+  .steps b{font-size:1.2rem;color:var(--acc);display:block;margin-bottom:.4rem}
+  .steps span{font-size:.92rem;line-height:1.55;opacity:.82}
+
+  .places2{display:flex;flex-wrap:wrap;gap:.6rem}
+  .places2 span{border:1px solid var(--tileln);border-radius:100px;padding:.55rem 1rem;font-size:.95rem;display:flex;gap:.5rem;align-items:baseline}
+  .places2 small{color:var(--acc);font-family:var(--mono);font-size:.64rem;letter-spacing:.05em}
+
+  /* gallery marquee */
+  .gmar{overflow:hidden;margin-top:1.6rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .gmar__track{display:flex;gap:1rem;width:max-content;animation:gmarq 44s linear infinite}
+  .gmar:hover .gmar__track{animation-play-state:paused}
+  .gmar img{height:clamp(220px,32vw,340px);width:auto;border-radius:18px;object-fit:cover;display:block;border:1px solid rgba(244,168,26,.14)}
+  @keyframes gmarq{to{transform:translateX(-50%)}}
+
+  /* live weather */
+  .live-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
+  .live-card{background:var(--tile);border:1px solid rgba(95,184,148,.35);border-radius:20px;padding:1.6rem}
+  .live-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mint-deep);display:flex;align-items:center;gap:.55rem;margin:0 0 .6rem}
   .live-dot{width:8px;height:8px;border-radius:50%;background:var(--mint);animation:pulse 2.2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,184,148,.5)}70%{box-shadow:0 0 0 9px rgba(95,184,148,0)}100%{box-shadow:0 0 0 0 rgba(95,184,148,0)}}
-  #wx-temp{font-family:var(--serif);font-size:clamp(2.8rem,8vw,4.2rem);line-height:1;margin:.4rem 0 .3rem;color:var(--ink)}
-  #wx-desc{color:var(--muted);margin:0 0 1.4rem}
-  .wx-pick .lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
-  .wx-pick p{font-family:var(--serif);font-size:1.2rem;margin:.3rem 0 .8rem;color:var(--mint)}
+  #wx-temp{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,8vw,4.2rem);line-height:1;margin:.4rem 0 .3rem}
+  #wx-desc{opacity:.78;margin:0 0 1.4rem}
+  .wx-pick .lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+  .wx-pick p{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:.3rem 0 .8rem;color:var(--mint-deep)}
   .events{list-style:none;padding:0;margin:0}
-  .events li{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:baseline;padding:.75rem 0;border-top:1px solid rgba(95,184,148,.16)}
+  .events li{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:baseline;padding:.75rem 0;border-top:1px solid rgba(95,184,148,.2)}
   .events li:first-child{border-top:0}
-  .events li .mono{font-family:var(--mono);font-size:.72rem;color:var(--mint)}
+  .events li .mono{font-family:var(--mono);font-size:.72rem;color:var(--mint-deep)}
   .events li b{font-weight:600;font-size:.98rem}
-  @media(max-width:760px){.live-grid{grid-template-columns:1fr}}
-  .book2{text-align:center}
-  .book2 .addr{color:var(--muted);margin:0 auto 1.6rem;font-size:1rem}
-  .bookmount{background:#F6F3EE;color:#17161A;border-radius:20px;padding:clamp(1rem,3vw,2rem);max-width:980px;margin:0 auto 1.8rem;overflow-x:auto;box-shadow:0 30px 70px -40px rgba(0,0,0,.7);text-align:left}
-  .bookmount ibe-up{display:block;min-height:120px}
-  .no-webgl [data-reveal]{opacity:1 !important;transform:none !important}
 
-  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none}}
-  @media(max-width:820px){.panel{padding:10vh 7vw}}
-  @media(max-width:760px){.rooms2,.steps{grid-template-columns:1fr}}
+  /* stats + quote */
+  .stat3{display:flex;gap:clamp(1.5rem,5vw,3.5rem);flex-wrap:wrap;margin:0 0 2rem}
+  .stat3 b{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,3.2rem);color:var(--acc);display:block;line-height:1}
+  .stat3 span{font-size:.85rem;opacity:.82}
+  blockquote.q{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,3vw,2rem);line-height:1.35;
+    border-left:3px solid var(--acc);padding-left:1.4rem;margin:0;max-width:34ch}
+  blockquote.q cite{display:block;font-size:.9rem;font-weight:400;opacity:.7;margin-top:1rem;font-family:var(--sans)}
+
+  .faq details{border-top:1px solid var(--tileln);padding:1.1rem 0}
+  .faq summary{font-size:1.15rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--acc)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{opacity:.8;margin:.7rem 0 0;max-width:64ch;line-height:1.6}
+
+  /* booking */
+  .book2{text-align:center}
+  .book2 .addr{opacity:.82;margin:0 auto 1.6rem;font-size:1rem;line-height:1.6}
+  .bookmount{background:#FBF7F0;color:#17161A;border-radius:20px;padding:clamp(1rem,3vw,2rem);max-width:980px;margin:0 auto 1.8rem;overflow-x:auto;box-shadow:0 30px 70px -40px rgba(0,0,0,.7);text-align:left}
+  .bookmount ibe-up{display:block;min-height:120px}
+
+  /* colored-section button contrast */
+  .section--amber .btn--p{background:#160f08;color:#F7EBCB}
+  .section--mint .btn--p{background:#0b1c15;color:#eafff5}
+  .section--dark .btn--p{background:var(--amber);color:#231500}
+  .section--dark .btn--g{color:var(--ink);box-shadow:inset 0 0 0 2px rgba(241,232,216,.35)}
+
+  /* footer */
+  .v2foot{position:relative;z-index:10;background:var(--coal);color:var(--muted);padding:3rem 7vw;
+    display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;font-size:.82rem}
+  .v2foot a{color:var(--muted);text-decoration:none}.v2foot a:hover{color:var(--amber)}
+  .madeby{font-family:var(--mono);letter-spacing:.12em;color:var(--amber)!important}
+
+  .no-webgl [data-reveal]{opacity:1!important;transform:none!important}
+  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none}.hallo__track,.gmar__track{animation:none}}
+  @media(max-width:760px){.rooms2,.steps,.live-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <div id="pre"><div class="keypad">■ ■ ■ ■<div class="dots"><span>•</span><span>•</span><span>•</span></div><small data-i18n="pre_text">entsperre deine erste Tür …</small></div></div>
 
+<div class="cursor" aria-hidden="true"></div>
 <canvas id="scene" aria-hidden="true"></canvas>
 <div class="fallback-bg" aria-hidden="true"></div>
 
@@ -191,11 +241,11 @@
 </header>
 
 <main>
-  <section class="panel">
+  <section class="hero">
     <div class="wrap">
       <p class="eyebrow" data-reveal data-i18n="hero_eyebrow">Südtiroler Platz · 2 Minuten vom Hauptbahnhof</p>
-      <h1 data-reveal>Vienna<br/>starts here.</h1>
-      <p class="lede" data-reveal data-i18n="hero_lede">Scroll — und tritt durch die Tür. Zwei Minuten vom Hauptbahnhof zu deinem eigenen verschließbaren Bett, mitten durch ein Self-Check-in-Hostel.</p>
+      <h1 class="hero__h" data-reveal><span data-i18n="hero_t1">Kein Empfang.</span> <span class="hl" data-i18n="hero_t2">Self-Check-in.</span></h1>
+      <p class="lede" data-reveal data-i18n="hero_lede">Den Link zum Online-Check-in bekommst du per E-Mail oder über Booking.com – bzw. deinen Drittanbieter deiner Wahl. Keine Warteschlange, Ankunft rund um die Uhr.</p>
       <div class="btns" data-reveal>
         <a class="btn btn--p" href="#book" data-i18n="cta_availability">Verfügbarkeit</a>
         <a class="btn btn--g" href="tel:+4318902351" data-i18n="cta_call">📞 Anrufen</a>
@@ -203,22 +253,15 @@
     </div>
   </section>
 
-  <section class="panel" style="justify-content:flex-end">
-    <div class="wrap card" data-reveal>
-      <h2 data-i18n="c1_h">Die Schwelle</h2>
-      <p class="lede" style="margin-top:.6rem" data-i18n="c1_p">Eines der ersten Self-Check-in-Hostels Europas. Kein Empfang, keine Warteschlange — dein Zugangscode kommt mit der Buchung. Du checkst selbst ein, wann immer dein Zug ankommt.</p>
+  <div class="hallo" aria-hidden="true">
+    <div class="hallo__track">
+      <b>Hallo</b><span class="dot">·</span><b>Hello</b><span class="dot">·</span><b>안녕</b><span class="dot">·</span><b>こんにちは</b><span class="dot">·</span><b>สวัสดี</b><span class="dot">·</span><b>Hola</b><span class="dot">·</span><b>Ciao</b><span class="dot">·</span><b>Bonjour</b><span class="dot">·</span><b>Olá</b><span class="dot">·</span><b>Cześć</b><span class="dot">·</span><b>Ahoj</b><span class="dot">·</span><b>Hej</b><span class="dot">·</span><b>Merhaba</b><span class="dot">·</span>
+      <b>Hallo</b><span class="dot">·</span><b>Hello</b><span class="dot">·</span><b>안녕</b><span class="dot">·</span><b>こんにちは</b><span class="dot">·</span><b>สวัสดี</b><span class="dot">·</span><b>Hola</b><span class="dot">·</span><b>Ciao</b><span class="dot">·</span><b>Bonjour</b><span class="dot">·</span><b>Olá</b><span class="dot">·</span><b>Cześć</b><span class="dot">·</span><b>Ahoj</b><span class="dot">·</span><b>Hej</b><span class="dot">·</span><b>Merhaba</b><span class="dot">·</span>
     </div>
-  </section>
-
-  <section class="panel">
-    <div class="wrap card" data-reveal>
-      <h2 data-i18n="c2_h">Ankommen. Bleiben.</h2>
-      <p class="lede" style="margin-top:.6rem" data-i18n="c2_p">Familiengeführt, nur 19 Zimmer — kein Massenbetrieb, sondern heimelig. Großzügiger Gemeinschaftsbereich, gratis WLAN im ganzen Haus und eine Küche zum gemeinsamen Kochen. Das ist der Teil vom Reisen, den man wirklich behält.</p>
-    </div>
-  </section>
+  </div>
 
   <div class="content">
-    <section class="section" id="zimmer">
+    <section class="section section--cream" id="zimmer">
       <p class="kick" data-reveal data-i18n="z_kick">Zimmer</p>
       <h2 data-reveal data-i18n="z_h">Ein Bett, das sich komplett verschließen lässt.</h2>
       <div class="rooms2">
@@ -243,7 +286,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--mint">
       <p class="kick" data-reveal data-i18n="am_kick">Jeder Aufenthalt inklusive</p>
       <h2 data-reveal data-i18n="am_h">Alles, was du brauchst. Nichts, was du nicht brauchst.</h2>
       <div class="amen">
@@ -256,9 +299,16 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--dark" id="checkin">
       <p class="kick" data-reveal data-i18n="ci_kick">So funktioniert der kontaktlose Check-in</p>
-      <h2 data-reveal data-i18n="ci_h">Dein Code, deine Zeit.</h2>
+      <h2 data-reveal data-i18n="ci_h">Dein Code, deine Zeit. Kein Empfang.</h2>
+      <div class="ci-channel" data-reveal>
+        <span class="ic" aria-hidden="true">🔑</span>
+        <span data-i18n="ci_channel">So bekommst du deinen Zugang: den Link zum Online-Check-in erhältst du per E-Mail oder über deine Booking.com-Nachrichten – bzw. den jeweiligen Drittanbieter deiner Wahl.</span>
+      </div>
+      <div class="ci-tags" data-reveal>
+        <span>📧 E-Mail</span><span>💬 Booking.com</span><span>🌐 Drittanbieter</span>
+      </div>
       <div class="steps">
         <div data-reveal><b data-i18n="ci_1b">1 · Buchen</b><span data-i18n="ci_1s">In ein paar Taps online reservieren. Kein Papierkram, keine Anrufe.</span></div>
         <div data-reveal><b data-i18n="ci_2b">2 · Code erhalten</b><span data-i18n="ci_2s">Vor der Anreise kommen Tür- und Bett-Code per E-Mail — ob 6 Uhr früh oder Mitternacht.</span></div>
@@ -266,7 +316,7 @@
       </div>
     </section>
 
-    <section class="section" id="lage">
+    <section class="section section--cream" id="lage">
       <p class="kick" data-reveal data-i18n="lo_kick">Lage · vor deiner Tür</p>
       <h2 data-reveal data-i18n="lo_h">Die Stadt ist eine Verlängerung des Hostels.</h2>
       <p class="intro" data-reveal data-i18n="lo_intro">Du stehst am Südtiroler Platz, direkt vor dem Hauptbahnhof. Die historische Altstadt erreichst du zu Fuß in 15–20 Minuten, das Belvedere in rund 10 — und die U1 vor der Haustür bringt dich in wenigen Minuten überall hin.</p>
@@ -282,7 +332,7 @@
       </div>
     </section>
 
-    <section class="section" id="ueber-uns">
+    <section class="section section--amber" id="ueber-uns">
       <p class="kick" data-reveal data-i18n="ab_kick">Über uns</p>
       <h2 data-reveal data-i18n="ab_h">Familiengeführt — seit dem ersten Do Step Inn.</h2>
       <p class="intro" data-reveal data-i18n="ab_intro">Angefangen hat alles vor über zehn Jahren im <b>Do Step Inn Hotel</b> in der Felberstraße 20. Mit dem Standort am Südtiroler Platz gehen wir einen Schritt weiter: backpacker-freundlicher, innovativer — mit selbst konstruierten, verschließbaren Betten und einem Self-Check-in-System, das es so kein zweites Mal gibt.</p>
@@ -293,28 +343,36 @@
       </div>
     </section>
 
-    <section class="section" id="galerie">
+    <section class="section section--dark" id="galerie">
       <p class="kick" data-reveal data-i18n="ga_kick">Galerie</p>
       <h2 data-reveal data-i18n="ga_h">Ein Blick ins Haus.</h2>
       <p class="intro" data-reveal data-i18n="ga_intro">Echte Fotos: die selbst gebauten, verschließbaren Holz-Betten, die Zimmer und die Lage direkt am Südtiroler Platz.</p>
-      <div class="gallery-grid" data-reveal>
-        <img class="tall" src="/assets/img/hostel/c2_dorm.jpg" alt="Zimmer mit den selbst gebauten, verschließbaren Holz-Betten" loading="lazy" width="1000" height="1500" />
-        <img class="wide" src="/assets/img/hostel/c4_square.jpg" alt="Grüner Südtiroler Platz direkt vor dem Hauptbahnhof" loading="lazy" width="1500" height="1000" />
-        <img src="/assets/img/hostel/c1_pods.jpg" alt="Verschließbares Bett mit eigener Leselampe und Leiter" loading="lazy" width="1500" height="1000" />
-        <img class="tall" src="/assets/img/hostel/c3_bed.jpg" alt="Blick in eine hölzerne, verschließbare Schlafbox" loading="lazy" width="1000" height="1500" />
-        <img src="/assets/img/hostel/c6_bed2.jpg" alt="Gemachtes Bett in der verschließbaren Box" loading="lazy" width="1500" height="1000" />
-        <img src="/assets/img/hostel/c5_private.jpg" alt="Privatzimmer mit Schreibtisch am Fenster" loading="lazy" width="1000" height="1500" />
+      <div class="gmar" data-reveal>
+        <div class="gmar__track">
+          <img src="/assets/img/hostel/c1_pods.jpg" alt="Verschließbares Bett mit eigener Leselampe und Leiter" loading="lazy" />
+          <img src="/assets/img/hostel/c2_dorm.jpg" alt="Zimmer mit den selbst gebauten, verschließbaren Holz-Betten" loading="lazy" />
+          <img src="/assets/img/hostel/c3_bed.jpg" alt="Blick in eine hölzerne, verschließbare Schlafbox" loading="lazy" />
+          <img src="/assets/img/hostel/c4_square.jpg" alt="Grüner Südtiroler Platz direkt vor dem Hauptbahnhof" loading="lazy" />
+          <img src="/assets/img/hostel/c5_private.jpg" alt="Privatzimmer mit Schreibtisch am Fenster" loading="lazy" />
+          <img src="/assets/img/hostel/c6_bed2.jpg" alt="Gemachtes Bett in der verschließbaren Box" loading="lazy" />
+          <img src="/assets/img/hostel/c1_pods.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/assets/img/hostel/c2_dorm.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/assets/img/hostel/c3_bed.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/assets/img/hostel/c4_square.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/assets/img/hostel/c5_private.jpg" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/assets/img/hostel/c6_bed2.jpg" alt="" aria-hidden="true" loading="lazy" />
+        </div>
       </div>
     </section>
 
-    <section class="section" id="wien-live">
-      <p class="kick" data-reveal style="color:var(--mint)" data-i18n="wl_kick">Wien · live</p>
+    <section class="section section--cream" id="wien-live">
+      <p class="kick" data-reveal style="color:var(--mint-deep)" data-i18n="wl_kick">Wien · live</p>
       <h2 data-reveal data-i18n="wl_h">Deine ersten 24 Stunden — heute.</h2>
       <p class="intro" data-reveal data-i18n="wl_intro">Sobald dein Zug einfährt, hat die Reise schon begonnen. Live-Wetter und, was diese Woche in Wien läuft.</p>
       <div class="live-grid">
         <div class="live-card" data-reveal>
           <span class="live-label"><span class="live-dot"></span> <span data-i18n="wl_today">Heute in Wien</span></span>
-          <h3 id="wx-temp" class="mono" aria-live="polite">—°</h3>
+          <h3 id="wx-temp" aria-live="polite">—°</h3>
           <p id="wx-desc">Ich schaue kurz zum Himmel über der Stadt …</p>
           <div class="wx-pick">
             <span class="lbl" data-i18n="wl_tip">Heutiger Tipp</span>
@@ -329,7 +387,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--mint">
       <p class="kick" data-reveal>Der leise Beweis</p>
       <div class="stat3" data-reveal>
         <div><b>2 Min</b><span data-i18n="st_1">zu Fuß zum Hauptbahnhof</span></div>
@@ -339,7 +397,7 @@
       <blockquote class="q" data-reveal data-i18n="st_quote">„Blitzsauber, die verschließbaren Betten sind genial, und man ist in zwei Minuten vom Bahnhof da."<cite>— ein aktueller Gast</cite></blockquote>
     </section>
 
-    <section class="section">
+    <section class="section section--cream">
       <p class="kick" data-reveal data-i18n="faq_kick">Gut zu wissen</p>
       <h2 data-reveal>FAQ</h2>
       <div class="faq" data-reveal>
@@ -351,7 +409,7 @@
       </div>
     </section>
 
-    <section class="section book2" id="book">
+    <section class="section section--dark book2" id="book">
       <p class="kick" data-reveal style="justify-content:center" data-i18n="bk_kick">Beginnen</p>
       <h2 data-reveal data-i18n="bk_h">Verfügbarkeit &amp; Buchung</h2>
       <p class="addr" data-reveal data-i18n="bk_addr"><b>Do Step Inn Central</b> · Südtiroler Platz 3, 1040 Wien<br/>2 Minuten vom Wien Hauptbahnhof · U1 Südtiroler Platz — dein Code kommt mit der Buchung.</p>
@@ -376,20 +434,28 @@
 
 <script>
   addEventListener('scroll',()=>{if(scrollY>40)document.documentElement.classList.add('scrolled')},{passive:true});
-  // safety net: never let the preloader hang, even if the scene is slow or a module fails
   setTimeout(()=>document.documentElement.classList.add('scene-ready'),6000);
   addEventListener('error',()=>document.documentElement.classList.add('scene-ready'),true);
   var yr=document.getElementById('yr'); if(yr) yr.textContent=new Date().getFullYear();
-  // reveal content independently of the 3D module (works even without WebGL)
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  /* custom cursor (pointer devices only) */
+  (function(){
+    if(!matchMedia('(hover:hover)').matches)return;
+    var c=document.querySelector('.cursor'),x=innerWidth/2,y=innerHeight/2,cx=x,cy=y,shown=false;
+    addEventListener('pointermove',function(e){x=e.clientX;y=e.clientY;if(!shown){shown=true;c.classList.add('on');}},{passive:true});
+    addEventListener('pointerdown',function(){c.classList.add('big');});
+    addEventListener('pointerup',function(){c.classList.remove('big');});
+    document.addEventListener('pointerover',function(e){ if(e.target.closest('a,button,summary,.room,.amen div,.gmar')) c.classList.add('big'); });
+    document.addEventListener('pointerout',function(e){ if(e.target.closest('a,button,summary,.room,.amen div,.gmar')) c.classList.remove('big'); });
+    (function loop(){ cx+=(x-cx)*0.2; cy+=(y-cy)*0.2; c.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)'; requestAnimationFrame(loop); })();
+  })();
 </script>
 <script>
   /* Live Vienna weather (Open-Meteo — runs in the visitor's browser, no cookies) + weekly events */
   (function(){
     var tempEl=document.getElementById('wx-temp'),descEl=document.getElementById('wx-desc'),
         sugEl=document.getElementById('wx-sug'),pickEl=document.getElementById('wx-pick');
-    // German fallbacks used before i18n loads; localised copies live in i18n-v2.js
     var FB={
       wl_desc_mild:'Perfektes Wetter, um Wien zu Fuß zu entdecken.',
       wl_desc_rain:'Regnerisches Wien — Kaffeehaus-Wetter: Museen, Märkte, langsame Vormittage.',
@@ -416,7 +482,6 @@
         if(tempEl)tempEl.textContent=t+'°'; state.bucket=b; state.fallback=false; paint();})
       .catch(function(){ if(tempEl)tempEl.textContent='—°'; state.bucket='mild'; state.fallback=true; paint(); });
 
-    // events — Vienna-specific names stay put; weekday labels localise via Intl
     var el=document.getElementById('wien-events');
     var LOC={en:'en-GB',de:'de-DE',ko:'ko-KR',ja:'ja-JP',th:'th-TH',es:'es-ES',it:'it-IT'};
     function renderEvents(){ if(!el)return;
@@ -439,8 +504,8 @@
     document.addEventListener('i18n:changed',function(){ paint(); renderEvents(); });
   })();
 </script>
-<script src="/assets/js/i18n-v2.js?v=1" defer></script>
-<script type="module" src="/v2/app.js?v=2"></script>
+<script src="/assets/js/i18n-v2.js?v=2" defer></script>
+<script type="module" src="/v2/app.js?v=3"></script>
 <!-- uphotel IBE booking widget (loads on this whitelisted domain) -->
 <link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
 <script type="text/javascript" src="https://ibe.uphotel.agency/ibe.min.js"></script>

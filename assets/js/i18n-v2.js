@@ -4,8 +4,8 @@
   var DICT={
   "de":{
     "nav_book":"Buchen","cta_availability":"Verfügbarkeit","cta_call":"📞 Anrufen","z_prices":"Termine & Preise",
-    "hero_eyebrow":"Südtiroler Platz · 2 Minuten vom Hauptbahnhof",
-    "hero_lede":"Scroll — und tritt durch die Tür. Zwei Minuten vom Hauptbahnhof zu deinem eigenen verschließbaren Bett, mitten durch ein Self-Check-in-Hostel.",
+    "hero_eyebrow":"Südtiroler Platz · 2 Minuten vom Hauptbahnhof","hero_t1":"Kein Empfang.","hero_t2":"Self-Check-in.","ci_channel":"So bekommst du deinen Zugang: den Link zum Online-Check-in erhältst du per E-Mail oder über deine Booking.com-Nachrichten – bzw. den jeweiligen Drittanbieter deiner Wahl.",
+    "hero_lede":"Den Link zum Online-Check-in bekommst du per E-Mail oder über Booking.com – bzw. deinen Drittanbieter deiner Wahl. Keine Warteschlange, Ankunft rund um die Uhr.",
     "c1_h":"Die Schwelle",
     "c1_p":"Eines der ersten Self-Check-in-Hostels Europas. Kein Empfang, keine Warteschlange — dein Zugangscode kommt mit der Buchung. Du checkst selbst ein, wann immer dein Zug ankommt.",
     "c2_h":"Ankommen. Bleiben.",
@@ -65,8 +65,8 @@
   },
   "en":{
     "nav_book":"Book","cta_availability":"Check availability","cta_call":"📞 Call","z_prices":"Dates & prices",
-    "hero_eyebrow":"Südtiroler Platz · 2 minutes from Hauptbahnhof",
-    "hero_lede":"Scroll — and step through the door. Two minutes from the main station to your own lockable bed, straight through a self-check-in hostel.",
+    "hero_eyebrow":"Südtiroler Platz · 2 minutes from Hauptbahnhof","hero_t1":"No reception.","hero_t2":"Self check-in.","ci_channel":"How you get in: the online check-in link arrives by email or via your Booking.com messages — or the third-party provider you booked with.",
+    "hero_lede":"You get the online check-in link by email or via Booking.com messages — or the third-party provider of your choice. No queue, arrive around the clock.",
     "c1_h":"The threshold",
     "c1_p":"One of Europe’s first self-check-in hostels. No reception, no queue — your access code comes with the booking. You check yourself in whenever your train arrives.",
     "c2_h":"Arrive. Stay.",
@@ -126,8 +126,8 @@
   },
   "ko":{
     "nav_book":"예약","cta_availability":"예약 확인","cta_call":"📞 전화","z_prices":"날짜 & 요금",
-    "hero_eyebrow":"쥐트티롤러 광장 · 중앙역에서 2분",
-    "hero_lede":"스크롤하고 — 문을 통과하세요. 중앙역에서 2분, 셀프 체크인 호스텔을 지나 잠금 가능한 나만의 침대까지.",
+    "hero_eyebrow":"쥐트티롤러 광장 · 중앙역에서 2분","hero_t1":"리셉션 없음.","hero_t2":"셀프 체크인.","ci_channel":"입장 방법: 온라인 체크인 링크는 이메일 또는 Booking.com 메시지 — 혹은 예약하신 제3자 예약처를 통해 도착합니다.",
+    "hero_lede":"온라인 체크인 링크는 이메일 또는 Booking.com 메시지 — 혹은 선택하신 제3자 예약처를 통해 받습니다. 대기 없이, 24시간 언제든 도착하세요.",
     "c1_h":"문턱",
     "c1_p":"유럽 최초의 셀프 체크인 호스텔 중 하나. 리셉션도, 대기 줄도 없습니다 — 예약과 함께 출입 코드가 전송됩니다. 기차가 언제 도착하든 직접 체크인하세요.",
     "c2_h":"도착. 머무름.",
@@ -187,8 +187,8 @@
   },
   "ja":{
     "nav_book":"予約","cta_availability":"空室確認","cta_call":"📞 電話","z_prices":"日程 & 料金",
-    "hero_eyebrow":"ズュートティロラー広場 · 中央駅から2分",
-    "hero_lede":"スクロールして — ドアをくぐろう。中央駅から2分、セルフチェックインのホステルを抜けて、鍵のかかる自分専用のベッドへ。",
+    "hero_eyebrow":"ズュートティロラー広場 · 中央駅から2分","hero_t1":"フロントなし。","hero_t2":"セルフチェックイン。","ci_channel":"入室の方法:オンラインチェックインのリンクは、メールまたはBooking.comのメッセージ — もしくはご予約の各予約サイト経由で届きます。",
+    "hero_lede":"オンラインチェックインのリンクは、メールまたはBooking.comのメッセージ — もしくはお選びの各予約サイト経由で届きます。行列なし、24時間いつでも到着できます。",
     "c1_h":"敷居",
     "c1_p":"ヨーロッパ初のセルフチェックイン・ホステルのひとつ。フロントも行列もありません — アクセスコードは予約と一緒に届きます。列車が着いたら、いつでも自分でチェックイン。",
     "c2_h":"着いて、泊まる。",
@@ -248,8 +248,8 @@
   },
   "th":{
     "nav_book":"จอง","cta_availability":"เช็คห้องว่าง","cta_call":"📞 โทร","z_prices":"วันที่ & ราคา",
-    "hero_eyebrow":"จัตุรัสซืดทิโรเลอร์ · 2 นาทีจากสถานีหลัก",
-    "hero_lede":"เลื่อนลง — แล้วก้าวผ่านประตู สองนาทีจากสถานีหลักถึงเตียงล็อกได้ส่วนตัวของคุณ ผ่านโฮสเทลแบบเช็คอินด้วยตัวเอง",
+    "hero_eyebrow":"จัตุรัสซืดทิโรเลอร์ · 2 นาทีจากสถานีหลัก","hero_t1":"ไม่มีเคาน์เตอร์","hero_t2":"เช็คอินด้วยตัวเอง","ci_channel":"วิธีเข้าพัก: ลิงก์เช็คอินออนไลน์จะมาทางอีเมลหรือข้อความ Booking.com — หรือผู้ให้บริการที่คุณจองไว้",
+    "hero_lede":"คุณจะได้รับลิงก์เช็คอินออนไลน์ทางอีเมลหรือข้อความ Booking.com — หรือผู้ให้บริการรายอื่นที่คุณเลือก ไม่ต้องรอคิว มาถึงได้ตลอด 24 ชั่วโมง",
     "c1_h":"ธรณีประตู",
     "c1_p":"หนึ่งในโฮสเทลเช็คอินด้วยตัวเองแห่งแรกของยุโรป ไม่มีเคาน์เตอร์ ไม่มีคิว — รหัสเข้าห้องมาพร้อมการจอง คุณเช็คอินเองได้ทุกเมื่อที่รถไฟมาถึง",
     "c2_h":"มาถึง แล้วพักผ่อน",
@@ -309,8 +309,8 @@
   },
   "es":{
     "nav_book":"Reservar","cta_availability":"Ver disponibilidad","cta_call":"📞 Llamar","z_prices":"Fechas y precios",
-    "hero_eyebrow":"Südtiroler Platz · a 2 minutos de la estación central",
-    "hero_lede":"Desliza — y cruza la puerta. Dos minutos desde la estación central hasta tu propia cama con cerradura, atravesando un hostel con auto-check-in.",
+    "hero_eyebrow":"Südtiroler Platz · a 2 minutos de la estación central","hero_t1":"Sin recepción.","hero_t2":"Self check-in.","ci_channel":"Cómo entras: el enlace de check-in online llega por email o por tus mensajes de Booking.com — o el proveedor externo con el que reservaste.",
+    "hero_lede":"Recibes el enlace de check-in online por email o por los mensajes de Booking.com — o el proveedor externo que elijas. Sin colas, llega a cualquier hora.",
     "c1_h":"El umbral",
     "c1_p":"Uno de los primeros hostels de Europa con auto-check-in. Sin recepción, sin colas — tu código de acceso llega con la reserva. Haces tú mismo el check-in, llegue cuando llegue tu tren.",
     "c2_h":"Llega. Quédate.",
@@ -370,8 +370,8 @@
   },
   "it":{
     "nav_book":"Prenota","cta_availability":"Verifica disponibilità","cta_call":"📞 Chiama","z_prices":"Date e prezzi",
-    "hero_eyebrow":"Südtiroler Platz · a 2 minuti dalla stazione centrale",
-    "hero_lede":"Scorri — e varca la porta. Due minuti dalla stazione centrale al tuo letto con serratura, attraverso un ostello con self check-in.",
+    "hero_eyebrow":"Südtiroler Platz · a 2 minuti dalla stazione centrale","hero_t1":"Niente reception.","hero_t2":"Self check-in.","ci_channel":"Come entri: il link per il check-in online arriva via email o tramite i tuoi messaggi di Booking.com — o il provider con cui hai prenotato.",
+    "hero_lede":"Ricevi il link per il check-in online via email o tramite i messaggi di Booking.com — o il provider di terze parti che preferisci. Niente code, arrivo a qualsiasi ora.",
     "c1_h":"La soglia",
     "c1_p":"Uno dei primi ostelli in Europa con self check-in. Niente reception, niente code — il codice d’accesso arriva con la prenotazione. Fai il check-in da solo, a qualsiasi ora arrivi il tuo treno.",
     "c2_h":"Arriva. Resta.",
