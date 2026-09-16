@@ -112,6 +112,11 @@
   .amen div{background:#1f1710;border:1px solid rgba(244,168,26,.12);border-radius:16px;padding:1.3rem}
   .amen b{display:block;font-family:var(--serif);font-size:1.15rem;margin-bottom:.35rem}
   .amen span{color:var(--muted);font-size:.9rem;line-height:1.5}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:190px;grid-auto-flow:dense;gap:.9rem}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block;border:1px solid rgba(244,168,26,.14)}
+  .gallery-grid .tall{grid-row:span 2}
+  .gallery-grid .wide{grid-column:span 2}
+  @media(max-width:760px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.gallery-grid .wide{grid-column:span 1}}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
   .steps div{background:#1f1710;border:1px solid rgba(244,168,26,.12);border-radius:16px;padding:1.4rem}
   .steps b{font-family:var(--serif);font-size:1.2rem;color:var(--amber);display:block;margin-bottom:.4rem}
@@ -285,6 +290,20 @@
         <div data-reveal><b data-i18n="ab_1b">Familienbetrieb</b><span data-i18n="ab_1s">Kein Massenbetrieb. Nur 19 Zimmer, persönlich geführt — trotz Self-Check-in bleibt es heimelig.</span></div>
         <div data-reveal><b data-i18n="ab_2b">Ein diverses Team</b><span data-i18n="ab_2s">Ein dynamisches, junges Team, das Wien liebt und Reisende aus aller Welt willkommen heißt.</span></div>
         <div data-reveal><b data-i18n="ab_3b">Etwas anderes</b><span data-i18n="ab_3s">Selbst gebaute verschließbare Betten und Self-Check-in: eine neue Art zu übernachten, mitten in Wien.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="galerie">
+      <p class="kick" data-reveal data-i18n="ga_kick">Galerie</p>
+      <h2 data-reveal data-i18n="ga_h">Ein Blick ins Haus.</h2>
+      <p class="intro" data-reveal data-i18n="ga_intro">Echte Fotos: die verschließbaren Betten, die gelben Zimmer und der Gemeinschaftsbereich, in dem Reisende zusammenkommen.</p>
+      <div class="gallery-grid" data-reveal>
+        <img class="tall" src="/assets/img/hostel/g1_pods.jpg" alt="Selbst gebaute, verschließbare Betten im Do Step Inn Central" loading="lazy" width="933" height="1400" />
+        <img class="wide" src="/assets/img/hostel/g2_dorm.jpg" alt="Helles Zimmer mit Fenster zum Südtiroler Platz" loading="lazy" width="1400" height="935" />
+        <img src="/assets/img/hostel/g4_common.jpg" alt="Gemeinschaftsbereich mit Tischfußball" loading="lazy" width="933" height="1400" />
+        <img src="/assets/img/hostel/g5_foosball.jpg" alt="Tischfußball im Gemeinschaftsbereich" loading="lazy" width="861" height="1400" />
+        <img src="/assets/img/hostel/g3_room.jpg" alt="Zimmer mit eingebautem, verschließbarem Bett" loading="lazy" width="933" height="1400" />
+        <img class="wide" src="/assets/img/hostel/g6_window.jpg" alt="Gemütliches Bett am Fenster" loading="lazy" width="1400" height="933" />
       </div>
     </section>
 
