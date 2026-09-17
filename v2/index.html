@@ -428,13 +428,13 @@
     </section>
 
     <section class="section section--mint">
-      <p class="kick" data-reveal>Der leise Beweis</p>
+      <p class="kick" data-reveal data-i18n="pv_kick">Auf einen Blick</p>
       <div class="stat3" data-reveal>
         <div><b>2 Min</b><span data-i18n="st_1">zu Fuß zum Hauptbahnhof</span></div>
         <div><b>19</b><span data-i18n="st_2">Zimmer · familiengeführt</span></div>
         <div><b>24/7</b><span data-i18n="st_3">Self-Check-in, Tag &amp; Nacht</span></div>
       </div>
-      <blockquote class="q" data-reveal data-i18n="st_quote">„Blitzsauber, die verschließbaren Betten sind genial, und man ist in zwei Minuten vom Bahnhof da."<cite>— ein aktueller Gast</cite></blockquote>
+      <blockquote class="q" data-reveal data-i18n="st_quote">Blitzsauber, sicher und zwei Minuten vom Bahnhof — genau dafür ist Do Step Inn Central gebaut.</blockquote>
     </section>
 
     <section class="section section--cream">
@@ -522,29 +522,17 @@
         if(tempEl)tempEl.textContent=t+'°'; state.bucket=b; state.fallback=false; paint();})
       .catch(function(){ if(tempEl)tempEl.textContent='—°'; state.bucket='mild'; state.fallback=true; paint(); });
 
+    // Vienna highlights — evergreen ideas near the hostel, no fixed dates/times
     var el=document.getElementById('wien-events');
-    var LOC={en:'en-GB',de:'de-DE',ko:'ko-KR',ja:'ja-JP',th:'th-TH',es:'es-ES',it:'it-IT'};
     function renderEvents(){ if(!el)return;
-      var lang=(window.I18N&&I18N.lang)||'de',loc=LOC[lang]||'de-DE';
-      var byDay={0:[['Donauinsel-Morgenlauf','09:00'],['Karlsplatz & MQ-Bummel','11:00']],
-        1:[['Kunsthistorisches Museum','10:00'],['Kaffeehaus-Nachmittag','15:00']],
-        2:[['Belvedere-Galerien','10:00'],['Naschmarkt-Lunch','13:00']],
-        3:[['MuseumsQuartier-Hof','16:00'],['Ringstraßen-Tramrunde','18:00']],
-        4:[['Naschmarkt-Abend & Street Food','18:00'],['Prater-Lichter','20:00']],
-        5:[['Belvedere Langnacht','21:00'],['Kärntner Straße bei Nacht','20:00']],
-        6:[['Naschmarkt-Flohmarkt','09:00'],['Donaukanal-Bars','19:00']]};
-      var now=new Date(),rows=[];
-      for(var i=0;i<5;i++){var dt=new Date(now);dt.setDate(now.getDate()+i);
-        var opts=byDay[dt.getDay()],p=opts[i%opts.length];
-        var dow;try{dow=dt.toLocaleDateString(loc,{weekday:'short'}).toUpperCase().replace('.','');}catch(e){dow='';}
-        rows.push('<li><span class="mono">'+dow+' '+dt.getDate()+'</span><b>'+p[0]+'</b><span class="mono">'+p[1]+'</span></li>');}
-      el.innerHTML=rows.join('');
+      var items=['Schloss Belvedere','Naschmarkt','Stephansdom & Altstadt','MuseumsQuartier','Prater & Donauinsel','Wiener Kaffeehäuser'];
+      el.innerHTML=items.map(function(n){return '<li><span class="mono">→</span><b>'+n+'</b><span class="mono"></span></li>';}).join('');
     }
     renderEvents();
     document.addEventListener('i18n:changed',function(){ paint(); renderEvents(); });
   })();
 </script>
-<script src="/assets/js/i18n-v2.js?v=2" defer></script>
+<script src="/assets/js/i18n-v2.js?v=3" defer></script>
 <script type="module" src="/v2/app.js?v=3"></script>
 <!-- uphotel IBE booking widget (loads on this whitelisted domain) -->
 <link href="https://ibe.uphotel.agency/ibe.min.css" rel="stylesheet" />
